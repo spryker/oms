@@ -6,10 +6,10 @@
 
 namespace SprykerFeature\Zed\Oms\Persistence\Propel;
 
-use SprykerFeature\Zed\Oms\Persistence\Propel\Base\SpyOmsOrderItemState as BaseSpyOmsOrderItemState;
+use Orm\Zed\Oms\Persistence\Base\SpyOmsOrderItemStateQuery as BaseSpyOmsOrderItemStateQuery;
 
 /**
- * Skeleton subclass for representing a row from the 'spy_oms_order_item_state' table.
+ * Skeleton subclass for performing query and update operations on the 'spy_oms_order_item_state' table.
  *
  *
  *
@@ -17,7 +17,8 @@ use SprykerFeature\Zed\Oms\Persistence\Propel\Base\SpyOmsOrderItemState as BaseS
  * application requirements.  This class will only be generated as
  * long as it does not already exist in the output directory.
  */
-class SpyOmsOrderItemState extends BaseSpyOmsOrderItemState
+abstract class AbstractSpyOmsOrderItemStateQuery extends BaseSpyOmsOrderItemStateQuery
 {
 
-}
+} // SpyOmsOrderItemStateQuery
+

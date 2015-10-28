@@ -6,10 +6,10 @@
 
 namespace SprykerFeature\Zed\Oms\Persistence\Propel;
 
-use SprykerFeature\Zed\Oms\Persistence\Propel\Base\SpyOmsTransitionLog as BaseSpyOmsTransitionLog;
+use Orm\Zed\Oms\Persistence\Base\SpyOmsTransitionLogQuery as BaseSpyOmsTransitionLogQuery;
 
 /**
- * Skeleton subclass for representing a row from the 'spy_oms_transition_log' table.
+ * Skeleton subclass for performing query and update operations on the 'spy_oms_transition_log' table.
  *
  *
  *
@@ -17,7 +17,8 @@ use SprykerFeature\Zed\Oms\Persistence\Propel\Base\SpyOmsTransitionLog as BaseSp
  * application requirements.  This class will only be generated as
  * long as it does not already exist in the output directory.
  */
-class SpyOmsTransitionLog extends BaseSpyOmsTransitionLog
+abstract class AbstractSpyOmsTransitionLogQuery extends BaseSpyOmsTransitionLogQuery
 {
 
-}
+} // SpyOmsTransitionLogQuery
+

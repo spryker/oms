@@ -6,10 +6,10 @@
 
 namespace SprykerFeature\Zed\Oms\Persistence\Propel;
 
-use SprykerFeature\Zed\Oms\Persistence\Propel\Base\SpyOmsEventTimeoutQuery as BaseSpyOmsEventTimeoutQuery;
+use Orm\Zed\Oms\Persistence\Base\SpyOmsOrderProcess as BaseSpyOmsOrderProcess;
 
 /**
- * Skeleton subclass for performing query and update operations on the 'spy_oms_event_timeout' table.
+ * Skeleton subclass for representing a row from the 'spy_oms_order_process' table.
  *
  *
  *
@@ -17,8 +17,7 @@ use SprykerFeature\Zed\Oms\Persistence\Propel\Base\SpyOmsEventTimeoutQuery as Ba
  * application requirements.  This class will only be generated as
  * long as it does not already exist in the output directory.
  */
-class SpyOmsEventTimeoutQuery extends BaseSpyOmsEventTimeoutQuery
+abstract class AbstractSpyOmsOrderProcess extends BaseSpyOmsOrderProcess
 {
 
-} // SpyOmsEventTimeoutQuery
-
+}

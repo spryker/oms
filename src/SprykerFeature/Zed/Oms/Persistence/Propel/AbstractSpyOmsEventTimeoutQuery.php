@@ -6,10 +6,10 @@
 
 namespace SprykerFeature\Zed\Oms\Persistence\Propel;
 
-use SprykerFeature\Zed\Oms\Persistence\Propel\Base\SpyOmsOrderItemStateQuery as BaseSpyOmsOrderItemStateQuery;
+use Orm\Zed\Oms\Persistence\Base\SpyOmsEventTimeoutQuery as BaseSpyOmsEventTimeoutQuery;
 
 /**
- * Skeleton subclass for performing query and update operations on the 'spy_oms_order_item_state' table.
+ * Skeleton subclass for performing query and update operations on the 'spy_oms_event_timeout' table.
  *
  *
  *
@@ -17,8 +17,8 @@ use SprykerFeature\Zed\Oms\Persistence\Propel\Base\SpyOmsOrderItemStateQuery as 
  * application requirements.  This class will only be generated as
  * long as it does not already exist in the output directory.
  */
-class SpyOmsOrderItemStateQuery extends BaseSpyOmsOrderItemStateQuery
+abstract class AbstractSpyOmsEventTimeoutQuery extends BaseSpyOmsEventTimeoutQuery
 {
 
-} // SpyOmsOrderItemStateQuery
+} // SpyOmsEventTimeoutQuery
 

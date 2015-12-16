@@ -12,7 +12,7 @@ use Spryker\Zed\Oms\Persistence\OmsQueryContainerInterface;
 /**
  * @method OmsQueryContainerInterface getQueryContainer()
  */
-class OmsDependencyContainer extends AbstractCommunicationFactory
+class OmsCommunicationFactory extends AbstractCommunicationFactory
 {
 
     /**

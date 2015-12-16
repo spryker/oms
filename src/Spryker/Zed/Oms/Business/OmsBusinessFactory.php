@@ -42,7 +42,7 @@ use Spryker\Zed\Oms\Persistence\OmsQueryContainerInterface;
  * @method OmsConfig getConfig()
  * @method OmsQueryContainerInterface getQueryContainer()
  */
-class OmsDependencyContainer extends AbstractBusinessFactory
+class OmsBusinessFactory extends AbstractBusinessFactory
 {
 
     /**

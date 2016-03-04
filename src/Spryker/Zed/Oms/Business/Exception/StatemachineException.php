@@ -5,8 +5,8 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Zed\Oms\Communication\Plugin\Oms\Command;
+namespace Spryker\Zed\Oms\Business\Exception;
 
-interface CommandInterface
+class StatemachineException extends \Exception
 {
 }

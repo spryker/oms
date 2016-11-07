@@ -5,11 +5,11 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Zed\Oms\Communication\Plugin\Oms\Condition;
+namespace Spryker\Zed\Oms\Dependency\Plugin\Condition;
 
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 
-class PaymentRedirected extends AbstractCondition
+interface ConditionInterface
 {
 
     /**
@@ -17,9 +17,6 @@ class PaymentRedirected extends AbstractCondition
      *
      * @return bool
      */
-    public function check(SpySalesOrderItem $orderItem)
-    {
-        return (microtime() * 1000000 % 2) ? true : false;
-    }
+    public function check(SpySalesOrderItem $orderItem);
 
 }

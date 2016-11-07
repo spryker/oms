@@ -1,16 +1,15 @@
 <?php
-
 /**
  * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Zed\Oms\Communication\Plugin\Oms\Command;
+namespace Spryker\Zed\Oms\Dependency\Plugin\Command;
 
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 use Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject;
 
-class DecreaseStock implements CommandByItemInterface
+interface CommandByItemInterface extends CommandInterface
 {
 
     /**
@@ -19,9 +18,6 @@ class DecreaseStock implements CommandByItemInterface
      *
      * @return array
      */
-    public function run(SpySalesOrderItem $orderItem, ReadOnlyArrayObject $data)
-    {
-        return [];
-    }
+    public function run(SpySalesOrderItem $orderItem, ReadOnlyArrayObject $data);
 
 }

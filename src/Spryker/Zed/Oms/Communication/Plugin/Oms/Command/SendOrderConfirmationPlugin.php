@@ -8,9 +8,15 @@
 namespace Spryker\Zed\Oms\Communication\Plugin\Oms\Command;
 
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
+use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject;
+use Spryker\Zed\Oms\Dependency\Plugin\Command\CommandByOrderInterface;
 
-class SendOrderConfirmation implements CommandByOrderInterface
+/**
+ * @method \Spryker\Zed\Oms\Business\OmsFacade getFacade()
+ * @method \Spryker\Zed\Oms\Communication\OmsCommunicationFactory getFactory()
+ */
+class SendOrderConfirmationPlugin extends AbstractPlugin implements CommandByOrderInterface
 {
 
     /**
@@ -22,6 +28,8 @@ class SendOrderConfirmation implements CommandByOrderInterface
      */
     public function run(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data)
     {
+        $this->getFacade()->sendOrderConfirmationMail($orderEntity);
+
         return [];
     }
 

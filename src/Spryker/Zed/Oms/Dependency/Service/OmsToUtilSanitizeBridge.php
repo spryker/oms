@@ -4,22 +4,22 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Zed\Oms\Dependency\Facade;
+namespace Spryker\Zed\Oms\Dependency\Service;
 
 class OmsToUtilSanitizeBridge implements OmsToUtilSanitizeInterface
 {
 
     /**
-     * @var \Spryker\Zed\UtilSanitize\Business\UtilSanitizeFacadeInterface
+     * @var \Spryker\Service\UtilSanitize\UtilSanitizeServiceInterface
      */
-    protected $utilSanitizeFacade;
+    protected $utilSanitizeService;
 
     /**
-     * @param \Spryker\Zed\UtilSanitize\Business\UtilSanitizeFacadeInterface $utilSanitizeFacade
+     * @param \Spryker\Service\UtilSanitize\UtilSanitizeServiceInterface $utilSanitizeService
      */
-    public function __construct($utilSanitizeFacade)
+    public function __construct($utilSanitizeService)
     {
-        $this->utilSanitizeFacade = $utilSanitizeFacade;
+        $this->utilSanitizeService = $utilSanitizeService;
     }
 
     /**
@@ -30,7 +30,7 @@ class OmsToUtilSanitizeBridge implements OmsToUtilSanitizeInterface
      */
     public function escapeHtml($text, $double = true)
     {
-        return $this->utilSanitizeFacade->escapeHtml($text, $double);
+        return $this->utilSanitizeService->escapeHtml($text, $double);
     }
 
 }

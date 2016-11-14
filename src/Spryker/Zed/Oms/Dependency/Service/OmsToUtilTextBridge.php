@@ -4,22 +4,22 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Zed\Oms\Dependency\Facade;
+namespace Spryker\Zed\Oms\Dependency\Service;
 
 class OmsToUtilTextBridge implements OmsToUtilTextInterface
 {
 
     /**
-     * @var \Spryker\Zed\UtilText\Business\UtilTextFacadeInterface
+     * @var \Spryker\Service\UtilText\UtilTextServiceInterface
      */
-    protected $utilTextFacade;
+    protected $utilTextService;
 
     /**
-     * @param \Spryker\Zed\UtilText\Business\UtilTextFacadeInterface $utilTextFacade
+     * @param \Spryker\Service\UtilText\UtilTextServiceInterface $utilTextService
      */
-    public function __construct($utilTextFacade)
+    public function __construct($utilTextService)
     {
-        $this->utilTextFacade = $utilTextFacade;
+        $this->utilTextService = $utilTextService;
     }
 
     /**
@@ -29,7 +29,7 @@ class OmsToUtilTextBridge implements OmsToUtilTextInterface
      */
     public function generateRandomString($length = 31)
     {
-        return $this->utilTextFacade->generateRandomString($length);
+        return $this->utilTextService->generateRandomString($length);
     }
 
 }

@@ -7,6 +7,14 @@
 
 namespace Spryker\Zed\Oms\Dependency\Facade;
 
-interface OmsToSalesInterface
+interface OmsToSalesAggregatorInterface
 {
+
+    /**
+     * @param int $idSalesOrder
+     *
+     * @return \Generated\Shared\Transfer\OrderTransfer
+     */
+    public function getOrderTotalsByIdSalesOrder($idSalesOrder);
+
 }

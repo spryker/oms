@@ -201,6 +201,7 @@ class OmsFacadeTest extends Unit
         //Arrange
         $testStateMachineProcessName = 'Test04';
         $omsFacade = $this->createOmsFacadeWithErroredTestStateMachine([$testStateMachineProcessName]);
+
         $saveOrderTransfer1 = $this->tester->haveOrder([
             'unitPrice' => 100,
             'sumPrice' => 100,
@@ -209,6 +210,7 @@ class OmsFacadeTest extends Unit
             'unitPrice' => 100,
             'sumPrice' => 100,
         ], $testStateMachineProcessName);
+
         $orderItems = SpySalesOrderItemQuery::create()
             ->filterByFkSalesOrder_In([
                 $saveOrderTransfer1->getIdSalesOrder(),
@@ -216,8 +218,11 @@ class OmsFacadeTest extends Unit
             ])
             ->orderByIdSalesOrderItem(Criteria::ASC)
             ->find();
+
         //Act
         $omsFacade->triggerEvent('authorize', clone $orderItems, []);
+
+        //Assert
         $processedOrderItems = SpySalesOrderItemQuery::create()
             ->filterByFkSalesOrder_In([
                 $saveOrderTransfer1->getIdSalesOrder(),
@@ -225,17 +230,17 @@ class OmsFacadeTest extends Unit
             ])
             ->orderByIdSalesOrderItem(Criteria::ASC)
             ->find();
-        //Assert
-        $this->assertEquals(
-            $orderItems->shift()->getFkOmsOrderItemState(),
-            $processedOrderItems->shift()->getFkOmsOrderItemState()
+
+        $this->assertNotEquals(
+            $orderItems->offsetGet(0)->getFkOmsOrderItemState(),
+            $processedOrderItems->offsetGet(0)->getFkOmsOrderItemState(),
+            'Order item state ID does not equal to an expected value.'
         );
-        while ($orderItems->count()) {
-            $this->assertNotEquals(
-                $orderItems->shift()->getFkOmsOrderItemState(),
-                $processedOrderItems->shift()->getFkOmsOrderItemState()
-            );
-        }
+        $this->assertEquals(
+            $orderItems->offsetGet(1)->getFkOmsOrderItemState(),
+            $processedOrderItems->offsetGet(1)->getFkOmsOrderItemState(),
+            'Order item state ID does not equal to an expected value.'
+        );
     }
 
     /**

@@ -21,6 +21,7 @@ class ReservationVersionHandlerTerminationAwareStrategyPlugin extends AbstractPl
 {
     /**
      * {@inheritDoc}
+     * - Execution should not be terminated for concrete products.
      *
      * @api
      *

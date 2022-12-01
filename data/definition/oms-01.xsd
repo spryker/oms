@@ -39,6 +39,7 @@
                     <xsd:restriction base="xsd:string">
                         <xsd:enumeration value="exclude from customer"/>
                         <xsd:enumeration value="exclude from invoice"/>
+                        <xsd:enumeration value="not auth"/>
                         <xsd:enumeration value="ready for invoice"/>
                         <xsd:enumeration value="waiting for export"/>
                         <xsd:enumeration value="cancellable"/>

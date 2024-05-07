@@ -48,6 +48,41 @@ class Process implements ProcessInterface
     protected $subProcesses = [];
 
     /**
+     * @var array<string, \Spryker\Zed\Oms\Business\Process\StateInterface>
+     */
+    protected mixed $processStates = [];
+
+    /**
+     * @var array<\Spryker\Zed\Oms\Business\Process\StateInterface>
+     */
+    protected mixed $allStates = [];
+
+    /**
+     * @var array<\Spryker\Zed\Oms\Business\Process\StateInterface>
+     */
+    protected array $allReservedStates = [];
+
+    /**
+     * @var array<\Spryker\Zed\Oms\Business\Process\TransitionInterface>
+     */
+    protected array $allTransitions = [];
+
+    /**
+     * @var array<\Spryker\Zed\Oms\Business\Process\TransitionInterface>
+     */
+    protected array $allTransitionsWithoutEvent = [];
+
+    /**
+     * @var array<\Spryker\Zed\Oms\Business\Process\EventInterface>
+     */
+    protected array $manualEvents = [];
+
+    /**
+     * @var array<string, array<string>>
+     */
+    protected array $manualEventsBySource = [];
+
+    /**
      * @param \Spryker\Zed\Oms\Business\Util\DrawerInterface $drawer
      */
     public function __construct(DrawerInterface $drawer)
@@ -188,10 +223,16 @@ class Process implements ProcessInterface
      */
     public function getStateFromAllProcesses($stateId)
     {
+        if (isset($this->processStates[$stateId])) {
+            return $this->processStates[$stateId];
+        }
+
         $processes = $this->getAllProcesses();
         foreach ($processes as $process) {
             if ($process->hasState($stateId)) {
-                return $process->getState($stateId);
+                $this->processStates[$stateId] = $process->getState($stateId);
+
+                return $this->processStates[$stateId];
             }
         }
 
@@ -255,6 +296,10 @@ class Process implements ProcessInterface
      */
     public function getAllStates()
     {
+        if ($this->allStates) {
+            return $this->allStates;
+        }
+
         $states = [];
         if ($this->hasStates()) {
             $states = $this->getStates();
@@ -267,7 +312,7 @@ class Process implements ProcessInterface
             }
         }
 
-        return $states;
+        return $this->allStates = $states;
     }
 
     /**
@@ -275,6 +320,10 @@ class Process implements ProcessInterface
      */
     public function getAllReservedStates()
     {
+        if ($this->allReservedStates) {
+            return $this->allReservedStates;
+        }
+
         $reservedStates = [];
         $states = $this->getAllStates();
         foreach ($states as $state) {
@@ -283,7 +332,7 @@ class Process implements ProcessInterface
             }
         }
 
-        return $reservedStates;
+        return $this->allReservedStates = $reservedStates;
     }
 
     /**
@@ -291,6 +340,10 @@ class Process implements ProcessInterface
      */
     public function getAllTransitions()
     {
+        if ($this->allTransitions) {
+            return $this->allTransitions;
+        }
+
         $transitions = [];
         if ($this->hasTransitions()) {
             $transitions = $this->getTransitions();
@@ -301,7 +354,7 @@ class Process implements ProcessInterface
             }
         }
 
-        return $transitions;
+        return $this->allTransitions = $transitions;
     }
 
     /**
@@ -309,6 +362,10 @@ class Process implements ProcessInterface
      */
     public function getAllTransitionsWithoutEvent()
     {
+        if ($this->allTransitionsWithoutEvent) {
+            return $this->allTransitionsWithoutEvent;
+        }
+
         $transitions = [];
         $allTransitions = $this->getAllTransitions();
         foreach ($allTransitions as $transition) {
@@ -317,7 +374,7 @@ class Process implements ProcessInterface
             }
         }
 
-        return $transitions;
+        return $this->allTransitionsWithoutEvent = $transitions;
     }
 
     /**
@@ -327,6 +384,10 @@ class Process implements ProcessInterface
      */
     public function getManualEvents()
     {
+        if ($this->manualEvents) {
+            return $this->manualEvents;
+        }
+
         $manuallyExecutableEventList = [];
         $transitions = $this->getAllTransitions();
         foreach ($transitions as $transition) {
@@ -338,7 +399,7 @@ class Process implements ProcessInterface
             }
         }
 
-        return $manuallyExecutableEventList;
+        return $this->manualEvents = $manuallyExecutableEventList;
     }
 
     /**
@@ -346,6 +407,10 @@ class Process implements ProcessInterface
      */
     public function getManualEventsBySource()
     {
+        if ($this->manualEventsBySource) {
+            return $this->manualEventsBySource;
+        }
+
         $events = $this->getManualEvents();
 
         $eventsBySource = [];
@@ -362,7 +427,7 @@ class Process implements ProcessInterface
             }
         }
 
-        return $eventsBySource;
+        return $this->manualEventsBySource = $eventsBySource;
     }
 
     /**

@@ -171,4 +171,20 @@ class OmsConfig extends AbstractBundleConfig
             OrderTransfer::ORDER_REFERENCE => OrderStatusChangedTransfer::ORDER_REFERENCE,
         ];
     }
+
+    /**
+     * Specification:
+     *  - Defines where to store cached processes.
+     *
+     * @api
+     *
+     * @return string
+     */
+    public function getProcessCachePath(): string
+    {
+        return $this->get(
+            OmsConstants::PROCESS_CACHE_PATH,
+            APPLICATION_ROOT_DIR . '/data/cache/oms/process/',
+        );
+    }
 }

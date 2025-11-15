@@ -10,7 +10,7 @@
         "spryker/decimal-object": "^1.0.0",
         "spryker/error-handler": "^2.1.0",
         "spryker/graph": "^3.0.0",
-        "spryker/gui": "^3.0.0",
+        "spryker/gui": "^3.0.0 || ^4.0.0",
         "spryker/kernel": "^3.33.0",
         "spryker/mail": "^4.6.0",
         "spryker/mail-extension": "^1.0.0",

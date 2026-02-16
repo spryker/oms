@@ -133,7 +133,7 @@ class OrderItemMatrix
 
         foreach ($grid as $key => $value) {
             if (!$value) {
-                $grid[$key] = $value;
+                $grid[$key] = '0';
 
                 continue;
             }

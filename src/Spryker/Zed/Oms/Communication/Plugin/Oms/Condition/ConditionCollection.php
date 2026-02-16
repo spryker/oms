@@ -34,6 +34,7 @@ class ConditionCollection implements ConditionCollectionInterface, HasAwareColle
      */
     public function add($condition, $name)
     {
+        /** @phpstan-ignore instanceof.alwaysTrue */
         if (!($condition instanceof DependencyConditionInterface) && !($condition instanceof ConditionInterface)) {
             throw new InvalidArgumentException(
                 sprintf(

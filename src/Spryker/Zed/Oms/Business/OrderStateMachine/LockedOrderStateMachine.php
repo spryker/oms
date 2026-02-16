@@ -240,7 +240,7 @@ class LockedOrderStateMachine implements OrderStateMachineInterface
      *
      * @param array $orderItemIds
      *
-     * @return string|null
+     * @return string|false|null
      */
     protected function buildDetails(array $orderItemIds)
     {
@@ -248,7 +248,6 @@ class LockedOrderStateMachine implements OrderStateMachineInterface
             return null;
         }
 
-        /** @phpstan-var string */
         return json_encode([
             'id_sales_order_items' => $orderItemIds,
         ]);

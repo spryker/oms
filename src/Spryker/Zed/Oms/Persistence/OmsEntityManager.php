@@ -84,7 +84,7 @@ class OmsEntityManager extends AbstractEntityManager implements OmsEntityManager
     }
 
     /**
-     * @param list<int> $salesOrderItemIds
+     * @param array<int> $salesOrderItemIds
      *
      * @return void
      */
@@ -97,7 +97,7 @@ class OmsEntityManager extends AbstractEntityManager implements OmsEntityManager
     }
 
     /**
-     * @param list<int> $salesOrderItemIds
+     * @param array<int> $salesOrderItemIds
      *
      * @return void
      */
@@ -110,7 +110,7 @@ class OmsEntityManager extends AbstractEntityManager implements OmsEntityManager
     }
 
     /**
-     * @param list<int> $salesOrderItemIds
+     * @param array<int> $salesOrderItemIds
      *
      * @return void
      */

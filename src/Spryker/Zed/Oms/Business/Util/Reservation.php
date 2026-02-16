@@ -53,7 +53,7 @@ class Reservation implements ReservationInterface
     protected $reservationHandlerTerminationAwareStrategyPlugins;
 
     /**
-     * @var list<\Generated\Shared\Transfer\StoreTransfer>
+     * @var array<\Generated\Shared\Transfer\StoreTransfer>
      */
     protected static $allStoreTransfersCache = [];
 
@@ -183,7 +183,7 @@ class Reservation implements ReservationInterface
     }
 
     /**
-     * @return list<\Generated\Shared\Transfer\StoreTransfer>
+     * @return array<\Generated\Shared\Transfer\StoreTransfer>
      */
     protected function getAllStoreTransfersCache(): array
     {

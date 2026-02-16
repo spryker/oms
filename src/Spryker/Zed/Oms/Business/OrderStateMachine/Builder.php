@@ -187,6 +187,7 @@ class Builder implements BuilderInterface
                 $xmlSubProcess = $this->loadXmlFromFileName(str_replace(' ', '_', $processFile));
 
                 if ($processName) {
+                    /** @phpstan-ignore offsetAccess.nonOffsetAccessible, offsetAssign.dimType, assign.propertyType */
                     $xmlSubProcess->children()->process[0]['name'] = $processName;
                 }
 

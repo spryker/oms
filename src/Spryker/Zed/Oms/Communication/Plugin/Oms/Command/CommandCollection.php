@@ -33,6 +33,7 @@ class CommandCollection implements CommandCollectionInterface, HasAwareCollectio
      */
     public function add($command, $name)
     {
+        /** @phpstan-ignore instanceof.alwaysTrue */
         if (!($command instanceof CommandInterface) && !($command instanceof NewCommandInterface)) {
             throw new InvalidArgumentException(
                 sprintf(

@@ -48,6 +48,7 @@ trait OrderStateOrderItemsFetchTrait
         ProcessInterface $process,
         ?OmsCheckConditionsQueryCriteriaTransfer $omsCheckConditionsQueryCriteriaTransfer
     ) {
+        /** @phpstan-ignore instanceof.alwaysTrue */
         if (!($this->queryContainer instanceof OmsQueryContainerInterface)) {
             throw new RuntimeException('Query container is not set or does not implement OmsQueryContainerInterface.');
         }
@@ -91,6 +92,7 @@ trait OrderStateOrderItemsFetchTrait
     protected function prepareOmsCheckConditionsQueryCriteriaTransfer(
         ?OmsCheckConditionsQueryCriteriaTransfer $omsCheckConditionsQueryCriteriaTransfer = null
     ): OmsCheckConditionsQueryCriteriaTransfer {
+        /** @phpstan-ignore instanceof.alwaysTrue */
         if (!($this->omsConfig instanceof OmsConfig)) {
             throw new RuntimeException('OmsConfig is not set or does not implement OmsConfig.');
         }

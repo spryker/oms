@@ -607,6 +607,7 @@ class OrderStateMachine implements OrderStateMachineInterface, CheckConditionFor
             try {
                 if ($command instanceof CommandByOrderInterface) {
                     $returnData = $command->run($orderItems, $orderEntity, $data);
+                    /** @phpstan-ignore function.alreadyNarrowedType */
                     if (is_array($returnData)) {
                         $this->returnData = array_merge($this->returnData, $returnData);
                         $orderItems = $this->handleUpdatedOrderItems($orderItems, $returnData, $log);
@@ -1136,11 +1137,11 @@ class OrderStateMachine implements OrderStateMachineInterface, CheckConditionFor
     }
 
     /**
-     * @param list<\Orm\Zed\Sales\Persistence\SpySalesOrderItem> $orderItems
+     * @param array<\Orm\Zed\Sales\Persistence\SpySalesOrderItem> $orderItems
      * @param array<mixed> $returnData
      * @param \Spryker\Zed\Oms\Business\Util\TransitionLogInterface $log
      *
-     * @return list<\Orm\Zed\Sales\Persistence\SpySalesOrderItem>
+     * @return array<\Orm\Zed\Sales\Persistence\SpySalesOrderItem>
      */
     protected function handleUpdatedOrderItems(array $orderItems, array $returnData, TransitionLogInterface $log): array
     {

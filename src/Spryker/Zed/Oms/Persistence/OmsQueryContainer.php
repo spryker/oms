@@ -93,8 +93,7 @@ class OmsQueryContainer extends AbstractQueryContainer implements OmsQueryContai
             ->joinProcess(null, Criteria::INNER_JOIN)
             ->joinState(null, Criteria::INNER_JOIN)
             ->where('Process.name = ?', $processName)
-            /** @phpstan-ignore argument.type */
-            ->where($stateNameCondition);
+            ->where($stateNameCondition); // @phpstan-ignore argument.type
     }
 
     /**
@@ -852,10 +851,8 @@ class OmsQueryContainer extends AbstractQueryContainer implements OmsQueryContai
                 static::VERSION,
             ])
             ->groupBy(static::ID_OMS_PRODUCT_RESERVATION)
-            /** @phpstan-ignore argument.type */
-            ->where($versionGreaterCondition)
-            /** @phpstan-ignore argument.type */
-            ->where($versionLessOrEqualCondition);
+            ->where($versionGreaterCondition) // @phpstan-ignore argument.type
+            ->where($versionLessOrEqualCondition); // @phpstan-ignore argument.type
 
         return $query;
     }

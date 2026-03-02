@@ -12,11 +12,6 @@ use Propel\Runtime\Collection\Collection;
 
 interface OrderItemMapperInterface
 {
-    /**
-     * @param array $orderItemsMatrixResult
-     *
-     * @return array
-     */
     public function mapOrderItemMatrix(array $orderItemsMatrixResult): array;
 
     /**

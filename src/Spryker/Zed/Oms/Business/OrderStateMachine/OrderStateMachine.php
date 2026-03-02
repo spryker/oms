@@ -1011,14 +1011,6 @@ class OrderStateMachine implements OrderStateMachineInterface, CheckConditionFor
         }
     }
 
-    /**
-     * @param \Spryker\Zed\Oms\Business\Process\ProcessInterface $process
-     * @param string $sourceState
-     * @param string $targetState
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $salesOrderItem
-     *
-     * @return void
-     */
     protected function updateOmsReservation(
         ProcessInterface $process,
         string $sourceState,

@@ -25,10 +25,6 @@ class ReservationVersionHandler implements ReservationVersionHandlerInterface
      */
     protected $storeFacade;
 
-    /**
-     * @param \Spryker\Zed\Oms\Persistence\OmsQueryContainerInterface $omsQueryContainer
-     * @param \Spryker\Zed\Oms\Dependency\Facade\OmsToStoreFacadeInterface $storeFacade
-     */
     public function __construct(
         OmsQueryContainerInterface $omsQueryContainer,
         OmsToStoreFacadeInterface $storeFacade

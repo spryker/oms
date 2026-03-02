@@ -14,11 +14,6 @@ use Spryker\Zed\Oms\Dependency\Plugin\Condition\ConditionInterface;
 
 class AlwaysTrueConditionPluginMock implements ConditionInterface
 {
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $orderItem
-     *
-     * @return bool
-     */
     public function check(SpySalesOrderItem $orderItem): bool
     {
         return true;

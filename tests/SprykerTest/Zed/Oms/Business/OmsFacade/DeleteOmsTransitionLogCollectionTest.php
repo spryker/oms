@@ -29,9 +29,6 @@ class DeleteOmsTransitionLogCollectionTest extends Unit
      */
     protected OmsBusinessTester $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -40,9 +37,6 @@ class DeleteOmsTransitionLogCollectionTest extends Unit
         $this->tester->ensureOmsTransitionLogTableIsEmpty();
     }
 
-    /**
-     * @return void
-     */
     public function testDeletesOmsTransitionLogEntitiesBySalesOrderItemIds(): void
     {
         // Arrange
@@ -64,9 +58,6 @@ class DeleteOmsTransitionLogCollectionTest extends Unit
         $this->assertSame($omsTransitionLogEntity2->getIdOmsTransitionLog(), $omsTransitionLogEntities[0]->getIdOmsTransitionLog());
     }
 
-    /**
-     * @return void
-     */
     public function testDoesNotDeleteOmsTransitionLogEntitiesWhenNoEntitiesFoundBySalesOrderItemIds(): void
     {
         // Arrange
@@ -86,9 +77,6 @@ class DeleteOmsTransitionLogCollectionTest extends Unit
         $this->assertSame($omsTransitionLogEntity->getIdOmsTransitionLog(), $omsTransitionLogEntities[0]->getIdOmsTransitionLog());
     }
 
-    /**
-     * @return void
-     */
     public function testDoesNotDeleteOmsTransitionLogEntitiesWhenNoCriteriaConditionsAreSet(): void
     {
         // Arrange

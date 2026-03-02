@@ -43,9 +43,6 @@ class ExpandOrderItemsWithItemStateTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -53,9 +50,6 @@ class ExpandOrderItemsWithItemStateTest extends Unit
         $this->tester->configureTestStateMachine([static::DEFAULT_OMS_PROCESS_NAME]);
     }
 
-    /**
-     * @return void
-     */
     public function testExpandOrderItemsWithItemStateExpandsOrderItems(): void
     {
         // Arrange
@@ -74,9 +68,6 @@ class ExpandOrderItemsWithItemStateTest extends Unit
         $this->assertSame(static::SHIPPED_STATE_DISPLAY_NAME, $itemTransfers[0]->getState()->getDisplayName());
     }
 
-    /**
-     * @return void
-     */
     public function testExpandOrderItemsWithItemStateWithoutSalesOrderItemId(): void
     {
         // Act

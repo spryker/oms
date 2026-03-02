@@ -44,9 +44,6 @@ class ExpandOrdersWithAggregatedItemStatesTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -54,9 +51,6 @@ class ExpandOrdersWithAggregatedItemStatesTest extends Unit
         $this->tester->configureTestStateMachine([static::DEFAULT_OMS_PROCESS_NAME]);
     }
 
-    /**
-     * @return void
-     */
     public function testExpandOrdersWithAggregatedItemStatesExpandsOrders(): void
     {
         // Arrange
@@ -75,9 +69,6 @@ class ExpandOrdersWithAggregatedItemStatesTest extends Unit
         $this->assertStringContainsStringIgnoringCase(static::SHIPPED_STATE_DISPLAY_NAME, $expandedOrderTransfers[0]->getAggregatedItemStates()[0]->getDisplayName());
     }
 
-    /**
-     * @return void
-     */
     public function testExpandOrdersWithAggregatedItemStatesDoesNothingWithIncorrectData(): void
     {
         // Arrange

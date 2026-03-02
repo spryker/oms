@@ -35,9 +35,6 @@ class MailHandlerTest extends Unit
      */
     protected OmsBusinessTester $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -79,9 +76,6 @@ class MailHandlerTest extends Unit
         $mailHandler->{$mailType}($salesOrderEntity);
     }
 
-    /**
-     * @return array
-     */
     protected function getMailTypes(): array
     {
         return [

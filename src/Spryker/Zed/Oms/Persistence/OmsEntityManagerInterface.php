@@ -29,11 +29,6 @@ interface OmsEntityManagerInterface
      */
     public function updateReservation(ReservationRequestTransfer $reservationRequestTransfer): void;
 
-    /**
-     * @param \Generated\Shared\Transfer\ReservationRequestTransfer $reservationRequestTransfer
-     *
-     * @return void
-     */
     public function saveReservation(ReservationRequestTransfer $reservationRequestTransfer): void;
 
     /**

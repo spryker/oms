@@ -195,11 +195,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     public function provideCommunicationLayerDependencies(Container $container): Container
     {
         $container = parent::provideCommunicationLayerDependencies($container);
@@ -243,11 +238,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addSalesQueryContainer(Container $container): Container
     {
         $container->set(static::QUERY_CONTAINER_SALES, function (Container $container) {
@@ -297,11 +287,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addReservationExportPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_RESERVATION_EXPORT, function () {
@@ -319,11 +304,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addStoreFacade(Container $container): Container
     {
         $container->set(static::FACADE_STORE, function (Container $container) {
@@ -333,11 +313,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addConditionPlugins(Container $container): Container
     {
         $container->set(static::CONDITION_PLUGINS, function (Container $container) {
@@ -347,11 +322,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addCommandPlugins(Container $container): Container
     {
         $container->set(static::COMMAND_PLUGINS, function (Container $container) {
@@ -361,11 +331,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addMailFacade(Container $container): Container
     {
         $container->set(static::FACADE_MAIL, function (Container $container) {
@@ -375,11 +340,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addUtilTextFacade(Container $container): Container
     {
         $container->set(static::FACADE_UTIL_TEXT, function (Container $container) {
@@ -389,11 +349,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addUtilSanitizeService(Container $container): Container
     {
         $container->set(static::SERVICE_UTIL_SANITIZE, function (Container $container) {
@@ -403,11 +358,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addUtilNetworkService(Container $container): Container
     {
         $container->set(static::SERVICE_UTIL_NETWORK, function (Container $container) {
@@ -417,11 +367,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addSalesFacade(Container $container): Container
     {
         $container->set(static::FACADE_SALES, function (Container $container) {
@@ -447,11 +392,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addGraphPlugin(Container $container): Container
     {
         $container->set(static::PLUGIN_GRAPH, function () {
@@ -461,11 +401,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addReservationHandlerPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_RESERVATION, function (Container $container) {
@@ -491,11 +426,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addOmsReservationAggregationPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_OMS_RESERVATION_AGGREGATION, function () {
@@ -515,11 +445,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addOmsOrderMailExpanderPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_OMS_ORDER_MAIL_EXPANDER, function (Container $container) {
@@ -539,11 +464,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addOmsManualEventGrouperPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_OMS_MANUAL_EVENT_GROUPER, function (Container $container) {
@@ -553,11 +473,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addOmsReservationReaderStrategyPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_OMS_RESERVATION_READER_STRATEGY, function (Container $container) {
@@ -575,11 +490,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addOmsReservationWriterStrategyPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_OMS_RESERVATION_WRITER_STRATEGY, function () {
@@ -597,11 +507,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addReservationPostSaveTerminationAwareStrategyPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_RESERVATION_HANDLER_TERMINATION_AWARE_STRATEGY, function () {
@@ -619,11 +524,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addTimeoutProcessorPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_TIMEOUT_PROCESSOR, function () {
@@ -641,11 +541,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addOmsEventTriggeredListenerPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_OMS_EVENT_TRIGGERED_LISTENER, function () {
@@ -663,11 +558,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addMessageBrokerFacade(Container $container): Container
     {
         $container->set(static::FACADE_MESSAGE_BROKER, function (Container $container) {
@@ -677,11 +567,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addCsrfProviderService(Container $container): Container
     {
         $container->set(static::SERVICE_FORM_CSRF_PROVIDER, function (Container $container) {
@@ -691,11 +576,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addLockPlugin(Container $container): Container
     {
         $container->set(static::PLUGIN_LOCK, function (Container $container) {
@@ -705,9 +585,6 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @return \Spryker\Zed\OmsExtension\Dependency\Plugin\OmsLockPluginInterface|null
-     */
     protected function getLockPlugin(): ?OmsLockPluginInterface
     {
         return null;

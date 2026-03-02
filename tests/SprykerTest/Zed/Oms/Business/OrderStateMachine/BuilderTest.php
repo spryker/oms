@@ -41,9 +41,6 @@ class BuilderTest extends Unit
      */
     protected OmsBusinessTester $tester;
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         $processACopyTarget = $this->getProcessLocationB() . DIRECTORY_SEPARATOR . 'process-a.xml';
@@ -64,9 +61,6 @@ class BuilderTest extends Unit
         $this->assertInstanceOf(Builder::class, $builder);
     }
 
-    /**
-     * @return void
-     */
     public function testInstantiationWithXmlFolderAsString(): void
     {
         $builder = $this->createBuilder('');
@@ -74,9 +68,6 @@ class BuilderTest extends Unit
         $this->assertInstanceOf(Builder::class, $builder);
     }
 
-    /**
-     * @return void
-     */
     public function testInstantiationWithXmlFolderAsArray(): void
     {
         $builder = $this->createBuilder([]);
@@ -84,9 +75,6 @@ class BuilderTest extends Unit
         $this->assertInstanceOf(Builder::class, $builder);
     }
 
-    /**
-     * @return void
-     */
     public function testGetProcessShouldThrowExceptionWhenProcessFoundInMoreThenOneLocation(): void
     {
         $builder = $this->createBuilder([$this->getProcessLocationA(), $this->getProcessLocationB()]);
@@ -98,9 +86,6 @@ class BuilderTest extends Unit
         $builder->createProcess('process-a');
     }
 
-    /**
-     * @return void
-     */
     public function testGetProcessShouldThrowExceptionWhenNoProcessFound(): void
     {
         $builder = $this->createBuilder([$this->getProcessLocationB()]);
@@ -110,9 +95,6 @@ class BuilderTest extends Unit
         $builder->createProcess('process-a');
     }
 
-    /**
-     * @return void
-     */
     public function testGetProcess(): void
     {
         $builder = $this->createBuilder([$this->getProcessLocationA(), $this->getProcessLocationB()]);
@@ -311,9 +293,6 @@ class BuilderTest extends Unit
         return $this->getMockBuilder(TransitionInterface::class)->getMock();
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\Process\ProcessInterface
-     */
     private function getProcess(): ProcessInterface
     {
         $drawerMock = $this->getDrawerMock();
@@ -329,17 +308,11 @@ class BuilderTest extends Unit
         return $this->getMockBuilder(DrawerInterface::class)->getMock();
     }
 
-    /**
-     * @return string
-     */
     private function getProcessLocationA(): string
     {
         return __DIR__ . '/Builder/Fixtures/DefinitionLocationA';
     }
 
-    /**
-     * @return string
-     */
     private function getProcessLocationB(): string
     {
         return __DIR__ . '/Builder/Fixtures/DefinitionLocationB';

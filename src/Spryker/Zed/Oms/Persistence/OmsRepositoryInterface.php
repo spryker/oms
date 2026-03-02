@@ -27,11 +27,6 @@ interface OmsRepositoryInterface
      */
     public function getMatrixOrderItems(array $processIds, array $stateBlackList): array;
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderMatrixCriteriaTransfer $orderMatrixCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderMatrixCollectionTransfer
-     */
     public function getOrderMatrixCollection(OrderMatrixCriteriaTransfer $orderMatrixCriteriaTransfer): OrderMatrixCollectionTransfer;
 
     /**
@@ -70,19 +65,8 @@ interface OmsRepositoryInterface
      */
     public function getOrderItems(OrderItemFilterTransfer $orderItemFilterTransfer): array;
 
-    /**
-     * @param \Generated\Shared\Transfer\ReservationRequestTransfer $reservationRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\OmsProductReservationTransfer|null
-     */
     public function findProductReservation(ReservationRequestTransfer $reservationRequestTransfer): ?OmsProductReservationTransfer;
 
-    /**
-     * @param string $sku
-     * @param int $idStore
-     *
-     * @return \Spryker\DecimalObject\Decimal
-     */
     public function findProductReservationQuantity(string $sku, int $idStore): Decimal;
 
     /**

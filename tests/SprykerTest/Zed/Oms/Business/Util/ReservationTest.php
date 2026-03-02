@@ -36,9 +36,6 @@ class ReservationTest extends Unit
      */
     protected OmsBusinessTester $tester;
 
-    /**
-     * @return void
-     */
     public function testUpdateReservationQuantityGetsAllStores(): void
     {
         // Arrange
@@ -63,9 +60,6 @@ class ReservationTest extends Unit
         $reservation->updateReservationQuantity($this->tester::FAKE_SKU);
     }
 
-    /**
-     * @return void
-     */
     public function testUpdateReservationGetsAllStores(): void
     {
         // Arrange

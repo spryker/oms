@@ -12,11 +12,6 @@ use Generated\Shared\Transfer\OmsEventTimeoutCollectionResponseTransfer;
 
 interface OmsEventTimeoutDeleterInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\OmsEventTimeoutCollectionDeleteCriteriaTransfer $omsEventTimeoutCollectionDeleteCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\OmsEventTimeoutCollectionResponseTransfer
-     */
     public function deleteOmsEventTimeoutCollection(
         OmsEventTimeoutCollectionDeleteCriteriaTransfer $omsEventTimeoutCollectionDeleteCriteriaTransfer
     ): OmsEventTimeoutCollectionResponseTransfer;

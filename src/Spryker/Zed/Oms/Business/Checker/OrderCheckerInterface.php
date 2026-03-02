@@ -11,11 +11,5 @@ use Generated\Shared\Transfer\OrderTransfer;
 
 interface OrderCheckerInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param string $flag
-     *
-     * @return bool
-     */
     public function areOrderItemsSatisfiedByFlag(OrderTransfer $orderTransfer, string $flag): bool;
 }

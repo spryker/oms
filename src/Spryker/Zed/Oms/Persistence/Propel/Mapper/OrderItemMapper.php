@@ -17,11 +17,6 @@ use Spryker\Zed\Oms\Persistence\OmsQueryContainer;
 
 class OrderItemMapper implements OrderItemMapperInterface
 {
-    /**
-     * @param array $orderItemsMatrixResult
-     *
-     * @return array
-     */
     public function mapOrderItemMatrix(array $orderItemsMatrixResult): array
     {
         $orderItemsMatrix = [];

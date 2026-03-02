@@ -69,12 +69,6 @@ class TransitionLog implements TransitionLogInterface
      */
     protected $omsConfig;
 
-    /**
-     * @param \Spryker\Zed\Oms\Persistence\OmsQueryContainerInterface $queryContainer
-     * @param array $logContext
-     * @param \Spryker\Zed\Oms\Dependency\Service\OmsToUtilNetworkInterface $utilNetworkService
-     * @param \Spryker\Zed\Oms\OmsConfig $omsConfig
-     */
     public function __construct(
         OmsQueryContainerInterface $queryContainer,
         array $logContext,
@@ -306,11 +300,6 @@ class TransitionLog implements TransitionLogInterface
         return $this->queryContainer->queryLogForOrder($order)->find();
     }
 
-    /**
-     * @param int $idSalesOrderItem
-     *
-     * @return void
-     */
     public function deleteLog(int $idSalesOrderItem): void
     {
         if (isset($this->logEntities[$idSalesOrderItem])) {

@@ -13,18 +13,10 @@ use Spryker\Zed\Oms\Persistence\OmsEntityManagerInterface;
 
 class OmsOrderItemStateHistoryDeleter implements OmsOrderItemStateHistoryDeleterInterface
 {
-    /**
-     * @param \Spryker\Zed\Oms\Persistence\OmsEntityManagerInterface $omsEntityManager
-     */
     public function __construct(protected OmsEntityManagerInterface $omsEntityManager)
     {
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OmsOrderItemStateHistoryCollectionDeleteCriteriaTransfer $omsOrderItemStateHistoryCollectionDeleteCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\OmsOrderItemStateHistoryCollectionResponseTransfer
-     */
     public function deleteOmsOrderItemStateHistoryCollection(
         OmsOrderItemStateHistoryCollectionDeleteCriteriaTransfer $omsOrderItemStateHistoryCollectionDeleteCriteriaTransfer
     ): OmsOrderItemStateHistoryCollectionResponseTransfer {

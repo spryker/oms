@@ -24,10 +24,6 @@ class StateMachineReader implements StateMachineReaderInterface
      */
     protected $builder;
 
-    /**
-     * @param \Spryker\Zed\Oms\Persistence\OmsRepositoryInterface $omsRepository
-     * @param \Spryker\Zed\Oms\Business\OrderStateMachine\BuilderInterface $builder
-     */
     public function __construct(OmsRepositoryInterface $omsRepository, BuilderInterface $builder)
     {
         $this->omsRepository = $omsRepository;

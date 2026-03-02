@@ -37,9 +37,6 @@ class TriggerLockerTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function testAcquireWithSingleIdentifierWillAcquireSingleLockEntry(): void
     {
         $triggerLocker = $this->tester->createTriggerLocker();
@@ -48,9 +45,6 @@ class TriggerLockerTest extends Unit
         $this->tester->assertLockedEntityCount(1);
     }
 
-    /**
-     * @return void
-     */
     public function testAcquireWithAnArrayOfIdentifierWillAcquireMultipleLockEntries(): void
     {
         $triggerLocker = $this->tester->createTriggerLocker();
@@ -59,9 +53,6 @@ class TriggerLockerTest extends Unit
         $this->tester->assertLockedEntityCount(2);
     }
 
-    /**
-     * @return void
-     */
     public function testAcquireWithSingleIdentifierThrowsExceptionWhenEntryIsAlreadyLocked(): void
     {
         $triggerLocker = $this->tester->createTriggerLocker();
@@ -71,9 +62,6 @@ class TriggerLockerTest extends Unit
         $triggerLocker->acquire('1');
     }
 
-    /**
-     * @return void
-     */
     public function testAcquireWithAnArrayOfIdentifierThrowsExceptionWhenAtLEastOneEntryIsAlreadyLocked(): void
     {
         $triggerLocker = $this->tester->createTriggerLocker();
@@ -83,9 +71,6 @@ class TriggerLockerTest extends Unit
         $triggerLocker->acquire([2]);
     }
 
-    /**
-     * @return void
-     */
     public function testReleaseSingleIdentifier(): void
     {
         $triggerLocker = $this->tester->createTriggerLocker();
@@ -95,9 +80,6 @@ class TriggerLockerTest extends Unit
         $this->tester->assertLockedEntityCount(0);
     }
 
-    /**
-     * @return void
-     */
     public function testReleaseMultipleIdentifier(): void
     {
         $triggerLocker = $this->tester->createTriggerLocker();
@@ -107,9 +89,6 @@ class TriggerLockerTest extends Unit
         $this->tester->assertLockedEntityCount(0);
     }
 
-    /**
-     * @return void
-     */
     public function testClearLocksWillRemoveAllLockEntries(): void
     {
         $triggerLocker = $this->tester->createTriggerLocker();
@@ -125,9 +104,6 @@ class TriggerLockerTest extends Unit
         $this->tester->assertLockedEntityCount(0);
     }
 
-    /**
-     * @return void
-     */
     public function testBigintLockIdIsSupported(): void
     {
         // Act

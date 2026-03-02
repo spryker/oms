@@ -39,9 +39,6 @@ class DefaultOrderItemInitialStateProviderPluginTest extends Unit
      */
     protected OmsCommunicationTester $tester;
 
-    /**
-     * @return void
-     */
     public function testShouldReturnOmsOrderItemStateTransfer(): void
     {
         // Arrange
@@ -55,9 +52,6 @@ class DefaultOrderItemInitialStateProviderPluginTest extends Unit
         $this->assertSame(static::STATE_NEW, $omsOrderItemStateTransfer->getName());
     }
 
-    /**
-     * @return void
-     */
     public function testShouldNotReturnOmsOrderItemStateTransferForExistingOrderItems(): void
     {
         // Arrange
@@ -74,9 +68,6 @@ class DefaultOrderItemInitialStateProviderPluginTest extends Unit
         $this->assertNull($omsOrderItemStateTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testShouldReturnNullWhenQuoteHasMixedItemsWithAndWithoutSalesOrderIds(): void
     {
         // Arrange

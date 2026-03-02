@@ -35,25 +35,16 @@ class OmsCommunicationFactory extends AbstractCommunicationFactory
         return new TransitionLogTable($queryContainer);
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Communication\Factory\OmsTriggerFormFactoryInterface
-     */
     public function createOmsTriggerFormFactory(): OmsTriggerFormFactoryInterface
     {
         return new OmsTriggerFormFactory($this->getFormFactory());
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Communication\Builder\OmsTriggerFormCollectionBuilderInterface
-     */
     public function createOmsTriggerFormCollectionBuilder(): OmsTriggerFormCollectionBuilderInterface
     {
         return new OmsTriggerFormCollectionBuilder($this->createOmsTriggerFormFactory());
     }
 
-    /**
-     * @return \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface
-     */
     public function getCsrfTokenManager(): CsrfTokenManagerInterface
     {
         return $this->getProvidedDependency(OmsDependencyProvider::SERVICE_FORM_CSRF_PROVIDER);

@@ -21,33 +21,21 @@ class OmsTriggerFormFactory implements OmsTriggerFormFactoryInterface
      */
     protected $formFactory;
 
-    /**
-     * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
-     */
     public function __construct(FormFactoryInterface $formFactory)
     {
         $this->formFactory = $formFactory;
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Communication\Form\DataProvider\OrderOmsTriggerFormDataProvider
-     */
     public function createOrderOmsTriggerFormDataProvider(): OrderOmsTriggerFormDataProvider
     {
         return new OrderOmsTriggerFormDataProvider();
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Communication\Form\DataProvider\OrderItemOmsTriggerFormDataProvider
-     */
     public function createOrderItemOmsTriggerFormDataProvider(): OrderItemOmsTriggerFormDataProvider
     {
         return new OrderItemOmsTriggerFormDataProvider();
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Communication\Form\DataProvider\OrderItemsOmsTriggerFormDataProvider
-     */
     public function createOrderItemsOmsTriggerFormDataProvider(): OrderItemsOmsTriggerFormDataProvider
     {
         return new OrderItemsOmsTriggerFormDataProvider();
@@ -69,13 +57,6 @@ class OmsTriggerFormFactory implements OmsTriggerFormFactoryInterface
         );
     }
 
-    /**
-     * @param string $redirectUrl
-     * @param string $event
-     * @param int $idSalesOrder
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function getOrderOmsTriggerForm(string $redirectUrl, string $event, int $idSalesOrder): FormInterface
     {
         $options = $this->createOrderOmsTriggerFormDataProvider()
@@ -84,13 +65,6 @@ class OmsTriggerFormFactory implements OmsTriggerFormFactoryInterface
         return $this->formFactory->create(OmsTriggerForm::class, null, $options);
     }
 
-    /**
-     * @param string $redirectUrl
-     * @param string $event
-     * @param int $idSalesOrderItem
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function getOrderItemOmsTriggerForm(string $redirectUrl, string $event, int $idSalesOrderItem): FormInterface
     {
         $options = $this->createOrderItemOmsTriggerFormDataProvider()

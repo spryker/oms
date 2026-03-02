@@ -104,9 +104,6 @@ class LockedOrderStateMachineTest extends Unit
         $this->tester->callLockedOrderStatemachineMethod($methodUnderTest, $lockedOrderStatemachine, $orderItemEntityCollection);
     }
 
-    /**
-     * @return void
-     */
     public function testCheckConditionMethodIsDecorated(): void
     {
         $lockedStateMachine = $this->tester->createLockedOrderStatemachineWithTriggerSuccess();

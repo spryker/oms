@@ -11,9 +11,6 @@ use Codeception\Module;
 
 trait OmsHelperTrait
 {
-    /**
-     * @return \SprykerTest\Zed\Oms\Helper\OmsHelper
-     */
     protected function getOmsHelper(): OmsHelper
     {
         if (!$this->hasModule('\\' . OmsHelper::class)) {
@@ -26,10 +23,5 @@ trait OmsHelperTrait
         return $omsHelper;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return \Codeception\Module
-     */
     abstract protected function getModule(string $name): Module;
 }

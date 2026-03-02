@@ -16,9 +16,6 @@ class OmsTriggerFormCollectionBuilder implements OmsTriggerFormCollectionBuilder
      */
     protected $omsTriggerFormFactory;
 
-    /**
-     * @param \Spryker\Zed\Oms\Communication\Factory\OmsTriggerFormFactoryInterface $omsTriggerFormFactory
-     */
     public function __construct(OmsTriggerFormFactoryInterface $omsTriggerFormFactory)
     {
         $this->omsTriggerFormFactory = $omsTriggerFormFactory;
@@ -44,13 +41,6 @@ class OmsTriggerFormCollectionBuilder implements OmsTriggerFormCollectionBuilder
         return $orderOmsTriggerFormCollection;
     }
 
-    /**
-     * @param string $redirectUrl
-     * @param array $eventsGroupedByItem
-     * @param int $idSalesOrderItem
-     *
-     * @return array
-     */
     public function buildOrderItemOmsTriggerFormCollection(string $redirectUrl, array $eventsGroupedByItem, int $idSalesOrderItem): array
     {
         $orderItemOmsTriggerFormCollection = [];

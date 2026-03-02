@@ -57,9 +57,6 @@ class FinderTest extends Unit
      */
     protected OmsBusinessTester $tester;
 
-    /**
-     * @return void
-     */
     public function testGetStateDisplayNameShouldReturnDisplayName(): void
     {
         $finder = $this->createFinder();
@@ -71,9 +68,6 @@ class FinderTest extends Unit
         $this->assertSame(static::STATE_DISPLAY_VALUE, $displayName);
     }
 
-    /**
-     * @return void
-     */
     public function testGetStateDisplayNameWhenSubProcessRequestedShouldReturnDisplayName(): void
     {
         $finder = $this->createFinder();
@@ -86,9 +80,6 @@ class FinderTest extends Unit
         $this->assertSame(static::STATE_SUB_PROCESS_DISPLAY_VALUE, $displayName);
     }
 
-    /**
-     * @return void
-     */
     public function testGetStateDisplayNameShouldThrowExceptionWhenStateNotFound(): void
     {
         $this->expectException(StateNotFoundException::class);
@@ -102,9 +93,6 @@ class FinderTest extends Unit
         $finder->getStateDisplayName($salesOrderItemEntity);
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\OrderStateMachine\FinderInterface
-     */
     protected function createFinder(): FinderInterface
     {
         $omsQueryContainerMock = $this->createOmsQueryContainer();
@@ -121,9 +109,6 @@ class FinderTest extends Unit
         );
     }
 
-    /**
-     * @return string
-     */
     private function getProcessLocation(): string
     {
         return __DIR__ . '/Finder/Fixtures';
@@ -145,11 +130,6 @@ class FinderTest extends Unit
         return $this->getMockBuilder(DrawerInterface::class)->getMock();
     }
 
-    /**
-     * @param \Spryker\Zed\Oms\Business\Util\DrawerInterface $drawerMock
-     *
-     * @return \Spryker\Zed\Oms\Business\OrderStateMachine\Builder
-     */
     protected function createBuilder(DrawerInterface $drawerMock): Builder
     {
         return new Builder(
@@ -164,9 +144,6 @@ class FinderTest extends Unit
         );
     }
 
-    /**
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderItem
-     */
     protected function createSalesOrderItemEntity(): SpySalesOrderItem
     {
         $salesOrderItemEntity = new SpySalesOrderItem();

@@ -82,9 +82,6 @@ class Process implements ProcessInterface
      */
     protected ?array $manualEventsBySource = null;
 
-    /**
-     * @param \Spryker\Zed\Oms\Business\Util\DrawerInterface $drawer
-     */
     public function __construct(DrawerInterface $drawer)
     {
         $this->drawer = $drawer;

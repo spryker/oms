@@ -55,11 +55,6 @@ class Timeout implements TimeoutInterface
      */
     protected $timeoutProcessorCollection;
 
-    /**
-     * @param \Spryker\Zed\Oms\Persistence\OmsQueryContainerInterface $queryContainer
-     * @param \Spryker\Zed\Oms\Business\Util\TimeoutProcessorCollectionInterface $timeoutProcessorCollection
-     * @param \Spryker\Zed\Oms\OmsConfig $omsConfig
-     */
     public function __construct(
         OmsQueryContainerInterface $queryContainer,
         TimeoutProcessorCollectionInterface $timeoutProcessorCollection,
@@ -276,11 +271,6 @@ class Timeout implements TimeoutInterface
             ->find();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OmsCheckTimeoutsQueryCriteriaTransfer|null $omsCheckTimeoutsQueryCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\OmsCheckTimeoutsQueryCriteriaTransfer
-     */
     protected function prepareOmsCheckTimeoutsQueryCriteriaTransfer(
         ?OmsCheckTimeoutsQueryCriteriaTransfer $omsCheckTimeoutsQueryCriteriaTransfer = null
     ): OmsCheckTimeoutsQueryCriteriaTransfer {
@@ -317,13 +307,6 @@ class Timeout implements TimeoutInterface
         return $vSum;
     }
 
-    /**
-     * @param \DateTime $currentTime
-     * @param \Spryker\Zed\Oms\Business\Process\EventInterface $event
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $spySalesOrderItem
-     *
-     * @return \DateTime
-     */
     protected function calculateTimeoutFromTimeoutProcessor(
         DateTime $currentTime,
         EventInterface $event,

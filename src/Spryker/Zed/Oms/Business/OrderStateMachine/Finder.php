@@ -33,11 +33,6 @@ class Finder implements FinderInterface
      */
     protected $activeProcesses;
 
-    /**
-     * @param \Spryker\Zed\Oms\Persistence\OmsQueryContainerInterface $queryContainer
-     * @param \Spryker\Zed\Oms\Business\OrderStateMachine\BuilderInterface $builder
-     * @param array $activeProcesses
-     */
     public function __construct(
         OmsQueryContainerInterface $queryContainer,
         BuilderInterface $builder,
@@ -363,11 +358,6 @@ class Finder implements FinderInterface
         return $state->getDisplay();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     *
-     * @return \Spryker\Zed\Oms\Business\Process\StateInterface|null
-     */
     public function findStateByName(ItemTransfer $itemTransfer): ?StateInterface
     {
         $processName = $itemTransfer->requireProcess()->getProcess();

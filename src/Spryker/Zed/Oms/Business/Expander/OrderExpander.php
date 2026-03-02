@@ -25,10 +25,6 @@ class OrderExpander implements OrderExpanderInterface
      */
     protected $omsRepository;
 
-    /**
-     * @param \Spryker\Zed\Oms\Business\Checker\FlagCheckerInterface $flagChecker
-     * @param \Spryker\Zed\Oms\Persistence\OmsRepositoryInterface $omsRepository
-     */
     public function __construct(
         FlagCheckerInterface $flagChecker,
         OmsRepositoryInterface $omsRepository
@@ -37,11 +33,6 @@ class OrderExpander implements OrderExpanderInterface
         $this->omsRepository = $omsRepository;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     public function expandOrderWithOmsStates(OrderTransfer $orderTransfer): OrderTransfer
     {
         $itemStates = $this->getItemStates($orderTransfer);

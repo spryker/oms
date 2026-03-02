@@ -582,11 +582,6 @@ class Drawer implements DrawerInterface
         }
     }
 
-    /**
-     * @param \Spryker\Zed\Oms\Business\Process\EventInterface $event
-     *
-     * @return string
-     */
     protected function getTimeoutProcessorLabel(EventInterface $event): string
     {
         if (!$this->inCollection($this->timeoutProcessorCollection, $event->getTimeoutProcessor())) {

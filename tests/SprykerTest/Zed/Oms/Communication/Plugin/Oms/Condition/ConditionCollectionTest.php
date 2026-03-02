@@ -33,9 +33,6 @@ class ConditionCollectionTest extends Unit
      */
     public const CONDITION_NAME = 'conditionName';
 
-    /**
-     * @return void
-     */
     public function testAddShouldReturnInstance(): void
     {
         $conditionCollection = new ConditionCollection();
@@ -44,9 +41,6 @@ class ConditionCollectionTest extends Unit
         $this->assertInstanceOf(ConditionCollectionInterface::class, $result);
     }
 
-    /**
-     * @return void
-     */
     public function testGetShouldReturnCommand(): void
     {
         $conditionCollection = new ConditionCollection();
@@ -56,9 +50,6 @@ class ConditionCollectionTest extends Unit
         $this->assertSame($condition, $conditionCollection->get(static::CONDITION_NAME));
     }
 
-    /**
-     * @return void
-     */
     public function testHasShouldReturnFalse(): void
     {
         $conditionCollection = new ConditionCollection();
@@ -66,9 +57,6 @@ class ConditionCollectionTest extends Unit
         $this->assertFalse($conditionCollection->has(static::CONDITION_NAME));
     }
 
-    /**
-     * @return void
-     */
     public function testHasShouldReturnTrue(): void
     {
         $conditionCollection = new ConditionCollection();
@@ -78,9 +66,6 @@ class ConditionCollectionTest extends Unit
         $this->assertTrue($conditionCollection->has(static::CONDITION_NAME));
     }
 
-    /**
-     * @return void
-     */
     public function testGetShouldThrowException(): void
     {
         $conditionCollection = new ConditionCollection();
@@ -90,9 +75,6 @@ class ConditionCollectionTest extends Unit
         $conditionCollection->get(static::CONDITION_NAME);
     }
 
-    /**
-     * @return void
-     */
     public function testArrayAccess(): void
     {
         $conditionCollection = new ConditionCollection();

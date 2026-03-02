@@ -33,9 +33,6 @@ class CommandCollectionTest extends Unit
      */
     public const COMMAND_NAME = 'commandName';
 
-    /**
-     * @return void
-     */
     public function testAddShouldReturnInstance(): void
     {
         $commandCollection = new CommandCollection();
@@ -44,9 +41,6 @@ class CommandCollectionTest extends Unit
         $this->assertInstanceOf(CommandCollectionInterface::class, $result);
     }
 
-    /**
-     * @return void
-     */
     public function testHasShouldReturnFalse(): void
     {
         $commandCollection = new CommandCollection();
@@ -54,9 +48,6 @@ class CommandCollectionTest extends Unit
         $this->assertFalse($commandCollection->has(static::COMMAND_NAME));
     }
 
-    /**
-     * @return void
-     */
     public function testHasShouldReturnTrue(): void
     {
         $commandCollection = new CommandCollection();
@@ -66,9 +57,6 @@ class CommandCollectionTest extends Unit
         $this->assertTrue($commandCollection->has(static::COMMAND_NAME));
     }
 
-    /**
-     * @return void
-     */
     public function testGetShouldReturnCommand(): void
     {
         $commandCollection = new CommandCollection();
@@ -78,9 +66,6 @@ class CommandCollectionTest extends Unit
         $this->assertSame($command, $commandCollection->get(static::COMMAND_NAME));
     }
 
-    /**
-     * @return void
-     */
     public function testGetShouldThrowException(): void
     {
         $commandCollection = new CommandCollection();
@@ -90,9 +75,6 @@ class CommandCollectionTest extends Unit
         $commandCollection->get(static::COMMAND_NAME);
     }
 
-    /**
-     * @return void
-     */
     public function testArrayAccess(): void
     {
         $commandCollection = new CommandCollection();

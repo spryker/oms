@@ -15,12 +15,6 @@ use Orm\Zed\Oms\Persistence\SpyOmsProductReservationStore;
 
 class OmsMapper
 {
-    /**
-     * @param \Generated\Shared\Transfer\ReservationRequestTransfer $reservationRequestTransfer
-     * @param \Orm\Zed\Oms\Persistence\SpyOmsProductReservation $omsProductReservationEntity
-     *
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsProductReservation
-     */
     public function mapReservationRequestTransferToOmsProductReservationEntity(
         ReservationRequestTransfer $reservationRequestTransfer,
         SpyOmsProductReservation $omsProductReservationEntity
@@ -31,12 +25,6 @@ class OmsMapper
         return $omsProductReservationEntity;
     }
 
-    /**
-     * @param \Orm\Zed\Oms\Persistence\SpyOmsProductReservation $omsProductReservationEntity
-     * @param \Generated\Shared\Transfer\OmsProductReservationTransfer $omsProductReservationTransfer
-     *
-     * @return \Generated\Shared\Transfer\OmsProductReservationTransfer
-     */
     public function mapOmsProductReservationEntityToOmsProductReservationTransfer(
         SpyOmsProductReservation $omsProductReservationEntity,
         OmsProductReservationTransfer $omsProductReservationTransfer

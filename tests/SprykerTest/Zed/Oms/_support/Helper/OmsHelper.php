@@ -60,11 +60,6 @@ class OmsHelper extends Module
         self::CONDITION_PLUGINS => [],
     ];
 
-    /**
-     * @param \Codeception\TestInterface $test
-     *
-     * @return void
-     */
     public function _before(TestInterface $test): void
     {
         parent::_before($test);
@@ -74,9 +69,6 @@ class OmsHelper extends Module
         $this->disableProcessCache();
     }
 
-    /**
-     * @return void
-     */
     protected function reloadCommands(): void
     {
         if ($this->config[static::COMMAND_PLUGINS] === []) {
@@ -97,9 +89,6 @@ class OmsHelper extends Module
         );
     }
 
-    /**
-     * @return void
-     */
     protected function reloadConditions(): void
     {
         if ($this->config[static::CONDITION_PLUGINS] === []) {
@@ -134,12 +123,6 @@ class OmsHelper extends Module
         $this->setConfig(OmsConstants::ENABLE_PROCESS_CACHE, false);
     }
 
-    /**
-     * @param string $commandName
-     * @param string $commandPlugin
-     *
-     * @return void
-     */
     public function addCommand(string $commandName, string $commandPlugin): void
     {
         $this->config[static::COMMAND_PLUGINS][$commandName] = $commandPlugin;
@@ -147,12 +130,6 @@ class OmsHelper extends Module
         $this->reloadCommands();
     }
 
-    /**
-     * @param string $conditionName
-     * @param string $conditionPlugin
-     *
-     * @return void
-     */
     public function addCondition(string $conditionName, string $conditionPlugin): void
     {
         $this->config[static::CONDITION_PLUGINS][$conditionName] = $conditionPlugin;
@@ -160,23 +137,12 @@ class OmsHelper extends Module
         $this->reloadConditions();
     }
 
-    /**
-     * @param array $idSalesOrderItems
-     *
-     * @return void
-     */
     public function triggerEventForNewOrderItems(array $idSalesOrderItems): void
     {
         $omsFacade = new OmsFacade();
         $omsFacade->triggerEventForNewOrderItems($idSalesOrderItems);
     }
 
-    /**
-     * @param int $idSalesOrderItem
-     * @param \DateInterval $timeout
-     *
-     * @return void
-     */
     public function moveItemAfterTimeOut(int $idSalesOrderItem, DateInterval $timeout): void
     {
         $omsEventTimeoutQuery = new SpyOmsEventTimeoutQuery();
@@ -187,12 +153,6 @@ class OmsHelper extends Module
         $omsEventTimeout->save();
     }
 
-    /**
-     * @param int $idSalesOrderItem
-     * @param string $stateName
-     *
-     * @return void
-     */
     public function setItemState(int $idSalesOrderItem, string $stateName): void
     {
         $salesOrderItemQuery = new SpySalesOrderItemQuery();
@@ -229,25 +189,16 @@ class OmsHelper extends Module
         return $omsOrderItemStateTransfer;
     }
 
-    /**
-     * @return void
-     */
     public function checkCondition(): void
     {
         $this->runCommand('vendor/bin/console oms:check-condition -q');
     }
 
-    /**
-     * @return void
-     */
     public function checkTimeout(): void
     {
         $this->runCommand('vendor/bin/console oms:check-timeout -q');
     }
 
-    /**
-     * @return void
-     */
     public function clearLocks(): void
     {
         $this->runCommand('vendor/bin/console oms:check-locks -q');
@@ -266,12 +217,6 @@ class OmsHelper extends Module
         $process->run();
     }
 
-    /**
-     * @param array $activeProcesses
-     * @param string|null $xmlFolder
-     *
-     * @return void
-     */
     public function configureTestStateMachine(array $activeProcesses, ?string $xmlFolder = null): void
     {
         $this->clearPersistenceManagerCache();
@@ -284,11 +229,6 @@ class OmsHelper extends Module
         $this->setConfig(OmsConstants::ACTIVE_PROCESSES, $activeProcesses);
     }
 
-    /**
-     * @param array $seed
-     *
-     * @return \Generated\Shared\Transfer\OmsProductReservationTransfer
-     */
     public function haveOmsProductReservation(array $seed): OmsProductReservationTransfer
     {
         $omsProductReservationTransfer = new OmsProductReservationBuilder($seed);
@@ -307,11 +247,6 @@ class OmsHelper extends Module
         return $omsProductReservationTransfer;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsOrderItemState
-     */
     public function haveOmsOrderItemStateEntity(string $name): SpyOmsOrderItemState
     {
         $omsOrderItemState = SpyOmsOrderItemStateQuery::create()->filterByName($name)->findOneOrCreate();
@@ -334,11 +269,6 @@ class OmsHelper extends Module
         return (new OmsEventTriggerResponseBuilder($seedData))->build();
     }
 
-    /**
-     * @param array $seed
-     *
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsEventTimeout
-     */
     public function haveOmsEventTimeoutEntity(array $seed): SpyOmsEventTimeout
     {
         $omsEventTimeoutQuery = SpyOmsEventTimeoutQuery::create();
@@ -367,9 +297,6 @@ class OmsHelper extends Module
         return $omsEventTimeout;
     }
 
-    /**
-     * @return void
-     */
     protected function clearPersistenceManagerCache(): void
     {
         $stateCacheProperty = new ReflectionProperty(PersistenceManager::class, 'stateCache');

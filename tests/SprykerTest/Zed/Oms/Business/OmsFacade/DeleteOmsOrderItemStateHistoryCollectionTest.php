@@ -29,9 +29,6 @@ class DeleteOmsOrderItemStateHistoryCollectionTest extends Unit
      */
     protected OmsBusinessTester $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -40,9 +37,6 @@ class DeleteOmsOrderItemStateHistoryCollectionTest extends Unit
         $this->tester->ensureOmsOrderItemStateHistoryTableIsEmpty();
     }
 
-    /**
-     * @return void
-     */
     public function testDeletesOmsOrderItemStateHistoryEntitiesBySalesOrderItemIds(): void
     {
         // Arrange
@@ -62,9 +56,6 @@ class DeleteOmsOrderItemStateHistoryCollectionTest extends Unit
         $this->assertSame($idSalesOrderItem2, $omsOrderItemStateHistoryEntities[0]->getFkSalesOrderItem());
     }
 
-    /**
-     * @return void
-     */
     public function testDoesNotDeleteOmsOrderItemStateHistoryEntitiesWhenNoEntitiesFoundBySalesOrderItemIds(): void
     {
         // Arrange
@@ -83,9 +74,6 @@ class DeleteOmsOrderItemStateHistoryCollectionTest extends Unit
         $this->assertSame($idSalesOrderItem, $omsOrderItemStateHistoryEntities[0]->getFkSalesOrderItem());
     }
 
-    /**
-     * @return void
-     */
     public function testDoesNotDeleteOmsOrderItemStateHistoryEntitiesWhenNoCriteriaConditionsAreSet(): void
     {
         // Arrange

@@ -18,13 +18,6 @@ interface OmsTriggerFormCollectionBuilderInterface
      */
     public function buildOrderOmsTriggerFormCollection(string $redirectUrl, array $events, int $idSalesOrder): array;
 
-    /**
-     * @param string $redirectUrl
-     * @param array $eventsGroupedByItem
-     * @param int $idSalesOrderItem
-     *
-     * @return array
-     */
     public function buildOrderItemOmsTriggerFormCollection(string $redirectUrl, array $eventsGroupedByItem, int $idSalesOrderItem): array;
 
     /**

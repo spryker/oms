@@ -112,11 +112,6 @@ class MailHandler
         return $orderTransfer;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrderEntity
-     *
-     * @return \Generated\Shared\Transfer\AddressTransfer|null
-     */
     protected function mapShippingAddressEntityToShippingAddressTransfer(SpySalesOrder $salesOrderEntity): ?AddressTransfer
     {
         $shippingAddressEntity = $salesOrderEntity->getShippingAddress();
@@ -169,12 +164,6 @@ class MailHandler
         return $localeTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\MailTransfer
-     */
     protected function expandOrderMailTransfer(MailTransfer $mailTransfer, OrderTransfer $orderTransfer): MailTransfer
     {
         foreach ($this->orderMailExpanderPlugins as $orderMailExpanderPlugin) {

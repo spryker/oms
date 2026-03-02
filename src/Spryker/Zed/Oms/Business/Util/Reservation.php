@@ -101,11 +101,6 @@ class Reservation implements ReservationInterface
         $this->handleReservationPlugins($sku);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ReservationRequestTransfer $reservationRequestTransfer
-     *
-     * @return void
-     */
     public function updateReservation(ReservationRequestTransfer $reservationRequestTransfer): void
     {
         foreach ($this->getAllStoreTransfersCache() as $storeTransfer) {
@@ -152,11 +147,6 @@ class Reservation implements ReservationInterface
         $this->omsEntityManager->saveReservation($reservationRequestTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ReservationRequestTransfer $reservationRequestTransfer
-     *
-     * @return void
-     */
     protected function writeReservation(ReservationRequestTransfer $reservationRequestTransfer): void
     {
         foreach ($this->omsReservationWriterStrategyPlugins as $omsReservationWriterStrategyPlugin) {

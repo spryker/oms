@@ -13,18 +13,10 @@ use Spryker\Zed\Oms\Persistence\OmsEntityManagerInterface;
 
 class OmsEventTimeoutDeleter implements OmsEventTimeoutDeleterInterface
 {
-    /**
-     * @param \Spryker\Zed\Oms\Persistence\OmsEntityManagerInterface $omsEntityManager
-     */
     public function __construct(protected OmsEntityManagerInterface $omsEntityManager)
     {
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OmsEventTimeoutCollectionDeleteCriteriaTransfer $omsEventTimeoutCollectionDeleteCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\OmsEventTimeoutCollectionResponseTransfer
-     */
     public function deleteOmsEventTimeoutCollection(
         OmsEventTimeoutCollectionDeleteCriteriaTransfer $omsEventTimeoutCollectionDeleteCriteriaTransfer
     ): OmsEventTimeoutCollectionResponseTransfer {

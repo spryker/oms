@@ -62,11 +62,6 @@ class OmsEntityManager extends AbstractEntityManager implements OmsEntityManager
         $omsProductReservationEntity->save();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ReservationRequestTransfer $reservationRequestTransfer
-     *
-     * @return void
-     */
     public function saveReservation(ReservationRequestTransfer $reservationRequestTransfer): void
     {
         $reservationRequestTransfer->requireSku()

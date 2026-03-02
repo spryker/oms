@@ -46,9 +46,6 @@ class ReservationReaderTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -58,9 +55,6 @@ class ReservationReaderTest extends Unit
         $this->tester->configureTestStateMachine(['Test06']);
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         parent::tearDown();
@@ -68,9 +62,6 @@ class ReservationReaderTest extends Unit
         $this->tester->resetReservedStateProcessNamesCache();
     }
 
-    /**
-     * @return void
-     */
     public function testSumReservedProductQuantitiesShouldSumAllItemsInReservedStateIncludedSubProcesses(): void
     {
         if ($this->tester->isDynamicStoreEnabled()) {
@@ -125,12 +116,6 @@ class ReservationReaderTest extends Unit
         );
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $orderItem
-     * @param string $itemSku
-     *
-     * @return void
-     */
     protected function applyOrderItemSkuAndQuantityForQuantityCheck(SpySalesOrderItem $orderItem, string $itemSku): void
     {
         $itemQuantity = rand(1, 10);
@@ -140,9 +125,6 @@ class ReservationReaderTest extends Unit
             ->save();
     }
 
-    /**
-     * @return \Spryker\Zed\Store\Business\StoreFacadeInterface
-     */
     protected function getStoreFacade(): StoreFacadeInterface
     {
         return $this->tester->getLocator()->store()->facade();

@@ -44,12 +44,5 @@ abstract class AbstractOmsTriggerFormDataProvider
      */
     public const SUBMIT_BUTTON_CLASS = 'btn btn-primary btn-sm trigger-event safe-submit';
 
-    /**
-     * @param string $redirectUrl
-     * @param string $event
-     * @param int $id
-     *
-     * @return array
-     */
     abstract public function getOptions(string $redirectUrl, string $event, int $id): array;
 }

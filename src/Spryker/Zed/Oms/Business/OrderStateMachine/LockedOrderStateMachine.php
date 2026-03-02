@@ -17,14 +17,6 @@ class LockedOrderStateMachine implements OrderStateMachineInterface
 {
     use OrderStateOrderItemsFetchTrait;
 
-    /**
-     * @param \Spryker\Zed\Oms\Business\OrderStateMachine\OrderStateMachineInterface $stateMachine
-     * @param \Spryker\Zed\Oms\Business\Lock\LockerInterface $triggerLocker
-     * @param \Spryker\Zed\Oms\Business\OrderStateMachine\BuilderInterface $builder
-     * @param \Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject $activeProcesses
-     * @param \Spryker\Zed\Oms\Persistence\OmsQueryContainerInterface $queryContainer
-     * @param \Spryker\Zed\Oms\OmsConfig $omsConfig
-     */
     public function __construct(
         protected OrderStateMachineInterface $stateMachine,
         protected LockerInterface $triggerLocker,

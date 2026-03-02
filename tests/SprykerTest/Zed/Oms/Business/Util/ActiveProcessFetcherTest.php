@@ -53,9 +53,6 @@ class ActiveProcessFetcherTest extends Unit
      */
     protected OmsBusinessTester $tester;
 
-    /**
-     * @return void
-     */
     public function testGetReservedStatesFromAllActiveProcesses(): void
     {
         $activeProcessFetcher = $this->createActiveProcessFetcher();
@@ -73,27 +70,18 @@ class ActiveProcessFetcherTest extends Unit
         $this->assertEquals($expectedStates, $reservedStateNames);
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         parent::tearDown();
         $this->clearReservedStatesCache();
     }
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         $this->clearReservedStatesCache();
         parent::setUp();
     }
 
-    /**
-     * @return void
-     */
     protected function clearReservedStatesCache(): void
     {
         $reflectionResolver = new ReflectionClass(ActiveProcessFetcher::class);
@@ -102,9 +90,6 @@ class ActiveProcessFetcherTest extends Unit
         $reflectionProperty->setValue([]);
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\Util\ActiveProcessFetcherInterface
-     */
     protected function createActiveProcessFetcher(): ActiveProcessFetcherInterface
     {
         $drawerMock = $this->createDrawerMock();
@@ -126,11 +111,6 @@ class ActiveProcessFetcherTest extends Unit
         return $this->getMockBuilder(DrawerInterface::class)->getMock();
     }
 
-    /**
-     * @param \Spryker\Zed\Oms\Business\Util\DrawerInterface $drawerMock
-     *
-     * @return \Spryker\Zed\Oms\Business\OrderStateMachine\BuilderInterface
-     */
     protected function createBuilder(DrawerInterface $drawerMock): BuilderInterface
     {
         return new Builder(
@@ -145,9 +125,6 @@ class ActiveProcessFetcherTest extends Unit
         );
     }
 
-    /**
-     * @return string
-     */
     protected function getProcessLocation(): string
     {
         return __DIR__ . '/ActiveProcessFetcher/Fixtures';

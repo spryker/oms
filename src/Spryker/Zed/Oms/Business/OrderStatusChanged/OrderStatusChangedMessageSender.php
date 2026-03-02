@@ -47,13 +47,6 @@ class OrderStatusChangedMessageSender implements OrderStatusChangedMessageSender
      */
     protected $queryContainer;
 
-    /**
-     * @param \Spryker\Zed\Oms\Dependency\Facade\OmsToMessageBrokerInterface $messageBrokerFacade
-     * @param \Spryker\Zed\Oms\Dependency\Facade\OmsToStoreFacadeInterface $storeFacade
-     * @param \Spryker\Zed\Oms\Dependency\Facade\OmsToSalesInterface $salesFacade
-     * @param \Spryker\Zed\Oms\OmsConfig $omsConfig
-     * @param \Spryker\Zed\Oms\Persistence\OmsQueryContainerInterface $queryContainer
-     */
     public function __construct(
         OmsToMessageBrokerInterface $messageBrokerFacade,
         OmsToStoreFacadeInterface $storeFacade,
@@ -68,11 +61,6 @@ class OrderStatusChangedMessageSender implements OrderStatusChangedMessageSender
         $this->queryContainer = $queryContainer;
     }
 
-    /**
-     * @param int $idSalesOrder
-     *
-     * @return void
-     */
     public function sendMessage(int $idSalesOrder): void
     {
         $orderStatusChangedTransfer = $this->createOrderStatusChangedTransfer($idSalesOrder);
@@ -81,11 +69,6 @@ class OrderStatusChangedMessageSender implements OrderStatusChangedMessageSender
         $this->messageBrokerFacade->sendMessage($orderStatusChangedTransfer);
     }
 
-    /**
-     * @param int $idSalesOrder
-     *
-     * @return \Generated\Shared\Transfer\OrderStatusChangedTransfer
-     */
     protected function createOrderStatusChangedTransfer(int $idSalesOrder): OrderStatusChangedTransfer
     {
         $orderTransfer = $this->salesFacade->getOrderByIdSalesOrder($idSalesOrder);
@@ -125,11 +108,6 @@ class OrderStatusChangedMessageSender implements OrderStatusChangedMessageSender
         return $orderStatusChangedTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderStatusChangedTransfer $orderStatusChangedTransfer
-     *
-     * @return void
-     */
     protected function setMessageAttributesTransfer(OrderStatusChangedTransfer $orderStatusChangedTransfer): void
     {
         $storeTransfer = $this->storeFacade->getStoreByName($orderStatusChangedTransfer->getStoreNameOrFail());
@@ -140,12 +118,6 @@ class OrderStatusChangedMessageSender implements OrderStatusChangedMessageSender
         $orderStatusChangedTransfer->setMessageAttributes($messageAttributes);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param array $orderFieldsAllowedForSending
-     *
-     * @return array
-     */
     protected function mapOrderDataByAllowedFields(OrderTransfer $orderTransfer, array $orderFieldsAllowedForSending): array
     {
         return $this->mapTransferDataByAllowedFieldsRecursive(
@@ -155,13 +127,6 @@ class OrderStatusChangedMessageSender implements OrderStatusChangedMessageSender
         );
     }
 
-    /**
-     * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer $transfer
-     * @param array $allowedFields
-     * @param array $mappedData
-     *
-     * @return array
-     */
     protected function mapTransferDataByAllowedFieldsRecursive(
         AbstractTransfer $transfer,
         array $allowedFields,

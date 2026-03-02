@@ -57,9 +57,6 @@ class ProcessCacheWriterTest extends Unit
      */
     protected const PROCESS_NAME = 'test_process';
 
-    /**
-     * @return void
-     */
     protected function _before(): void
     {
         parent::_before();
@@ -76,9 +73,6 @@ class ProcessCacheWriterTest extends Unit
         $this->processCacheWriter = new ProcessCacheWriter($this->omsConfigMock, $this->processCacheReaderMock);
     }
 
-    /**
-     * @return void
-     */
     protected function _after(): void
     {
         parent::_after();
@@ -87,9 +81,6 @@ class ProcessCacheWriterTest extends Unit
         rmdir($this->testDirectory);
     }
 
-    /**
-     * @return void
-     */
     public function testCacheProcessCreatesCacheFileWithGivenProcessName(): void
     {
         $processMock = $this->createMock(ProcessInterface::class);
@@ -106,9 +97,6 @@ class ProcessCacheWriterTest extends Unit
         $this->assertSame(sprintf('%s%s', $this->testDirectory, static::PROCESS_NAME), $cachedFilePath);
     }
 
-    /**
-     * @return void
-     */
     public function testCacheProcessCreatesCacheFileWithDefaultProcessName(): void
     {
         $processMock = $this->createMock(ProcessInterface::class);

@@ -61,9 +61,6 @@ class CheckTimeoutConsole extends Console
      */
     protected const OPTION_PROCESSOR_ID_SHORT = 'p';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         $this
@@ -76,12 +73,6 @@ class CheckTimeoutConsole extends Console
         parent::configure();
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return int
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $omsCheckTimeoutsQueryCriteriaTransfer = $this->buildOmsCheckTimeoutsQueryCriteriaTransfer($input);
@@ -91,11 +82,6 @@ class CheckTimeoutConsole extends Console
         return static::CODE_SUCCESS;
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     *
-     * @return \Generated\Shared\Transfer\OmsCheckTimeoutsQueryCriteriaTransfer
-     */
     protected function buildOmsCheckTimeoutsQueryCriteriaTransfer(InputInterface $input): OmsCheckTimeoutsQueryCriteriaTransfer
     {
         $omsCheckTimeoutsQueryCriteriaTransfer = new OmsCheckTimeoutsQueryCriteriaTransfer();

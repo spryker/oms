@@ -23,10 +23,5 @@ interface PersistenceManagerInterface
      */
     public function getInitialStateEntity();
 
-    /**
-     * @param string $stateName
-     *
-     * @return \Generated\Shared\Transfer\OmsOrderItemStateTransfer
-     */
     public function getOmsOrderItemState(string $stateName): OmsOrderItemStateTransfer;
 }

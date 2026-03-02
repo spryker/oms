@@ -24,10 +24,6 @@ class OrderAggregatedItemStateExpander implements OrderAggregatedItemStateExpand
      */
     protected $omsRepository;
 
-    /**
-     * @param \Spryker\Zed\Oms\Business\Expander\OrderItemStateExpanderInterface $orderItemStateExpander
-     * @param \Spryker\Zed\Oms\Persistence\OmsRepositoryInterface $omsRepository
-     */
     public function __construct(
         OrderItemStateExpanderInterface $orderItemStateExpander,
         OmsRepositoryInterface $omsRepository

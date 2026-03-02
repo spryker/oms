@@ -42,9 +42,6 @@ class SetOrderIsCancellableByItemStateTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -55,9 +52,6 @@ class SetOrderIsCancellableByItemStateTest extends Unit
         ]);
     }
 
-    /**
-     * @return void
-     */
     public function testSetOrderIsCancellableByItemStateWithCancellableFLagsInOmsProcess(): void
     {
         // Arrange
@@ -72,9 +66,6 @@ class SetOrderIsCancellableByItemStateTest extends Unit
         $this->assertTrue(array_shift($orderTransfers)->getIsCancellable());
     }
 
-    /**
-     * @return void
-     */
     public function testSetOrderIsCancellableByItemStateWithoutCancellableFLagsInOmsProcess(): void
     {
         // Arrange
@@ -89,9 +80,6 @@ class SetOrderIsCancellableByItemStateTest extends Unit
         $this->assertFalse(array_shift($orderTransfers)->getIsCancellable());
     }
 
-    /**
-     * @return void
-     */
     public function testSetOrderIsCancellableByItemStateWhenOneItemInStateWithoutCancellableFlag(): void
     {
         // Arrange
@@ -111,9 +99,6 @@ class SetOrderIsCancellableByItemStateTest extends Unit
         $this->assertFalse(array_shift($orderTransfers)->getIsCancellable());
     }
 
-    /**
-     * @return void
-     */
     public function testSetOrderIsCancellableByItemStateWhenAllItemsInStateWithoutCancellableFlag(): void
     {
         // Arrange
@@ -132,9 +117,6 @@ class SetOrderIsCancellableByItemStateTest extends Unit
         $this->assertFalse(array_shift($orderTransfers)->getIsCancellable());
     }
 
-    /**
-     * @return void
-     */
     public function testSetOrderIsCancellableByItemStateWithTwoOrders(): void
     {
         // Arrange

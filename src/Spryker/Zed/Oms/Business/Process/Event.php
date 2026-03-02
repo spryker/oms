@@ -186,27 +186,16 @@ class Event implements EventInterface
         return $this->timeout !== null;
     }
 
-    /**
-     * @param string|null $timeoutProcessor
-     *
-     * @return void
-     */
     public function setTimeoutProcessor(?string $timeoutProcessor): void
     {
         $this->timeoutProcessor = $timeoutProcessor;
     }
 
-    /**
-     * @return string|null
-     */
     public function getTimeoutProcessor(): ?string
     {
         return $this->timeoutProcessor;
     }
 
-    /**
-     * @return bool
-     */
     public function hasTimeoutProcessor(): bool
     {
         return $this->timeoutProcessor !== null;

@@ -29,9 +29,6 @@ class ProcessCacheWarmUpConsole extends Console
      */
     protected const COMMAND_DESCRIPTION = 'Builds cache for the OMS processes';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         $this
@@ -41,12 +38,6 @@ class ProcessCacheWarmUpConsole extends Console
         parent::configure();
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return int
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->getFacade()->getProcesses(true);

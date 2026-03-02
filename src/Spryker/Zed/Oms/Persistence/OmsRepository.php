@@ -109,11 +109,6 @@ class OmsRepository extends AbstractRepository implements OmsRepositoryInterface
             ->mapOrderItemMatrix($orderItemsMatrixResult->getArrayCopy());
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderMatrixCriteriaTransfer $orderMatrixCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderMatrixCollectionTransfer
-     */
     public function getOrderMatrixCollection(OrderMatrixCriteriaTransfer $orderMatrixCriteriaTransfer): OrderMatrixCollectionTransfer
     {
         $subQuery = $this->getOrderMatrixSubquery($orderMatrixCriteriaTransfer);
@@ -162,11 +157,6 @@ class OmsRepository extends AbstractRepository implements OmsRepositoryInterface
             ->getProcessNamesIndexedByIdOmsOrderProcess($processEntities);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderMatrixCriteriaTransfer $orderMatrixCriteriaTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery
-     */
     protected function getOrderMatrixSubquery(OrderMatrixCriteriaTransfer $orderMatrixCriteriaTransfer): SpySalesOrderItemQuery
     {
         /** @var \Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery $subQuery */
@@ -324,12 +314,6 @@ class OmsRepository extends AbstractRepository implements OmsRepositoryInterface
             ->mapSalesOrderItemEntityCollectionToOrderItemTransfers($salesOrderItemQuery->find());
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery $salesOrderItemQuery
-     * @param \Generated\Shared\Transfer\OrderItemFilterTransfer $orderItemFilterTransfer
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery
-     */
     protected function setSalesOrderItemQueryFilters(
         SpySalesOrderItemQuery $salesOrderItemQuery,
         OrderItemFilterTransfer $orderItemFilterTransfer
@@ -352,11 +336,6 @@ class OmsRepository extends AbstractRepository implements OmsRepositoryInterface
         return $salesOrderItemQuery;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ReservationRequestTransfer $reservationRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\OmsProductReservationTransfer|null
-     */
     public function findProductReservation(ReservationRequestTransfer $reservationRequestTransfer): ?OmsProductReservationTransfer
     {
         $reservationRequestTransfer->requireSku()
@@ -382,12 +361,6 @@ class OmsRepository extends AbstractRepository implements OmsRepositoryInterface
             );
     }
 
-    /**
-     * @param string $sku
-     * @param int $idStore
-     *
-     * @return \Spryker\DecimalObject\Decimal
-     */
     public function findProductReservationQuantity(string $sku, int $idStore): Decimal
     {
         $reservationEntity = $this->getFactory()->createOmsProductReservationQuery()

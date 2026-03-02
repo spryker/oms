@@ -197,11 +197,6 @@ class TriggerController extends AbstractController
         return $this->isTriggerFormValid($request);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return bool
-     */
     protected function isTriggerFormValid(Request $request): bool
     {
         $form = $this->getFactory()
@@ -212,11 +207,6 @@ class TriggerController extends AbstractController
         return $form->isSubmitted() && $form->isValid();
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return bool
-     */
     protected function isCsrfTokenValid(Request $request): bool
     {
         /** @var string|null $token */
@@ -233,11 +223,6 @@ class TriggerController extends AbstractController
             ->isTokenValid(new CsrfToken(static::OMS_TRIGGER_FORM_PREFIX . $event . '_' . $idSalesOrderItem, $token));
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return array
-     */
     protected function getRequestIdSalesOrderItems(Request $request): array
     {
         $idOrderItems = $request->query->all(static::REQUEST_PARAMETER_ITEMS);

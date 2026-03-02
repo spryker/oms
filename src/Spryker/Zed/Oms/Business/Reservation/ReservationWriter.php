@@ -24,10 +24,6 @@ class ReservationWriter implements ReservationWriterInterface
      */
     protected $omsQueryContainer;
 
-    /**
-     * @param \Spryker\Zed\Oms\Dependency\Facade\OmsToStoreFacadeInterface $storeFacade
-     * @param \Spryker\Zed\Oms\Persistence\OmsQueryContainerInterface $omsQueryContainer
-     */
     public function __construct(
         OmsToStoreFacadeInterface $storeFacade,
         OmsQueryContainerInterface $omsQueryContainer

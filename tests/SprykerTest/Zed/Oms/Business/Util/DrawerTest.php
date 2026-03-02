@@ -55,9 +55,6 @@ class DrawerTest extends Unit
      */
     protected const TIMEOUT_PROCESSOR_LABEL = 'TimeoutProcessor test label';
 
-    /**
-     * @return void
-     */
     public function testInstantiationConditionsArrayShouldConvertedToCollection(): void
     {
         $drawer = new Drawer(
@@ -76,9 +73,6 @@ class DrawerTest extends Unit
         $this->assertInstanceOf(ConditionInterface::class, $conditions->get(static::CONDITION_NAME));
     }
 
-    /**
-     * @return void
-     */
     public function testInstantiationWithConditionCollection(): void
     {
         $conditionCollection = new ConditionCollection();
@@ -100,9 +94,6 @@ class DrawerTest extends Unit
         $this->assertInstanceOf(ConditionInterface::class, $conditions->get(static::CONDITION_NAME));
     }
 
-    /**
-     * @return void
-     */
     public function testInstantiationCommandsArrayShouldConvertedToCollection(): void
     {
         $drawer = new Drawer(
@@ -121,9 +112,6 @@ class DrawerTest extends Unit
         $this->assertInstanceOf(CommandInterface::class, $commands->get(static::COMMAND_NAME));
     }
 
-    /**
-     * @return void
-     */
     public function testInstantiationWithCommandCollection(): void
     {
         $commandCollection = new CommandCollection();
@@ -145,9 +133,6 @@ class DrawerTest extends Unit
         $this->assertInstanceOf(CommandInterface::class, $commands->get(static::COMMAND_NAME));
     }
 
-    /**
-     * @return void
-     */
     public function testInstantiationWithTimeoutProcessorCollection(): void
     {
         $timeoutProcessorPluginMock = $this->getTimeoutProcessorPluginMock();

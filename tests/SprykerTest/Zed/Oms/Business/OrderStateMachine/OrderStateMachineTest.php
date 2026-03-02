@@ -68,9 +68,6 @@ class OrderStateMachineTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function testInstantiationConditionsArrayShouldConvertedToCollection(): void
     {
         $orderStateMachine = new OrderStateMachine(
@@ -94,9 +91,6 @@ class OrderStateMachineTest extends Unit
         $this->assertInstanceOf(ConditionInterface::class, $conditions->get(static::CONDITION_NAME));
     }
 
-    /**
-     * @return void
-     */
     public function testInstantiationWithConditionCollection(): void
     {
         $conditionCollection = new ConditionCollection();
@@ -123,9 +117,6 @@ class OrderStateMachineTest extends Unit
         $this->assertInstanceOf(ConditionInterface::class, $conditions->get(static::CONDITION_NAME));
     }
 
-    /**
-     * @return void
-     */
     public function testInstantiationCommandsArrayShouldConvertedToCollection(): void
     {
         $orderStateMachine = new OrderStateMachine(
@@ -149,9 +140,6 @@ class OrderStateMachineTest extends Unit
         $this->assertInstanceOf(CommandInterface::class, $commands->get(static::COMMAND_NAME));
     }
 
-    /**
-     * @return void
-     */
     public function testInstantiationWithCommandCollection(): void
     {
         $commandCollection = new CommandCollection();
@@ -343,9 +331,6 @@ class OrderStateMachineTest extends Unit
         $this->assertEquals($messageText, $triggerEventReturnData[OmsConfig::OMS_EVENT_TRIGGER_RESPONSE]->getMessages()[0]->getValue());
     }
 
-    /**
-     * @return void
-     */
     public function testTriggerEventShouldFilterOrderItemsWhenCommandReturnsUpdatedOrderItems(): void
     {
         // Arrange
@@ -386,9 +371,6 @@ class OrderStateMachineTest extends Unit
         ];
     }
 
-    /**
-     * @return array
-     */
     public function transitionOrderItemsDataProvider(): array
     {
         return [
@@ -466,12 +448,6 @@ class OrderStateMachineTest extends Unit
         }
     }
 
-    /**
-     * @param string $sourceStateName
-     * @param string $targetStateName
-     *
-     * @return \Spryker\Zed\Oms\Business\OrderStateMachine\OrderStateMachine
-     */
     protected function createOrderStatemachineMockForCheckConditionsWillTransitionOrderItem(string $sourceStateName, string $targetStateName): OrderStateMachine
     {
         $this->tester->mockConfigMethod('getActiveProcesses', ['DummyPayment01']);

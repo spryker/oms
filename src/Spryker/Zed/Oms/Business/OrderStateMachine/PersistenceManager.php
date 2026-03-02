@@ -35,19 +35,11 @@ class PersistenceManager implements PersistenceManagerInterface
      */
     protected static $processCache = [];
 
-    /**
-     * @param \Spryker\Zed\Oms\OmsConfig $omsConfig
-     */
     public function __construct(OmsConfig $omsConfig)
     {
         $this->omsConfig = $omsConfig;
     }
 
-    /**
-     * @param string $stateName
-     *
-     * @return \Generated\Shared\Transfer\OmsOrderItemStateTransfer
-     */
     public function getOmsOrderItemState(string $stateName): OmsOrderItemStateTransfer
     {
         $stateEntity = $this->getStateEntity($stateName);

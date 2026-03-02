@@ -39,9 +39,6 @@ class GetOmsOrderItemStateTest extends Unit
      */
     protected OmsBusinessTester $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -49,9 +46,6 @@ class GetOmsOrderItemStateTest extends Unit
         $this->tester->ensureOmsOrderItemStateDatabaseTableIsEmpty();
     }
 
-    /**
-     * @return void
-     */
     public function testShouldRetrieveOmsOrderItemState(): void
     {
         // Arrange
@@ -69,9 +63,6 @@ class GetOmsOrderItemStateTest extends Unit
         $this->assertSame($persistedOmsOrderItemState->getDescription(), $omsOrderItemStateTransfer->getDescription());
     }
 
-    /**
-     * @return void
-     */
     public function testShouldCreateOmsOrderItemState(): void
     {
         // Act

@@ -49,9 +49,6 @@ class ExpandOrderItemsWithStateHistoryTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -59,9 +56,6 @@ class ExpandOrderItemsWithStateHistoryTest extends Unit
         $this->tester->configureTestStateMachine([static::DEFAULT_OMS_PROCESS_NAME]);
     }
 
-    /**
-     * @return void
-     */
     public function testExpandOrderItemsWithStateHistoryExpandOrderItemsWithStateHistory(): void
     {
         // Arrange
@@ -80,9 +74,6 @@ class ExpandOrderItemsWithStateHistoryTest extends Unit
         $this->assertCount(2, $itemTransfers[0]->getStateHistory());
     }
 
-    /**
-     * @return void
-     */
     public function testExpandOrderItemsWithStateHistoryUpdatesItemStateCreatedAtFromLatestHistoryState(): void
     {
         // Arrange
@@ -104,9 +95,6 @@ class ExpandOrderItemsWithStateHistoryTest extends Unit
         $this->assertNotNull($itemTransfers[0]->getState()->getCreatedAt());
     }
 
-    /**
-     * @return void
-     */
     public function testExpandOrderItemsWithStateHistoryCompareIdSalesOrderItemIds(): void
     {
         $orderTransfer = $this->tester->createOrderByStateMachineProcessName(static::DEFAULT_OMS_PROCESS_NAME);
@@ -125,9 +113,6 @@ class ExpandOrderItemsWithStateHistoryTest extends Unit
         $this->assertSame($itemTransfer->getIdSalesOrderItem(), $itemTransfers[0]->getStateHistory()->offsetGet(1)->getIdSalesOrderItem());
     }
 
-    /**
-     * @return void
-     */
     public function testExpandOrderItemsWithStateHistoryWithoutSalesOrderItemId(): void
     {
         // Act
@@ -139,9 +124,6 @@ class ExpandOrderItemsWithStateHistoryTest extends Unit
         $this->assertEmpty($itemTransfers[0]->getStateHistory());
     }
 
-    /**
-     * @return void
-     */
     public function testExpandOrderItemsWithStateHistoryWithFakeSalesOrderItemId(): void
     {
         // Act

@@ -49,9 +49,6 @@ class GetOrderItemManualEventsTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -59,9 +56,6 @@ class GetOrderItemManualEventsTest extends Unit
         $this->tester->configureTestStateMachine([static::DEFAULT_OMS_PROCESS_NAME]);
     }
 
-    /**
-     * @return void
-     */
     public function testGetOrderItemManualEventsReturnsAvailableEvents(): void
     {
         // Arrange
@@ -77,9 +71,6 @@ class GetOrderItemManualEventsTest extends Unit
         $this->assertCount(count($salesOrderItemIds), $orderItemManualEvents);
     }
 
-    /**
-     * @return void
-     */
     public function testGetOrderItemManualEventsReturnsEmptyArray(): void
     {
         // Arrange

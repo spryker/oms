@@ -13,18 +13,10 @@ use Spryker\Zed\Oms\Persistence\OmsEntityManagerInterface;
 
 class OmsTransitionLogDeleter implements OmsTransitionLogDeleterInterface
 {
-    /**
-     * @param \Spryker\Zed\Oms\Persistence\OmsEntityManagerInterface $omsEntityManager
-     */
     public function __construct(protected OmsEntityManagerInterface $omsEntityManager)
     {
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OmsTransitionLogCollectionDeleteCriteriaTransfer $omsTransitionLogCollectionDeleteCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\OmsTransitionLogCollectionResponseTransfer
-     */
     public function deleteOmsTransitionLogCollection(
         OmsTransitionLogCollectionDeleteCriteriaTransfer $omsTransitionLogCollectionDeleteCriteriaTransfer
     ): OmsTransitionLogCollectionResponseTransfer {

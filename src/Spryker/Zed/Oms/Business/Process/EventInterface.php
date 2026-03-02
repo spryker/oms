@@ -101,20 +101,9 @@ interface EventInterface
      */
     public function hasTimeout();
 
-    /**
-     * @param string|null $timeoutProcessor
-     *
-     * @return void
-     */
     public function setTimeoutProcessor(?string $timeoutProcessor): void;
 
-    /**
-     * @return string|null
-     */
     public function getTimeoutProcessor(): ?string;
 
-    /**
-     * @return bool
-     */
     public function hasTimeoutProcessor(): bool;
 }

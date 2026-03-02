@@ -146,11 +146,6 @@ class Builder implements BuilderInterface
         return static::$processBuffer[$processName];
     }
 
-    /**
-     * @param string $processName
-     *
-     * @return \Spryker\Zed\Oms\Business\Process\ProcessInterface
-     */
     protected function createMainProcess(string $processName): ProcessInterface
     {
         $this->rootElement = $this->loadXmlFromProcessName($processName);

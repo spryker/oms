@@ -22,11 +22,6 @@ interface ReservationInterface
      */
     public function updateReservationQuantity($sku);
 
-    /**
-     * @param \Generated\Shared\Transfer\ReservationRequestTransfer $reservationRequestTransfer
-     *
-     * @return void
-     */
     public function updateReservation(ReservationRequestTransfer $reservationRequestTransfer): void;
 
     /**

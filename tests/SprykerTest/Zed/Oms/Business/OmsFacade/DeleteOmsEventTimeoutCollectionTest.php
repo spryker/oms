@@ -30,9 +30,6 @@ class DeleteOmsEventTimeoutCollectionTest extends Unit
      */
     protected OmsBusinessTester $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -41,9 +38,6 @@ class DeleteOmsEventTimeoutCollectionTest extends Unit
         $this->tester->ensureOmsEventTimeoutTableIsEmpty();
     }
 
-    /**
-     * @return void
-     */
     public function testDeletesOmsEventTimeoutEntitiesBySalesOrderItemIds(): void
     {
         // Arrange
@@ -77,9 +71,6 @@ class DeleteOmsEventTimeoutCollectionTest extends Unit
         $this->assertSame($idSalesOrderItem2, $omsEventTimeoutEntities[0]->getFkSalesOrderItem());
     }
 
-    /**
-     * @return void
-     */
     public function testDoesNotDeleteOmsEventTimeoutEntitiesWhenNoEntitiesFoundBySalesOrderItemIds(): void
     {
         // Arrange
@@ -106,9 +97,6 @@ class DeleteOmsEventTimeoutCollectionTest extends Unit
         $this->assertSame($idSalesOrderItem, $omsEventTimeoutEntities[0]->getFkSalesOrderItem());
     }
 
-    /**
-     * @return void
-     */
     public function testDoesNotDeleteOmsEventTimeoutEntitiesWhenNoCriteriaConditionsAreSet(): void
     {
         // Arrange

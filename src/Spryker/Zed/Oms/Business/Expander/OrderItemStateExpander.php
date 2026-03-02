@@ -32,11 +32,6 @@ class OrderItemStateExpander implements OrderItemStateExpanderInterface
      */
     protected $omsConfig;
 
-    /**
-     * @param \Spryker\Zed\Oms\Business\OrderStateMachine\FinderInterface $finder
-     * @param \Spryker\Zed\Oms\Persistence\OmsRepositoryInterface $omsRepository
-     * @param \Spryker\Zed\Oms\OmsConfig $omsConfig
-     */
     public function __construct(FinderInterface $finder, OmsRepositoryInterface $omsRepository, OmsConfig $omsConfig)
     {
         $this->finder = $finder;
@@ -105,11 +100,6 @@ class OrderItemStateExpander implements OrderItemStateExpanderInterface
         return $mappedItemTransfers;
     }
 
-    /**
-     * @param \Spryker\Zed\Oms\Business\Process\StateInterface $state
-     *
-     * @return string
-     */
     protected function getDisplayName(StateInterface $state): string
     {
         if ($state->getDisplay()) {
@@ -119,12 +109,6 @@ class OrderItemStateExpander implements OrderItemStateExpanderInterface
         return $this->omsConfig->getFallbackDisplayNamePrefix() . str_replace(' ', '-', mb_strtolower(trim($state->getName())));
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     * @param \Spryker\Zed\Oms\Business\Process\StateInterface $state
-     *
-     * @return \Generated\Shared\Transfer\ItemTransfer
-     */
     protected function setItemState(ItemTransfer $itemTransfer, StateInterface $state): ItemTransfer
     {
         if (!$itemTransfer->getState()) {

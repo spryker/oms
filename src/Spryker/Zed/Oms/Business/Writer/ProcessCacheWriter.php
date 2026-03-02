@@ -23,10 +23,6 @@ class ProcessCacheWriter implements ProcessCacheWriterInterface
      */
     protected ProcessCacheReaderInterface $processCacheReader;
 
-    /**
-     * @param \Spryker\Zed\Oms\OmsConfig $omsConfig
-     * @param \Spryker\Zed\Oms\Business\Reader\ProcessCacheReaderInterface $processCacheReader
-     */
     public function __construct(
         OmsConfig $omsConfig,
         ProcessCacheReaderInterface $processCacheReader
@@ -35,12 +31,6 @@ class ProcessCacheWriter implements ProcessCacheWriterInterface
         $this->processCacheReader = $processCacheReader;
     }
 
-    /**
-     * @param \Spryker\Zed\Oms\Business\Process\ProcessInterface $process
-     * @param string|null $processName
-     *
-     * @return string
-     */
     public function cacheProcess(ProcessInterface $process, ?string $processName = null): string
     {
         $this->createCacheDirectory();
@@ -55,9 +45,6 @@ class ProcessCacheWriter implements ProcessCacheWriterInterface
         return $fullFilename;
     }
 
-    /**
-     * @return void
-     */
     protected function createCacheDirectory(): void
     {
         if (file_exists($this->omsConfig->getProcessCachePath())) {

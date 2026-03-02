@@ -52,12 +52,6 @@ class OrderItemMatrix
      */
     protected $omsRepository;
 
-    /**
-     * @param \Spryker\Zed\Oms\Persistence\OmsQueryContainerInterface $queryContainer
-     * @param \Spryker\Zed\Oms\OmsConfig $config
-     * @param \Spryker\Zed\Oms\Dependency\Service\OmsToUtilSanitizeInterface $utilSanitizeService
-     * @param \Spryker\Zed\Oms\Persistence\OmsRepositoryInterface $omsRepository
-     */
     public function __construct(
         OmsQueryContainerInterface $queryContainer,
         OmsConfig $config,
@@ -116,13 +110,6 @@ class OrderItemMatrix
         return $headersColumns;
     }
 
-    /**
-     * @param array $gridInput
-     * @param int $idProcess
-     * @param int $idState
-     *
-     * @return string
-     */
     protected function formatElement(array $gridInput, int $idProcess, int $idState): string
     {
         $grid = array_replace([
@@ -187,9 +174,6 @@ class OrderItemMatrix
         return $blacklist;
     }
 
-    /**
-     * @return array
-     */
     protected function getOrderItemsMatrix(): array
     {
         return $this->omsRepository->getMatrixOrderItems(array_keys($this->processes), $this->getStateBlacklist());

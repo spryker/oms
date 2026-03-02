@@ -57,9 +57,6 @@ class TimeoutTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function testCheckTimeouts(): void
     {
         $salesOrderItem1 = $this->createSalesOrderItem(10, 1, static::EVENT_PAY);
@@ -170,9 +167,6 @@ class TimeoutTest extends Unit
         );
     }
 
-    /**
-     * @return array
-     */
     public function dropEventsDataProvider(): array
     {
         return [
@@ -258,12 +252,6 @@ class TimeoutTest extends Unit
         return $processedItems;
     }
 
-    /**
-     * @param \Propel\Runtime\Collection\ObjectCollection $objectCollection
-     * @param string $stateName
-     *
-     * @return void
-     */
     protected function assertOrderItemsNotHaveTimeoutsWithState(ObjectCollection $objectCollection, string $stateName): void
     {
         $omsOrderItemStateEntity = SpyOmsOrderItemStateQuery::create()->findOneByName($stateName);
@@ -287,13 +275,6 @@ class TimeoutTest extends Unit
         );
     }
 
-    /**
-     * @param int $idSalesOrderItem
-     * @param int $idSalesOrder
-     * @param string $eventName
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderItem
-     */
     protected function createSalesOrderItem(int $idSalesOrderItem, int $idSalesOrder, string $eventName): SpySalesOrderItem
     {
         return (new SpySalesOrderItem())

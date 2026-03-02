@@ -11,11 +11,5 @@ use Spryker\Zed\Oms\Business\Process\ProcessInterface;
 
 interface ProcessCacheWriterInterface
 {
-    /**
-     * @param \Spryker\Zed\Oms\Business\Process\ProcessInterface $process
-     * @param string|null $processName
-     *
-     * @return string
-     */
     public function cacheProcess(ProcessInterface $process, ?string $processName = null): string;
 }

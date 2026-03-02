@@ -15,12 +15,6 @@ use Spryker\DecimalObject\Decimal;
 
 interface ReservationReaderInterface
 {
-    /**
-     * @param string $sku
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Spryker\DecimalObject\Decimal
-     */
     public function getOmsReservedProductQuantityForSku(string $sku, StoreTransfer $storeTransfer): Decimal;
 
     /**
@@ -31,31 +25,12 @@ interface ReservationReaderInterface
      */
     public function getOmsReservedProductQuantityForSkus(array $skus, StoreTransfer $storeTransfer): Decimal;
 
-    /**
-     * @param string $sku
-     * @param \Generated\Shared\Transfer\StoreTransfer $currentStoreTransfer
-     *
-     * @return \Spryker\DecimalObject\Decimal
-     */
     public function getReservationsFromOtherStores(string $sku, StoreTransfer $currentStoreTransfer): Decimal;
 
-    /**
-     * @return \Generated\Shared\Transfer\OmsStateCollectionTransfer
-     */
     public function getOmsReservedStateCollection(): OmsStateCollectionTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\ReservationRequestTransfer $reservationRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\ReservationResponseTransfer
-     */
     public function getOmsReservedProductQuantity(ReservationRequestTransfer $reservationRequestTransfer): ReservationResponseTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\ReservationRequestTransfer $reservationRequestTransfer
-     *
-     * @return \Spryker\DecimalObject\Decimal
-     */
     public function sumReservedProductQuantities(ReservationRequestTransfer $reservationRequestTransfer): Decimal;
 
     /**

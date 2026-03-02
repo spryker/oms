@@ -94,10 +94,5 @@ interface TransitionLogInterface
      */
     public function getLogForOrder(SpySalesOrder $order);
 
-    /**
-     * @param int $idSalesOrderItem
-     *
-     * @return void
-     */
     public function deleteLog(int $idSalesOrderItem): void;
 }

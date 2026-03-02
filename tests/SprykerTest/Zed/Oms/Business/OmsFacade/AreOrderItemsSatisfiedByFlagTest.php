@@ -40,9 +40,6 @@ class AreOrderItemsSatisfiedByFlagTest extends Unit
      */
     protected OmsBusinessTester $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -50,9 +47,6 @@ class AreOrderItemsSatisfiedByFlagTest extends Unit
         $this->tester->configureTestStateMachine([OmsBusinessTester::DEFAULT_OMS_PROCESS_NAME]);
     }
 
-    /**
-     * @return void
-     */
     public function testShouldReturnTrueWhenOrderReferenceIsProvidedAndAllOrderItemsSatisfiedByFlag(): void
     {
         // Arrange
@@ -71,9 +65,6 @@ class AreOrderItemsSatisfiedByFlagTest extends Unit
         $this->assertTrue($result);
     }
 
-    /**
-     * @return void
-     */
     public function testShouldReturnTrueWhenIdSalesOrderIsProvidedAndAllOrderItemsSatisfiedByFlag(): void
     {
         // Arrange
@@ -92,9 +83,6 @@ class AreOrderItemsSatisfiedByFlagTest extends Unit
         $this->assertTrue($result);
     }
 
-    /**
-     * @return void
-     */
     public function testShouldReturnFalseWhenAtLeastOneOrderItemIsNotSatisfiedByFlag(): void
     {
         // Arrange
@@ -112,9 +100,6 @@ class AreOrderItemsSatisfiedByFlagTest extends Unit
         $this->assertFalse($result);
     }
 
-    /**
-     * @return void
-     */
     public function testThrowsExceptionWhenOrderReferenceAndIdSalesOrderAreNotProvided(): void
     {
         // Assert

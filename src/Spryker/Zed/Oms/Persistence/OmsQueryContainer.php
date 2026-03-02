@@ -311,12 +311,6 @@ class OmsQueryContainer extends AbstractQueryContainer implements OmsQueryContai
         return $subQuery;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery $query
-     * @param string|null $storeName
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery
-     */
     protected function addEventTimeoutFilterToSalesOrderItemQuery(SpySalesOrderItemQuery $query, ?string $storeName = null): SpySalesOrderItemQuery
     {
         $query
@@ -327,12 +321,6 @@ class OmsQueryContainer extends AbstractQueryContainer implements OmsQueryContai
         return $query;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery $query
-     * @param string|null $storeName
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery
-     */
     protected function addStoreFilterToSalesOrderItemQuery(SpySalesOrderItemQuery $query, ?string $storeName = null): SpySalesOrderItemQuery
     {
         if ($storeName !== null) {
@@ -345,12 +333,6 @@ class OmsQueryContainer extends AbstractQueryContainer implements OmsQueryContai
         return $query;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery $query
-     * @param int|null $limit
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery
-     */
     protected function addLimitToSalesOrderItemQuery(SpySalesOrderItemQuery $query, ?int $limit = null): SpySalesOrderItemQuery
     {
         if ($limit !== null) {
@@ -377,11 +359,6 @@ class OmsQueryContainer extends AbstractQueryContainer implements OmsQueryContai
         return $query;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OmsCheckTimeoutsQueryCriteriaTransfer|null $omsCheckTimeoutsQueryCriteriaTransfer
-     *
-     * @return string|null
-     */
     protected function getStoreNameFromOmsCheckTimeoutCriteria(?OmsCheckTimeoutsQueryCriteriaTransfer $omsCheckTimeoutsQueryCriteriaTransfer = null): ?string
     {
         if ($omsCheckTimeoutsQueryCriteriaTransfer === null) {
@@ -391,11 +368,6 @@ class OmsQueryContainer extends AbstractQueryContainer implements OmsQueryContai
         return $omsCheckTimeoutsQueryCriteriaTransfer->getStoreName();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OmsCheckTimeoutsQueryCriteriaTransfer|null $omsCheckTimeoutsQueryCriteriaTransfer
-     *
-     * @return int|null
-     */
     protected function getLimitFromOmsCheckTimeoutCriteria(?OmsCheckTimeoutsQueryCriteriaTransfer $omsCheckTimeoutsQueryCriteriaTransfer = null): ?int
     {
         if ($omsCheckTimeoutsQueryCriteriaTransfer === null) {

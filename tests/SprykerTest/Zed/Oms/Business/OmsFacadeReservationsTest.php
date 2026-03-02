@@ -55,9 +55,6 @@ class OmsFacadeReservationsTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -66,9 +63,6 @@ class OmsFacadeReservationsTest extends Unit
         $this->tester->configureTestStateMachine(['Test01', 'Test02', 'Test03']);
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         parent::tearDown();
@@ -104,9 +98,6 @@ class OmsFacadeReservationsTest extends Unit
         $this->assertTrue($reservedAmount->equals(1));
     }
 
-    /**
-     * @return void
-     */
     public function testExportReservationShouldExportAllUnExportedReservations(): void
     {
         if ($this->tester->isDynamicStoreEnabled()) {
@@ -136,9 +127,6 @@ class OmsFacadeReservationsTest extends Unit
         $this->assertGreaterThan(0, $this->getOmsFacade()->getLastExportedReservationVersion());
     }
 
-    /**
-     * @return void
-     */
     public function testSumReservedItemsShouldSumAllItemsInReservedState(): void
     {
         if ($this->tester->isDynamicStoreEnabled()) {
@@ -247,9 +235,6 @@ class OmsFacadeReservationsTest extends Unit
         $this->assertTrue($reserved->equals(1));
     }
 
-    /**
-     * @return void
-     */
     public function testGetOmsReservedProductQuantityForSkuShouldReturnCorrectReservedAmount(): void
     {
         //Arrange
@@ -268,9 +253,6 @@ class OmsFacadeReservationsTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testGetOmsReservedProductQuantityForSkusShouldReturnCorrectReservedAmount(): void
     {
         //Arrange
@@ -293,13 +275,6 @@ class OmsFacadeReservationsTest extends Unit
         );
     }
 
-    /**
-     * @param string $sku
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     * @param \Spryker\DecimalObject\Decimal $reservationQuantity
-     *
-     * @return void
-     */
     public function createProductReservation(string $sku, StoreTransfer $storeTransfer, Decimal $reservationQuantity): void
     {
         $omsProductReservationEntity = new SpyOmsProductReservation();

@@ -108,9 +108,6 @@ class OmsBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\Notifier\EventTriggeredNotifierInterface
-     */
     public function createEventTriggeredNotifier(): EventTriggeredNotifierInterface
     {
         return new EventTriggeredNotifier($this->getOmsEventTriggeredListenerPlugins());
@@ -165,9 +162,6 @@ class OmsBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\OrderStateMachine\ManualEventReaderInterface
-     */
     public function createManualOrderReader(): ManualEventReaderInterface
     {
         return new ManualEventReader(
@@ -307,9 +301,6 @@ class OmsBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\Reader\ReservationReaderInterface
-     */
     public function createReservationReader(): ReservationReaderInterface
     {
         return new ReservationReader(
@@ -400,9 +391,6 @@ class OmsBusinessFactory extends AbstractBusinessFactory
         return $mailHandler;
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\Util\ActiveProcessFetcherInterface
-     */
     public function createActiveProcessFetcher(): ActiveProcessFetcherInterface
     {
         return new ActiveProcessFetcher(
@@ -411,17 +399,11 @@ class OmsBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\Expander\StateHistoryExpanderInterface
-     */
     public function createStateHistoryExpander(): StateHistoryExpanderInterface
     {
         return new StateHistoryExpander($this->getRepository());
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\Expander\OrderExpanderInterface
-     */
     public function createOrderExpander(): OrderExpanderInterface
     {
         return new OrderExpander(
@@ -430,17 +412,11 @@ class OmsBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\Checker\FlagCheckerInterface
-     */
     public function createFlagChecker(): FlagCheckerInterface
     {
         return new FlagChecker($this->createOrderStateMachineBuilder());
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\Expander\OrderAggregatedItemStateExpanderInterface
-     */
     public function createOrderAggregatedItemStateExpander(): OrderAggregatedItemStateExpanderInterface
     {
         return new OrderAggregatedItemStateExpander(
@@ -449,9 +425,6 @@ class OmsBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\Reader\StateMachineReaderInterface
-     */
     public function createStateMachineReader(): StateMachineReaderInterface
     {
         return new StateMachineReader(
@@ -460,9 +433,6 @@ class OmsBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\Expander\OrderItemStateExpanderInterface
-     */
     public function createOrderItemStateExpander(): OrderItemStateExpanderInterface
     {
         return new OrderItemStateExpander(
@@ -472,9 +442,6 @@ class OmsBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\Checker\OrderCheckerInterface
-     */
     public function createOrderChecker(): OrderCheckerInterface
     {
         return new OrderChecker(
@@ -517,9 +484,6 @@ class OmsBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\OrderStateMachine\OrderItemManualEventReaderInterface
-     */
     public function createOrderItemManualEventReader(): OrderItemManualEventReaderInterface
     {
         return new OrderItemManualEventReader(
@@ -527,33 +491,21 @@ class OmsBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\Deleter\OmsEventTimeoutDeleterInterface
-     */
     public function createOmsEventTimeoutDeleter(): OmsEventTimeoutDeleterInterface
     {
         return new OmsEventTimeoutDeleter($this->getEntityManager());
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\Deleter\OmsOrderItemStateHistoryDeleterInterface
-     */
     public function createOmsOrderItemStateHistoryDeleter(): OmsOrderItemStateHistoryDeleterInterface
     {
         return new OmsOrderItemStateHistoryDeleter($this->getEntityManager());
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\Deleter\OmsTransitionLogDeleterInterface
-     */
     public function createOmsTransitionLogDeleter(): OmsTransitionLogDeleterInterface
     {
         return new OmsTransitionLogDeleter($this->getEntityManager());
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\Util\TimeoutProcessorCollectionInterface
-     */
     public function createTimeoutProcessorCollection(): TimeoutProcessorCollectionInterface
     {
         return new TimeoutProcessorCollection($this->getTimeoutProcessorPlugins());
@@ -633,9 +585,6 @@ class OmsBusinessFactory extends AbstractBusinessFactory
         return $this->getProvidedDependency(OmsDependencyProvider::FACADE_MESSAGE_BROKER);
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\OrderStatusChanged\OrderStatusChangedMessageSender
-     */
     public function createOrderStatusChangedMessageSender(): OrderStatusChangedMessageSender
     {
         return new OrderStatusChangedMessageSender(
@@ -655,17 +604,11 @@ class OmsBusinessFactory extends AbstractBusinessFactory
         return $this->getProvidedDependency(OmsDependencyProvider::PLUGINS_OMS_EVENT_TRIGGERED_LISTENER);
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\Reader\ProcessCacheReaderInterface
-     */
     public function createProcessCacheReader(): ProcessCacheReaderInterface
     {
         return new ProcessCacheReader($this->getConfig());
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\Writer\ProcessCacheWriterInterface
-     */
     public function createProcessCacheWriter(): ProcessCacheWriterInterface
     {
         return new ProcessCacheWriter(
@@ -674,9 +617,6 @@ class OmsBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\OmsExtension\Dependency\Plugin\OmsLockPluginInterface|null
-     */
     public function getLockPlugin(): ?OmsLockPluginInterface
     {
         return $this->getProvidedDependency(OmsDependencyProvider::PLUGIN_LOCK);

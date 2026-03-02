@@ -97,9 +97,6 @@ class OmsBusinessTester extends Actor
      */
     protected const LOCKED_ENTITY_IDENTIFIER = '1';
 
-    /**
-     * @return void
-     */
     public function resetReservedStatesCache(): void
     {
         $reflectionResolver = new ReflectionClass(ActiveProcessFetcher::class);
@@ -108,9 +105,6 @@ class OmsBusinessTester extends Actor
         $reflectionProperty->setValue([]);
     }
 
-    /**
-     * @return void
-     */
     public function resetReservedStateProcessNamesCache(): void
     {
         $reflectionResolver = new ReflectionClass(ActiveProcessFetcher::class);
@@ -119,11 +113,6 @@ class OmsBusinessTester extends Actor
         $reflectionProperty->setValue([]);
     }
 
-    /**
-     * @param string $stateMachineProcessName
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     public function createOrderByStateMachineProcessName(string $stateMachineProcessName): OrderTransfer
     {
         $quoteTransfer = $this->buildFakeQuote(
@@ -141,12 +130,6 @@ class OmsBusinessTester extends Actor
             ->setItems($saveOrderTransfer->getOrderItems());
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     protected function buildFakeQuote(CustomerTransfer $customerTransfer, StoreTransfer $storeTransfer): QuoteTransfer
     {
         $quoteTransfer = (new QuoteBuilder())
@@ -165,15 +148,6 @@ class OmsBusinessTester extends Actor
         return $quoteTransfer;
     }
 
-    /**
-     * @param string $storeName
-     * @param string $eventName
-     * @param string $stateName
-     * @param int $orderItemsAmount
-     * @param int|null $omsProcessorIdentifier
-     *
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrder
-     */
     public function createOrderWithExpiredEventTimeoutOrderItemsForStore(
         string $storeName,
         string $eventName,
@@ -246,13 +220,6 @@ class OmsBusinessTester extends Actor
         return $salesOrderEntity;
     }
 
-    /**
-     * @param string $methodUnderTest
-     * @param \Spryker\Zed\Oms\Business\OrderStateMachine\OrderStateMachineInterface $lockedOrderStatemachine
-     * @param \Propel\Runtime\Collection\ObjectCollection $orderItemEntityCollection
-     *
-     * @return void
-     */
     public function callLockedOrderStatemachineMethod(
         string $methodUnderTest,
         OrderStateMachineInterface $lockedOrderStatemachine,
@@ -282,9 +249,6 @@ class OmsBusinessTester extends Actor
         $lockedOrderStatemachine->triggerEventForOrderItems('event identifier', $orderItemEntityCollection->getPrimaryKeys(), []);
     }
 
-    /**
-     * @return \Propel\Runtime\Collection\ObjectCollection
-     */
     public function createOrderItemEntityCollection(): ObjectCollection
     {
         $orderItemEntityCollection = new ObjectCollection();
@@ -295,9 +259,6 @@ class OmsBusinessTester extends Actor
         return $orderItemEntityCollection;
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\OrderStateMachine\OrderStateMachineInterface
-     */
     public function createLockedOrderStatemachineWithTriggerSuccess(): OrderStateMachineInterface
     {
         $triggerLocker = $this->createTriggerLocker();
@@ -316,9 +277,6 @@ class OmsBusinessTester extends Actor
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\OrderStateMachine\OrderStateMachineInterface
-     */
     public function createLockedOrderStatemachineWithTriggerException(): OrderStateMachineInterface
     {
         $triggerLocker = $this->createTriggerLocker();
@@ -338,27 +296,16 @@ class OmsBusinessTester extends Actor
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\Lock\LockerInterface
-     */
     public function createTriggerLocker(): LockerInterface
     {
         return new TriggerLocker(new OmsQueryContainer(), new OmsConfig());
     }
 
-    /**
-     * @return bool
-     */
     public function hasLockedOrderItems(): bool
     {
         return SpyOmsStateMachineLockQuery::create()->count() > 0;
     }
 
-    /**
-     * @param \Propel\Runtime\Collection\ObjectCollection $orderItemEntityCollection
-     *
-     * @return void
-     */
     public function lockOrderItems(ObjectCollection $orderItemEntityCollection): void
     {
         $orderItemsIds = $orderItemEntityCollection->getPrimaryKeys();
@@ -417,9 +364,6 @@ class OmsBusinessTester extends Actor
         }
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     public function getOrderTransferForOrderStatusChanged(): OrderTransfer
     {
         $orderTransfer = $this->createOrderByStateMachineProcessName('Test01');
@@ -437,9 +381,6 @@ class OmsBusinessTester extends Actor
         return $orderTransfer;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     public function getOrderTransferAndSetupSalesFacadeMock(): OrderTransfer
     {
         $salesFacadeMock = Stub::makeEmpty(OmsToSalesInterface::class);
@@ -453,9 +394,6 @@ class OmsBusinessTester extends Actor
         return $orderTransfer;
     }
 
-    /**
-     * @return void
-     */
     public function setupMessageBroker(): void
     {
         $this->setDependency(MessageBrokerDependencyProvider::PLUGINS_MIDDLEWARE, [new ValidationMiddlewarePlugin()]);
@@ -465,9 +403,6 @@ class OmsBusinessTester extends Actor
         $this->setDependency(MessageBrokerDependencyProvider::PLUGINS_EXTERNAL_VALIDATOR, [new StoreReferenceMessageValidatorPlugin()]);
     }
 
-    /**
-     * @return \Spryker\Zed\OmsExtension\Dependency\Plugin\OmsEventTriggeredListenerPluginInterface
-     */
     public function setupEventTriggeredListenerPluginDependency(): OmsEventTriggeredListenerPluginInterface
     {
         $omsEventTriggeredListener = new class implements OmsEventTriggeredListenerPluginInterface {
@@ -476,21 +411,11 @@ class OmsBusinessTester extends Actor
              */
             public $wasTriggered;
 
-            /**
-             * @param \Generated\Shared\Transfer\OmsEventTriggeredTransfer $omsEventTriggeredTransfer
-             *
-             * @return void
-             */
             public function onEventTriggered(OmsEventTriggeredTransfer $omsEventTriggeredTransfer): void
             {
                 $this->wasTriggered = true;
             }
 
-            /**
-             * @param \Generated\Shared\Transfer\OmsEventTriggeredTransfer $omsEventTriggeredTransfer
-             *
-             * @return bool
-             */
             public function isApplicable(OmsEventTriggeredTransfer $omsEventTriggeredTransfer): bool
             {
                 return true;
@@ -502,11 +427,6 @@ class OmsBusinessTester extends Actor
         return $omsEventTriggeredListener;
     }
 
-    /**
-     * @param int $idSalesOrder
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     public function getOrderByIdSalesOrder(int $idSalesOrder): OrderTransfer
     {
         return $this->getLocator()->sales()->facade()
@@ -515,11 +435,6 @@ class OmsBusinessTester extends Actor
             );
     }
 
-    /**
-     * @param int $identifier
-     *
-     * @return void
-     */
     public function insertOmsStateMachineLockByIdUsingRawQuery(int $identifier): void
     {
         $query = sprintf(
@@ -534,25 +449,16 @@ class OmsBusinessTester extends Actor
         $connection->query($query);
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\Reader\ProcessCacheReaderInterface
-     */
     public function createProcessCacheReader(): ProcessCacheReaderInterface
     {
         return new ProcessCacheReader(new OmsConfig());
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\Writer\ProcessCacheWriterInterface
-     */
     public function createProcessCacheWriter(): ProcessCacheWriterInterface
     {
         return new ProcessCacheWriter(new OmsConfig(), $this->createProcessCacheReader());
     }
 
-    /**
-     * @return void
-     */
     public function resetProcessBuffer(): void
     {
         $reflection = new ReflectionClass(Builder::class);
@@ -561,12 +467,6 @@ class OmsBusinessTester extends Actor
         $property->setValue(null, []);
     }
 
-    /**
-     * @param int $idSalesOrder
-     * @param int $idSalesOrderItem
-     *
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsTransitionLog
-     */
     public function createOmsTransitionLog(int $idSalesOrder, int $idSalesOrderItem): SpyOmsTransitionLog
     {
         $omsOrderProcessEntity = $this->createOmsOrderProcess(static::DEFAULT_OMS_PROCESS_NAME);
@@ -583,12 +483,6 @@ class OmsBusinessTester extends Actor
         return $omsTransitionLogEntity;
     }
 
-    /**
-     * @param int $idOmsOrderItemState
-     * @param int $idSalesOrderItem
-     *
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsOrderItemStateHistory
-     */
     public function createOmsOrderItemStateHistory(
         int $idOmsOrderItemState,
         int $idSalesOrderItem
@@ -601,11 +495,6 @@ class OmsBusinessTester extends Actor
         return $omsOrderItemStateHistoryEntity;
     }
 
-    /**
-     * @param string $processName
-     *
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsOrderProcess
-     */
     public function createOmsOrderProcess(string $processName): SpyOmsOrderProcess
     {
         $orderProcessEntity = (new SpyOmsOrderProcessQuery())
@@ -641,33 +530,21 @@ class OmsBusinessTester extends Actor
         return $this->getOmsTransitionLogQuery()->find();
     }
 
-    /**
-     * @return void
-     */
     public function ensureOmsEventTimeoutTableIsEmpty(): void
     {
         $this->ensureDatabaseTableIsEmpty($this->getOmsEventTimeoutQuery());
     }
 
-    /**
-     * @return void
-     */
     public function ensureOmsOrderItemStateHistoryTableIsEmpty(): void
     {
         $this->ensureDatabaseTableIsEmpty($this->getOmsOrderItemStateHistoryQuery());
     }
 
-    /**
-     * @return void
-     */
     public function ensureOmsTransitionLogTableIsEmpty(): void
     {
         $this->ensureDatabaseTableIsEmpty($this->getOmsTransitionLogQuery());
     }
 
-    /**
-     * @return void
-     */
     public function ensureOmsOrderItemStateDatabaseTableIsEmpty(): void
     {
         $this->ensureDatabaseTableIsEmpty(
@@ -675,33 +552,21 @@ class OmsBusinessTester extends Actor
         );
     }
 
-    /**
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsEventTimeoutQuery
-     */
     protected function getOmsEventTimeoutQuery(): SpyOmsEventTimeoutQuery
     {
         return SpyOmsEventTimeoutQuery::create();
     }
 
-    /**
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsOrderItemStateHistoryQuery
-     */
     protected function getOmsOrderItemStateHistoryQuery(): SpyOmsOrderItemStateHistoryQuery
     {
         return SpyOmsOrderItemStateHistoryQuery::create();
     }
 
-    /**
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsTransitionLogQuery
-     */
     protected function getOmsTransitionLogQuery(): SpyOmsTransitionLogQuery
     {
         return SpyOmsTransitionLogQuery::create();
     }
 
-    /**
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsOrderItemStateQuery
-     */
     protected function getOmsOrderItemStateQuery(): SpyOmsOrderItemStateQuery
     {
         return SpyOmsOrderItemStateQuery::create();

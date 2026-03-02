@@ -31,10 +31,6 @@ class ActiveProcessFetcher implements ActiveProcessFetcherInterface
      */
     protected static $reservedStateProcessNamesCache = [];
 
-    /**
-     * @param \Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject $activeProcesses
-     * @param \Spryker\Zed\Oms\Business\OrderStateMachine\BuilderInterface $builder
-     */
     public function __construct(
         ReadOnlyArrayObject $activeProcesses,
         BuilderInterface $builder

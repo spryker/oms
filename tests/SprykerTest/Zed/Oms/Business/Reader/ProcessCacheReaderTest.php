@@ -61,9 +61,6 @@ class ProcessCacheReaderTest extends Unit
      */
     protected const TEST_DIRECTORY_PATTERN = '/process_cache_reader_test/';
 
-    /**
-     * @return void
-     */
     protected function _before(): void
     {
         parent::_before();
@@ -79,9 +76,6 @@ class ProcessCacheReaderTest extends Unit
         $this->processCacheReader = new ProcessCacheReader($this->omsConfigMock);
     }
 
-    /**
-     * @return void
-     */
     protected function _after(): void
     {
         parent::_after();
@@ -90,9 +84,6 @@ class ProcessCacheReaderTest extends Unit
         rmdir($this->testDirectory);
     }
 
-    /**
-     * @return void
-     */
     public function testHasProcessReturnsTrueIfProcessExists(): void
     {
         file_put_contents(sprintf('%s%s', $this->testDirectory, static::PROCESS_NAME), static::FILE_DATA);
@@ -100,17 +91,11 @@ class ProcessCacheReaderTest extends Unit
         $this->assertTrue($this->processCacheReader->hasProcess(static::PROCESS_NAME));
     }
 
-    /**
-     * @return void
-     */
     public function testHasProcessReturnsFalseIfProcessDoesNotExist(): void
     {
         $this->assertFalse($this->processCacheReader->hasProcess(static::NON_EXISTING_PROCESS_NAME));
     }
 
-    /**
-     * @return void
-     */
     public function testGetProcessReturnsProcessInterfaceInstance(): void
     {
         $processMock = $this->createMock(ProcessInterface::class);
@@ -122,9 +107,6 @@ class ProcessCacheReaderTest extends Unit
         $this->assertInstanceOf(ProcessInterface::class, $process);
     }
 
-    /**
-     * @return void
-     */
     public function testGetFullFilenameReturnsCorrectPath(): void
     {
         $expectedFullPath = sprintf('%s%s', $this->testDirectory, static::PROCESS_NAME);

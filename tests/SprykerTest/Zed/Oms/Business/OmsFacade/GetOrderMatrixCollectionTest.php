@@ -45,9 +45,6 @@ class GetOrderMatrixCollectionTest extends Unit
      */
     protected OmsFacadeInterface $omsFacade;
 
-    /**
-     * @return void
-     */
     public function testGetOrderMatrixCollectionWithValidCriteriaShouldReturnNonEmptyArray(): void
     {
         // Arrange
@@ -64,9 +61,6 @@ class GetOrderMatrixCollectionTest extends Unit
         $this->tester->assertCount(1, $result->getOrderMatrices());
     }
 
-    /**
-     * @return void
-     */
     public function testGetOrderMatrixCollectionShouldReturnEmptyArrayWhenNoItemsMatchCriteria(): void
     {
         // Arrange
@@ -81,9 +75,6 @@ class GetOrderMatrixCollectionTest extends Unit
         $this->assertEmpty($result->getOrderMatrices());
     }
 
-    /**
-     * @return void
-     */
     public function testGetOrderMatrixCollectionShouldCorrectlyApplyBlackListStates(): void
     {
         // Arrange
@@ -121,9 +112,6 @@ class GetOrderMatrixCollectionTest extends Unit
         $this->tester->assertCount(1, $result->getOrderMatrices());
     }
 
-    /**
-     * @return void
-     */
     public function testGetProcessNamesIndexedByIdOmsOrderProcessShouldReturnArrayOfProcessesWithExpectedAmount(): void
     {
         // Arrange
@@ -138,9 +126,6 @@ class GetOrderMatrixCollectionTest extends Unit
         $this->tester->assertContains($testStateMachineProcessName, $result);
     }
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -149,9 +134,6 @@ class GetOrderMatrixCollectionTest extends Unit
         $this->tester->configureTestStateMachine(['Test01']);
     }
 
-    /**
-     * @return void
-     */
     protected function tearDown(): void
     {
         $this->tester->resetReservedStatesCache();

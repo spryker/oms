@@ -98,33 +98,21 @@ class OmsPersistenceFactory extends AbstractPersistenceFactory
         return SpyOmsProductReservationLastExportedVersionQuery::create();
     }
 
-    /**
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsOrderItemStateHistoryQuery
-     */
     public function createOmsOrderItemStateHistoryQuery(): SpyOmsOrderItemStateHistoryQuery
     {
         return SpyOmsOrderItemStateHistoryQuery::create();
     }
 
-    /**
-     * @return \Orm\Zed\Oms\Persistence\SpyOmsEventTimeoutQuery
-     */
     public function createOmsEventTimeoutQuery(): SpyOmsEventTimeoutQuery
     {
         return SpyOmsEventTimeoutQuery::create();
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Persistence\Propel\Mapper\OrderItemMapperInterface
-     */
     public function createOrderItemMapper(): OrderItemMapperInterface
     {
         return new OrderItemMapper();
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Persistence\OmsQueryContainerInterface
-     */
     public function getOmsQueryContainer(): OmsQueryContainerInterface
     {
         return $this->getQueryContainer();
@@ -138,25 +126,16 @@ class OmsPersistenceFactory extends AbstractPersistenceFactory
         return $this->getProvidedDependency(OmsDependencyProvider::QUERY_CONTAINER_SALES);
     }
 
-    /**
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery
-     */
     public function getSalesOrderItemPropelQuery(): SpySalesOrderItemQuery
     {
         return $this->getProvidedDependency(OmsDependencyProvider::PROPEL_QUERY_SALES_ORDER_ITEM);
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Persistence\Propel\Mapper\OmsMapper
-     */
     public function createOmsMapper(): OmsMapper
     {
         return new OmsMapper();
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Persistence\Propel\Indexer\ProcessIndexerInterface
-     */
     public function createProcessIndexer(): ProcessIndexerInterface
     {
         return new ProcessIndexer();

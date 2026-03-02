@@ -18,9 +18,6 @@ class StateHistoryExpander implements StateHistoryExpanderInterface
      */
     protected $omsRepository;
 
-    /**
-     * @param \Spryker\Zed\Oms\Persistence\OmsRepositoryInterface $omsRepository
-     */
     public function __construct(OmsRepositoryInterface $omsRepository)
     {
         $this->omsRepository = $omsRepository;
@@ -49,11 +46,6 @@ class StateHistoryExpander implements StateHistoryExpanderInterface
         return $itemTransfers;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     *
-     * @return \Generated\Shared\Transfer\ItemTransfer
-     */
     protected function updateLatestOrderItemState(ItemTransfer $itemTransfer): ItemTransfer
     {
         $latestOrderItemState = $itemTransfer->getStateHistory()->getIterator()->current();

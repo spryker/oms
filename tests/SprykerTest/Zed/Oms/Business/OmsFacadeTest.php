@@ -51,9 +51,6 @@ class OmsFacadeTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -62,18 +59,12 @@ class OmsFacadeTest extends Unit
         $this->tester->configureTestStateMachine(['Test01']);
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         parent::tearDown();
         $this->tester->resetReservedStatesCache();
     }
 
-    /**
-     * @return void
-     */
     public function testClearLocksShouldEmptyDatabaseFromExpiredLocks(): void
     {
         $identifier = '1-2-3';
@@ -92,9 +83,6 @@ class OmsFacadeTest extends Unit
         $this->assertSame(0, $numberOfItems);
     }
 
-    /**
-     * @return void
-     */
     public function testOrderMatrixCreation(): void
     {
         $omsFacade = $this->createOmsFacade();
@@ -105,9 +93,6 @@ class OmsFacadeTest extends Unit
         $this->assertSame('', $matrix[0]['COL_STATE']);
     }
 
-    /**
-     * @return void
-     */
     public function testIsOrderFlaggedExcludeFromCustomerShouldReturnTrueWhenAllStatesHaveFlag(): void
     {
         $testStateMachineProcessName = 'Test01';
@@ -157,9 +142,6 @@ class OmsFacadeTest extends Unit
         $this->assertTrue($omsEventTriggeredListener->wasTriggered);
     }
 
-    /**
-     * @return void
-     */
     public function testIsOrderFlaggedExcludeFromCustomerShouldReturnFalseWhenAnyOfStatesMissingFlag(): void
     {
         $testStateMachineProcessName = 'Test01';
@@ -178,9 +160,6 @@ class OmsFacadeTest extends Unit
         $this->assertFalse($isOrderExcluded);
     }
 
-    /**
-     * @return void
-     */
     public function testGetReservedStateNames(): void
     {
         $expected = [
@@ -198,9 +177,6 @@ class OmsFacadeTest extends Unit
         $this->assertSame($expected, $stateNames);
     }
 
-    /**
-     * @return void
-     */
     public function testSaveReservation(): void
     {
         $storeTransfer = (new StoreTransfer())->setIdStore(1)->setName('DE');
@@ -218,9 +194,6 @@ class OmsFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testTriggerEventWillNotThrowAnExceptionWhenExceptionWasThrownDuringOrderItemHandling(): void
     {
         //Arrange
@@ -270,9 +243,6 @@ class OmsFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testExpandOrderWithOmsStatesReturnsUpdatedTransferWithCorrectData(): void
     {
         // Arrange
@@ -287,9 +257,6 @@ class OmsFacadeTest extends Unit
         $this->assertSame([$itemTransfer->getState()->getName()], $expandedOrderTransfer->getItemStates());
     }
 
-    /**
-     * @return void
-     */
     public function testExpandOrderWithOmsStatesDoesNothingWithIncorrectData(): void
     {
         // Arrange
@@ -304,9 +271,6 @@ class OmsFacadeTest extends Unit
         $this->assertEmpty($expandedOrderTransfer->getItemStates());
     }
 
-    /**
-     * @return void
-     */
     public function testUpdateReservationUpdatesExistingReservationQuantity(): void
     {
         // Arrange
@@ -330,9 +294,6 @@ class OmsFacadeTest extends Unit
         $this->assertTrue($reservationResponseTransfer->getReservationQuantity()->isZero());
     }
 
-    /**
-     * @return void
-     */
     public function testCreateProductReservationForDifferentStores(): void
     {
         // Arrange
@@ -368,9 +329,6 @@ class OmsFacadeTest extends Unit
         $this->assertSame(3, $reservationResponseTransfer2->getReservationQuantity()->toInt());
     }
 
-    /**
-     * @return void
-     */
     public function testGetOmsReservedProductQuantityForProduct(): void
     {
         // Arrange
@@ -395,9 +353,6 @@ class OmsFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Oms\Business\OmsFacadeInterface
-     */
     protected function createOmsFacade(): OmsFacadeInterface
     {
         $omsBusinessFactory = new OmsBusinessFactory();
@@ -410,12 +365,6 @@ class OmsFacadeTest extends Unit
         return $omsFacade;
     }
 
-    /**
-     * @param array $activeProcesses
-     * @param string|null $xmlFolder
-     *
-     * @return \Spryker\Zed\Oms\Business\OmsFacadeInterface
-     */
     protected function createOmsFacadeWithTestStateMachine(array $activeProcesses = [], ?string $xmlFolder = null): OmsFacadeInterface
     {
         $this->tester->configureTestStateMachine($activeProcesses, $xmlFolder);
@@ -423,12 +372,6 @@ class OmsFacadeTest extends Unit
         return new OmsFacade();
     }
 
-    /**
-     * @param array $activeProcesses
-     * @param string|null $xmlFolder
-     *
-     * @return \Spryker\Zed\Oms\Business\OmsFacadeInterface
-     */
     protected function createOmsFacadeWithErroredTestStateMachine(array $activeProcesses = [], ?string $xmlFolder = null): OmsFacadeInterface
     {
         $this->tester->configureTestStateMachine($activeProcesses);
@@ -450,9 +393,6 @@ class OmsFacadeTest extends Unit
         return $omsFacade;
     }
 
-    /**
-     * @return void
-     */
     public function testOrderStatusChangedMessageIsSent(): void
     {
         // Arrange
@@ -509,11 +449,6 @@ class OmsFacadeTest extends Unit
         );
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return void
-     */
     protected function sendOrderStatusChangedMessage(OrderTransfer $orderTransfer): void
     {
         $omsFacade = $this->createOmsFacade();

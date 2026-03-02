@@ -48,11 +48,6 @@ class RenderFormController extends AbstractController
      */
     protected const PARAM_SALES_ORDER_ITEM_IDS = 'salesOrderItemIds';
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return array
-     */
     public function orderAction(Request $request): array
     {
         $idSalesOrder = $request->attributes->get(static::KEY_ID_SALES_ORDER);
@@ -67,11 +62,6 @@ class RenderFormController extends AbstractController
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return array
-     */
     public function orderItemAction(Request $request): array
     {
         $redirectUrl = $request->attributes->get(static::KEY_REDIRECT_URL);
@@ -86,11 +76,6 @@ class RenderFormController extends AbstractController
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return array
-     */
     public function orderItemsAction(Request $request): array
     {
         $redirectUrl = $request->attributes->get(static::KEY_REDIRECT_URL);

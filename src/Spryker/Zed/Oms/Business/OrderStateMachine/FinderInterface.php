@@ -97,10 +97,5 @@ interface FinderInterface
      */
     public function isOrderFlaggedExcludeFromCustomer($idOrder);
 
-    /**
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     *
-     * @return \Spryker\Zed\Oms\Business\Process\StateInterface|null
-     */
     public function findStateByName(ItemTransfer $itemTransfer): ?StateInterface;
 }

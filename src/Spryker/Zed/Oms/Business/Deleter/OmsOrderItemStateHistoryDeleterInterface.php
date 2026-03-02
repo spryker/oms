@@ -12,11 +12,6 @@ use Generated\Shared\Transfer\OmsOrderItemStateHistoryCollectionResponseTransfer
 
 interface OmsOrderItemStateHistoryDeleterInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\OmsOrderItemStateHistoryCollectionDeleteCriteriaTransfer $omsOrderItemStateHistoryCollectionDeleteCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\OmsOrderItemStateHistoryCollectionResponseTransfer
-     */
     public function deleteOmsOrderItemStateHistoryCollection(
         OmsOrderItemStateHistoryCollectionDeleteCriteriaTransfer $omsOrderItemStateHistoryCollectionDeleteCriteriaTransfer
     ): OmsOrderItemStateHistoryCollectionResponseTransfer;

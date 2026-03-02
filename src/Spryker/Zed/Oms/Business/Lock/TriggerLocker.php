@@ -34,11 +34,6 @@ class TriggerLocker implements LockerInterface
      */
     protected const LOCK_ENTITY_ORDER = 'oms_trigger_locker_order';
 
-    /**
-     * @param \Spryker\Zed\Oms\Persistence\OmsQueryContainerInterface $queryContainer
-     * @param \Spryker\Zed\Oms\OmsConfig $omsConfig
-     * @param \Spryker\Zed\OmsExtension\Dependency\Plugin\OmsLockPluginInterface|null $omsLockPlugin
-     */
     public function __construct(
         protected OmsQueryContainerInterface $queryContainer,
         protected OmsConfig $omsConfig,
@@ -226,13 +221,6 @@ class TriggerLocker implements LockerInterface
         return new SpyOmsStateMachineLock();
     }
 
-    /**
-     * @param array $identifiers
-     * @param bool $blocking
-     * @param string $entity
-     *
-     * @return bool
-     */
     protected function acquireLockWithExternalMechanism(array $identifiers, bool $blocking = false, string $entity = self::LOCK_ENTITY_ITEM): bool
     {
         $lockTransfers = $this->mapLockTransfers($identifiers, $blocking, $entity);
@@ -246,13 +234,6 @@ class TriggerLocker implements LockerInterface
         return true;
     }
 
-    /**
-     * @param array $identifiers
-     * @param bool $blocking
-     * @param string $entity
-     *
-     * @return array
-     */
     protected function mapLockTransfers(array $identifiers, bool $blocking = false, string $entity = self::LOCK_ENTITY_ITEM): array
     {
         $lockTransfers = [];

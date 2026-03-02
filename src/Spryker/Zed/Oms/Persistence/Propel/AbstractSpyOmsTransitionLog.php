@@ -21,11 +21,6 @@ use Propel\Runtime\Connection\ConnectionInterface;
  */
 abstract class AbstractSpyOmsTransitionLog extends BaseSpyOmsTransitionLog
 {
-    /**
-     * @param \Propel\Runtime\Connection\ConnectionInterface|null $con
-     *
-     * @return bool
-     */
     public function preSave(?ConnectionInterface $con = null): bool
     {
         if (

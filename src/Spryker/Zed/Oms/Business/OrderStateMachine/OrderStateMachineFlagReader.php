@@ -16,9 +16,6 @@ class OrderStateMachineFlagReader implements OrderStateMachineFlagReaderInterfac
      */
     protected $builder;
 
-    /**
-     * @param \Spryker\Zed\Oms\Business\OrderStateMachine\BuilderInterface $builder
-     */
     public function __construct(BuilderInterface $builder)
     {
         $this->builder = $builder;

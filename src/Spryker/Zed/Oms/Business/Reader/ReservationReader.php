@@ -77,12 +77,6 @@ class ReservationReader implements ReservationReaderInterface
         $this->omsReservationAggregationPlugins = $omsReservationAggregationPlugins;
     }
 
-    /**
-     * @param string $sku
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Spryker\DecimalObject\Decimal
-     */
     public function getOmsReservedProductQuantityForSku(string $sku, StoreTransfer $storeTransfer): Decimal
     {
         $idStore = $this->getIdStore($storeTransfer);
@@ -107,12 +101,6 @@ class ReservationReader implements ReservationReaderInterface
         return $this->omsRepository->getSumOmsReservedProductQuantityByConcreteProductSkusForStore($skus, $idStore);
     }
 
-    /**
-     * @param string $sku
-     * @param \Generated\Shared\Transfer\StoreTransfer $currentStoreTransfer
-     *
-     * @return \Spryker\DecimalObject\Decimal
-     */
     public function getReservationsFromOtherStores(string $sku, StoreTransfer $currentStoreTransfer): Decimal
     {
         $reservationQuantity = new Decimal(0);
@@ -131,9 +119,6 @@ class ReservationReader implements ReservationReaderInterface
         return $reservationQuantity;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\OmsStateCollectionTransfer
-     */
     public function getOmsReservedStateCollection(): OmsStateCollectionTransfer
     {
         $reservedStatesTransfer = new OmsStateCollectionTransfer();
@@ -154,11 +139,6 @@ class ReservationReader implements ReservationReaderInterface
         return $reservedStatesTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ReservationRequestTransfer $reservationRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\ReservationResponseTransfer
-     */
     public function getOmsReservedProductQuantity(ReservationRequestTransfer $reservationRequestTransfer): ReservationResponseTransfer
     {
         foreach ($this->omsReservationReaderStrategyPlugins as $omsReservationReaderStrategyPlugin) {
@@ -175,11 +155,6 @@ class ReservationReader implements ReservationReaderInterface
         return (new ReservationResponseTransfer())->setReservationQuantity($reservationQuantity);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ReservationRequestTransfer $reservationRequestTransfer
-     *
-     * @return \Spryker\DecimalObject\Decimal
-     */
     public function sumReservedProductQuantities(ReservationRequestTransfer $reservationRequestTransfer): Decimal
     {
         $reservedStates = $this->getOmsReservedStateCollection();
@@ -302,11 +277,6 @@ class ReservationReader implements ReservationReaderInterface
         );
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SalesOrderItemStateAggregationTransfer $salesAggregationTransfer
-     *
-     * @return void
-     */
     protected function assertAggregationTransfer(SalesOrderItemStateAggregationTransfer $salesAggregationTransfer): void
     {
         $salesAggregationTransfer
@@ -315,13 +285,6 @@ class ReservationReader implements ReservationReaderInterface
             ->requireStateName();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OmsStateCollectionTransfer $statesCollection
-     * @param string $stateName
-     * @param string $processName
-     *
-     * @return bool
-     */
     protected function assertStateAndProcessExists(OmsStateCollectionTransfer $statesCollection, string $stateName, string $processName): bool
     {
         $omsStateTransfer = $statesCollection->getStates()[$stateName] ?? null;

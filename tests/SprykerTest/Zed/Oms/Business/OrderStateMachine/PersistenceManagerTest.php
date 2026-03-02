@@ -25,9 +25,6 @@ use Spryker\Zed\Oms\OmsConfig;
  */
 class PersistenceManagerTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testGetProcessEntityShouldThrowExceptionIfProcessNotSet(): void
     {
         $omsConfigMock = $this->createOmsConfigMock();
@@ -42,11 +39,6 @@ class PersistenceManagerTest extends Unit
         $persistenceManager->getProcessEntity('does not exist');
     }
 
-    /**
-     * @param \Spryker\Zed\Oms\OmsConfig $omsConfigMock
-     *
-     * @return \Spryker\Zed\Oms\Business\OrderStateMachine\PersistenceManager
-     */
     protected function createPersistenceManager(OmsConfig $omsConfigMock): PersistenceManager
     {
         return new PersistenceManager($omsConfigMock);

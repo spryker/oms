@@ -8,6 +8,7 @@
 namespace Spryker\Zed\Oms\Business\OrderStateMachine;
 
 use ArrayObject;
+use Generated\Shared\Transfer\OrderTransfer;
 use Spryker\Zed\Oms\Dependency\Facade\OmsToSalesInterface;
 
 class ManualEventReader implements ManualEventReaderInterface
@@ -43,6 +44,8 @@ class ManualEventReader implements ManualEventReaderInterface
     }
 
     /**
+     * @deprecated use {@link getGroupedDistinctManualEventsBySalesOrderTransfer } instead
+     *
      * @param int $idSalesOrder
      *
      * @return array<string>
@@ -50,6 +53,17 @@ class ManualEventReader implements ManualEventReaderInterface
     public function getGroupedDistinctManualEventsByIdSalesOrder(int $idSalesOrder): array
     {
         $orderTransfer = $this->salesFacade->getOrderByIdSalesOrder($idSalesOrder);
+
+        return $this->getGroupedDistinctManualEventsBySalesOrderTransfer($orderTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     *
+     * @return array<string>
+     */
+    public function getGroupedDistinctManualEventsBySalesOrderTransfer(OrderTransfer $orderTransfer): array
+    {
         $itemTransfers = $orderTransfer->getItems();
         $events = $this->orderItemManualEventReader->getManualEventsByIdSalesOrder($itemTransfers);
 

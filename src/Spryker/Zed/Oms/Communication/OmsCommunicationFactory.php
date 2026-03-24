@@ -10,6 +10,8 @@ namespace Spryker\Zed\Oms\Communication;
 use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 use Spryker\Zed\Oms\Communication\Builder\OmsTriggerFormCollectionBuilder;
 use Spryker\Zed\Oms\Communication\Builder\OmsTriggerFormCollectionBuilderInterface;
+use Spryker\Zed\Oms\Communication\Expander\OmsOrderDetailDataExpander;
+use Spryker\Zed\Oms\Communication\Expander\OmsOrderDetailDataExpanderInterface;
 use Spryker\Zed\Oms\Communication\Factory\OmsTriggerFormFactory;
 use Spryker\Zed\Oms\Communication\Factory\OmsTriggerFormFactoryInterface;
 use Spryker\Zed\Oms\Communication\Table\TransitionLogTable;
@@ -43,6 +45,11 @@ class OmsCommunicationFactory extends AbstractCommunicationFactory
     public function createOmsTriggerFormCollectionBuilder(): OmsTriggerFormCollectionBuilderInterface
     {
         return new OmsTriggerFormCollectionBuilder($this->createOmsTriggerFormFactory());
+    }
+
+    public function createOmsOrderDetailDataExpander(): OmsOrderDetailDataExpanderInterface
+    {
+        return new OmsOrderDetailDataExpander($this->createOmsTriggerFormCollectionBuilder());
     }
 
     public function getCsrfTokenManager(): CsrfTokenManagerInterface

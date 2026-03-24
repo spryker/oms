@@ -552,6 +552,8 @@ class OmsFacade extends AbstractFacade implements OmsFacadeInterface
      *
      * @api
      *
+     * @deprecated use {@link getGroupedDistinctManualEventsBySalesOrderTransfer } instead
+     *
      * @param int $idSalesOrder
      *
      * @return array<string>
@@ -561,6 +563,22 @@ class OmsFacade extends AbstractFacade implements OmsFacadeInterface
         return $this->getFactory()
             ->createManualOrderReader()
             ->getGroupedDistinctManualEventsByIdSalesOrder($idSalesOrder);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     *
+     * @return array<string>
+     */
+    public function getGroupedDistinctManualEventsBySalesOrderTransfer(OrderTransfer $orderTransfer): array
+    {
+        return $this->getFactory()
+            ->createManualOrderReader()
+            ->getGroupedDistinctManualEventsBySalesOrderTransfer($orderTransfer);
     }
 
     /**

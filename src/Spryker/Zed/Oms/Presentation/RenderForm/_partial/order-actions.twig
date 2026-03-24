@@ -1,5 +1,17 @@
-{{ render(controller('/oms/render-form/order', {
-    redirectUrl: redirectUrl,
-    idSalesOrder: idSalesOrder,
-    events: events,
-})) }}
+{# @var redirectUrl string #}
+{# @var idSalesOrder int #}
+{# @var events array #}
+{# @var omsTriggerFormCollection array<\Symfony\Component\Form\FormView> #}
+{% if omsTriggerFormCollection is defined and omsTriggerFormCollection is not null %}
+    {# New optimized approach with OmsFormsSalesOrderDetailDataExpanderPlugin: Direct form rendering without sub-request #}
+    {% include '@Oms/RenderForm/order.twig' with {
+        formCollection: omsTriggerFormCollection,
+    } only %}
+{% else %}
+    {# BC: Fallback to sub-request if plugin not registered #}
+    {{ render(controller('/oms/render-form/order', {
+        redirectUrl: redirectUrl,
+        idSalesOrder: idSalesOrder,
+        events: events,
+    })) }}
+{% endif %}

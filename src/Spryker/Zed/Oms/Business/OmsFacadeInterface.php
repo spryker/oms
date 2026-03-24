@@ -534,6 +534,19 @@ interface OmsFacadeInterface
 
     /**
      * Specification:
+     *  - Reads all order manual events from persistence.
+     *  - Returns a list of grouped manual events.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     *
+     * @return array<string>
+     */
+    public function getGroupedDistinctManualEventsBySalesOrderTransfer(OrderTransfer $orderTransfer): array;
+
+    /**
+     * Specification:
      *  - Clears state machine lock table, which used when items are locked. This is garbage collection call
      *
      * @api

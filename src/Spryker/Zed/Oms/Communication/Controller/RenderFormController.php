@@ -48,6 +48,13 @@ class RenderFormController extends AbstractController
      */
     protected const PARAM_SALES_ORDER_ITEM_IDS = 'salesOrderItemIds';
 
+    /**
+     * @deprecated use {@link \Spryker\Zed\Oms\Communication\Plugin\Sales\OmsFormsSalesOrderDetailDataExpanderPlugin} instead.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return array
+     */
     public function orderAction(Request $request): array
     {
         $idSalesOrder = $request->attributes->get(static::KEY_ID_SALES_ORDER);

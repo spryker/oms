@@ -279,7 +279,7 @@ class OmsRepository extends AbstractRepository implements OmsRepositoryInterface
             ->createOmsOrderItemStateHistoryQuery()
             ->filterByFkSalesOrderItem_In($salesOrderItemIds)
             ->leftJoinWithState()
-            ->leftJoinOrderItem()
+            ->leftJoinWithOrderItem()
             ->groupByFkSalesOrderItem()
             ->groupByIdOmsOrderItemStateHistory()
             ->orderByIdOmsOrderItemStateHistory(Criteria::DESC);

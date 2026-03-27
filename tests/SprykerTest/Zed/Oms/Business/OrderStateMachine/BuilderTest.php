@@ -9,6 +9,7 @@ namespace SprykerTest\Zed\Oms\Business\OrderStateMachine;
 
 use Codeception\Test\Unit;
 use Spryker\Zed\Oms\Business\Exception\StatemachineException;
+use Spryker\Zed\Oms\Business\Finder\ProcessFinder;
 use Spryker\Zed\Oms\Business\OrderStateMachine\Builder;
 use Spryker\Zed\Oms\Business\OrderStateMachine\BuilderInterface;
 use Spryker\Zed\Oms\Business\Process\EventInterface;
@@ -82,7 +83,7 @@ class BuilderTest extends Unit
         $processACopyTarget = $this->getProcessLocationB() . DIRECTORY_SEPARATOR . 'process-a.xml';
         copy($this->getProcessLocationA() . DIRECTORY_SEPARATOR . 'process-a.xml', $processACopyTarget);
         $this->expectException(StatemachineException::class);
-        $this->expectExceptionMessage('"process-a.xml" found in more then one location. Could not determine which one to choose. Please check your process definition location');
+        $this->expectExceptionMessage('"process-a.xml" found in more than one location: /data/src/Spryker/Oms/tests/SprykerTest/Zed/Oms/Business/OrderStateMachine/Builder/Fixtures/DefinitionLocationA/process-a.xml, /data/src/Spryker/Oms/tests/SprykerTest/Zed/Oms/Business/OrderStateMachine/Builder/Fixtures/DefinitionLocationB/process-a.xml. Could not determine which one to choose. Please check your process definition location');
         $builder->createProcess('process-a');
     }
 
@@ -136,7 +137,7 @@ class BuilderTest extends Unit
             $this->getStateMock(),
             $this->getTransitionMock(),
             $process,
-            [$this->getProcessLocationA()],
+            new ProcessFinder([$this->getProcessLocationA()]),
             $processCacheReaderMock,
             $this->tester->createProcessCacheWriter(),
             $omsConfigMock,
@@ -211,7 +212,7 @@ class BuilderTest extends Unit
             $this->getStateMock(),
             $this->getTransitionMock(),
             $this->getProcess(),
-            [$this->getProcessLocationA()],
+            new ProcessFinder([$this->getProcessLocationA()]),
             $processCacheReaderMock,
             $processCacheWriterMock,
             $omsConfigMock,
@@ -318,12 +319,7 @@ class BuilderTest extends Unit
         return __DIR__ . '/Builder/Fixtures/DefinitionLocationB';
     }
 
-    /**
-     * @param array|string|null $processDefinitionLocation
-     *
-     * @return \Spryker\Zed\Oms\Business\OrderStateMachine\BuilderInterface
-     */
-    private function createBuilder(array|string|null $processDefinitionLocation = null): BuilderInterface
+    protected function createBuilder(array|string|null $processDefinitionLocation = []): BuilderInterface
     {
         $eventMock = $this->getEventMock();
         $stateMock = $this->getStateMock();
@@ -335,7 +331,7 @@ class BuilderTest extends Unit
             $stateMock,
             $transitionMock,
             $process,
-            $processDefinitionLocation,
+            new ProcessFinder($processDefinitionLocation),
             $this->tester->createProcessCacheReader(),
             $this->tester->createProcessCacheWriter(),
             new OmsConfig(),

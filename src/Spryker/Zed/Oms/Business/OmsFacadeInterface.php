@@ -22,6 +22,8 @@ use Generated\Shared\Transfer\OrderItemFilterTransfer;
 use Generated\Shared\Transfer\OrderMatrixCollectionTransfer;
 use Generated\Shared\Transfer\OrderMatrixCriteriaTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
+use Generated\Shared\Transfer\ProcessCriteriaTransfer;
+use Generated\Shared\Transfer\ProcessDataTransfer;
 use Generated\Shared\Transfer\ReservationRequestTransfer;
 use Generated\Shared\Transfer\ReservationResponseTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
@@ -954,4 +956,15 @@ interface OmsFacadeInterface
      * @return void
      */
     public function releaseOrderLock(array|string $identifier): void;
+
+    /**
+     * Specification:
+     * - Returns process data for the given OMS process criteria.
+     * - Returns the process XML file path.
+     * - Returns command plugins indexed by command name with their type label as value.
+     * - Returns condition plugins indexed by condition name with an empty string as value.
+     *
+     * @api
+     */
+    public function getProcessData(ProcessCriteriaTransfer $processCriteriaTransfer): ProcessDataTransfer;
 }

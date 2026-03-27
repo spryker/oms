@@ -8,7 +8,12 @@
 
             <form action="/oms/sandbox/add" style="margin-bottom: 20px;">
                 <button class="btn btn-xs btn-primary">{{ 'Add new order' | trans }}</button> &nbsp;
-                <a href="/oms/index/draw?process={{ processName }}&amp;format=gif&amp;font=14" style="color: #369; text-decoration: none;"><em>{{ processName }}</em> <span class="label label-warning">{{ 'process display' | trans }}</span></a>
+                {% set visualizerLink = include('@StateMachineVisualizer/Partial/link.twig', {stateMachineType: 'oms', processName: processName}, false, true) %}
+                {% if visualizerLink %}
+                    {{ visualizerLink | raw }} <span class="label label-warning">{{ 'process display' | trans }}</span>
+                {% else %}
+                    <a href="/oms/index/draw?process={{ processName }}&amp;format=gif&amp;font=14" style="color: #369; text-decoration: none;"><em>{{ processName }}</em> <span class="label label-warning">{{ 'process display' | trans }}</span></a>
+                {% endif %}
             </form>
 
             <table class="table table-bordered table-condensed">

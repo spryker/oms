@@ -9,6 +9,7 @@ namespace Spryker\Zed\Oms\Communication\Plugin\Oms\Command;
 
 use ArrayAccess;
 use InvalidArgumentException;
+use Spryker\Zed\Oms\Dependency\Plugin\Command\CollectionInterface;
 use Spryker\Zed\Oms\Dependency\Plugin\Command\CommandInterface as NewCommandInterface;
 use Spryker\Zed\Oms\Dependency\Plugin\Condition\HasAwareCollectionInterface;
 use Spryker\Zed\Oms\Exception\CommandNotFoundException;
@@ -16,7 +17,7 @@ use Spryker\Zed\Oms\Exception\CommandNotFoundException;
 /**
  * @implements \ArrayAccess<string, \Spryker\Zed\Oms\Dependency\Plugin\Command\CommandInterface|\Spryker\Zed\Oms\Communication\Plugin\Oms\Command\CommandInterface>
  */
-class CommandCollection implements CommandCollectionInterface, HasAwareCollectionInterface, ArrayAccess
+class CommandCollection implements CommandCollectionInterface, CollectionInterface, HasAwareCollectionInterface, ArrayAccess
 {
     /**
      * @var array<\Spryker\Zed\Oms\Dependency\Plugin\Command\CommandInterface|\Spryker\Zed\Oms\Communication\Plugin\Oms\Command\CommandInterface>
@@ -118,5 +119,13 @@ class CommandCollection implements CommandCollectionInterface, HasAwareCollectio
     public function offsetUnset($offset): void
     {
         unset($this->commands[$offset]);
+    }
+
+    /**
+     * @return array<string, \Spryker\Zed\Oms\Dependency\Plugin\Command\CommandInterface|\Spryker\Zed\Oms\Communication\Plugin\Oms\Command\CommandInterface>
+     */
+    public function getAll(): array
+    {
+        return $this->commands;
     }
 }

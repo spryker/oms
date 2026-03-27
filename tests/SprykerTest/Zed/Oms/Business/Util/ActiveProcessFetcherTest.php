@@ -9,6 +9,7 @@ namespace SprykerTest\Zed\Oms\Business\Util;
 
 use Codeception\Test\Unit;
 use ReflectionClass;
+use Spryker\Zed\Oms\Business\Finder\ProcessFinder;
 use Spryker\Zed\Oms\Business\OrderStateMachine\Builder;
 use Spryker\Zed\Oms\Business\OrderStateMachine\BuilderInterface;
 use Spryker\Zed\Oms\Business\Process\Event;
@@ -118,7 +119,7 @@ class ActiveProcessFetcherTest extends Unit
             new State(),
             new Transition(),
             new Process($drawerMock),
-            [$this->getProcessLocation()],
+            new ProcessFinder([$this->getProcessLocation()]),
             $this->tester->createProcessCacheReader(),
             $this->tester->createProcessCacheWriter(),
             new OmsConfig(),

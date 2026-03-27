@@ -9,6 +9,7 @@ namespace Spryker\Zed\Oms\Communication\Plugin\Oms\Condition;
 
 use ArrayAccess;
 use InvalidArgumentException;
+use Spryker\Zed\Oms\Dependency\Plugin\Command\CollectionInterface;
 use Spryker\Zed\Oms\Dependency\Plugin\Condition\ConditionCollectionInterface;
 use Spryker\Zed\Oms\Dependency\Plugin\Condition\ConditionInterface as DependencyConditionInterface;
 use Spryker\Zed\Oms\Dependency\Plugin\Condition\HasAwareCollectionInterface;
@@ -17,7 +18,7 @@ use Spryker\Zed\Oms\Exception\ConditionNotFoundException;
 /**
  * @implements \ArrayAccess<string, \Spryker\Zed\Oms\Dependency\Plugin\Condition\ConditionInterface|\Spryker\Zed\Oms\Communication\Plugin\Oms\Condition\ConditionInterface>
  */
-class ConditionCollection implements ConditionCollectionInterface, HasAwareCollectionInterface, ArrayAccess
+class ConditionCollection implements ConditionCollectionInterface, CollectionInterface, HasAwareCollectionInterface, ArrayAccess
 {
     /**
      * @var array<\Spryker\Zed\Oms\Dependency\Plugin\Condition\ConditionInterface|\Spryker\Zed\Oms\Communication\Plugin\Oms\Condition\ConditionInterface>
@@ -119,5 +120,13 @@ class ConditionCollection implements ConditionCollectionInterface, HasAwareColle
     public function offsetUnset($offset): void
     {
         unset($this->conditions[$offset]);
+    }
+
+    /**
+     * @return array<string, \Spryker\Zed\Oms\Dependency\Plugin\Condition\ConditionInterface|\Spryker\Zed\Oms\Communication\Plugin\Oms\Condition\ConditionInterface>
+     */
+    public function getAll(): array
+    {
+        return $this->conditions;
     }
 }

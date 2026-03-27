@@ -9,7 +9,7 @@ namespace Spryker\Zed\Oms\Business\OrderStateMachine;
 
 use LogicException;
 use SimpleXMLElement;
-use Spryker\Zed\Oms\Business\Exception\StatemachineException;
+use Spryker\Zed\Oms\Business\Finder\ProcessFinderInterface;
 use Spryker\Zed\Oms\Business\Process\EventInterface;
 use Spryker\Zed\Oms\Business\Process\ProcessInterface;
 use Spryker\Zed\Oms\Business\Process\StateInterface;
@@ -17,7 +17,6 @@ use Spryker\Zed\Oms\Business\Process\TransitionInterface;
 use Spryker\Zed\Oms\Business\Reader\ProcessCacheReaderInterface;
 use Spryker\Zed\Oms\Business\Writer\ProcessCacheWriterInterface;
 use Spryker\Zed\Oms\OmsConfig;
-use Symfony\Component\Finder\Finder as SymfonyFinder;
 
 class Builder implements BuilderInterface
 {
@@ -31,83 +30,17 @@ class Builder implements BuilderInterface
      */
     protected static $processBuffer = [];
 
-    /**
-     * @var \Spryker\Zed\Oms\Business\Process\EventInterface
-     */
-    protected $event;
-
-    /**
-     * @var \Spryker\Zed\Oms\Business\Process\StateInterface
-     */
-    protected $state;
-
-    /**
-     * @var \Spryker\Zed\Oms\Business\Process\TransitionInterface
-     */
-    protected $transition;
-
-    /**
-     * @var \Spryker\Zed\Oms\Business\Process\ProcessInterface
-     */
-    protected $process;
-
-    /**
-     * @var array|string
-     */
-    protected $processDefinitionLocation;
-
-    /**
-     * @var string
-     */
-    protected $subProcessPrefixDelimiter;
-
-    /**
-     * @var \Spryker\Zed\Oms\Business\Reader\ProcessCacheReaderInterface
-     */
-    protected ProcessCacheReaderInterface $processCacheReader;
-
-    /**
-     * @var \Spryker\Zed\Oms\Business\Writer\ProcessCacheWriterInterface
-     */
-    protected ProcessCacheWriterInterface $processCacheWriter;
-
-    /**
-     * @var \Spryker\Zed\Oms\OmsConfig
-     */
-    protected OmsConfig $config;
-
-    /**
-     * @param \Spryker\Zed\Oms\Business\Process\EventInterface $event
-     * @param \Spryker\Zed\Oms\Business\Process\StateInterface $state
-     * @param \Spryker\Zed\Oms\Business\Process\TransitionInterface $transition
-     * @param \Spryker\Zed\Oms\Business\Process\ProcessInterface $process
-     * @param array|string $processDefinitionLocation
-     * @param \Spryker\Zed\Oms\Business\Reader\ProcessCacheReaderInterface $processCacheReader
-     * @param \Spryker\Zed\Oms\Business\Writer\ProcessCacheWriterInterface $processCacheWriter
-     * @param \Spryker\Zed\Oms\OmsConfig $config
-     * @param string $subProcessPrefixDelimiter
-     */
     public function __construct(
-        EventInterface $event,
-        StateInterface $state,
-        TransitionInterface $transition,
-        ProcessInterface $process,
-        $processDefinitionLocation,
-        ProcessCacheReaderInterface $processCacheReader,
-        ProcessCacheWriterInterface $processCacheWriter,
-        OmsConfig $config,
-        $subProcessPrefixDelimiter = ' - '
+        protected EventInterface $event,
+        protected StateInterface $state,
+        protected TransitionInterface $transition,
+        protected ProcessInterface $process,
+        protected ProcessFinderInterface $processFinder,
+        protected ProcessCacheReaderInterface $processCacheReader,
+        protected ProcessCacheWriterInterface $processCacheWriter,
+        protected OmsConfig $config,
+        protected string $subProcessPrefixDelimiter = ' - '
     ) {
-        $this->event = $event;
-        $this->state = $state;
-        $this->transition = $transition;
-        $this->process = $process;
-        $this->processCacheReader = $processCacheReader;
-        $this->processCacheWriter = $processCacheWriter;
-        $this->config = $config;
-        $this->subProcessPrefixDelimiter = $subProcessPrefixDelimiter;
-
-        $this->setProcessDefinitionLocation($processDefinitionLocation);
     }
 
     /**
@@ -269,22 +202,9 @@ class Builder implements BuilderInterface
      */
     protected function loadXmlFromFileName($fileName)
     {
-        $definitionFile = $this->locateProcessDefinition($fileName);
+        $definitionFile = $this->processFinder->locateProcessDefinition($fileName);
 
         return $this->loadXml($definitionFile->getContents());
-    }
-
-    /**
-     * @param string $fileName
-     *
-     * @return \Symfony\Component\Finder\SplFileInfo
-     */
-    private function locateProcessDefinition($fileName)
-    {
-        $finder = $this->buildFinder($fileName);
-
-        /** @phpstan-var \Symfony\Component\Finder\SplFileInfo */
-        return current(iterator_to_array($finder->getIterator()));
     }
 
     /**
@@ -520,83 +440,5 @@ class Builder implements BuilderInterface
     protected function getAttributeBoolean(SimpleXMLElement $xmlElement, $attributeName)
     {
         return (string)$xmlElement->attributes()[$attributeName] === 'true';
-    }
-
-    /**
-     * @param array|string|null $processDefinitionLocation
-     *
-     * @return void
-     */
-    private function setProcessDefinitionLocation($processDefinitionLocation)
-    {
-        $this->processDefinitionLocation = $processDefinitionLocation;
-    }
-
-    /**
-     * @param string $fileName
-     *
-     * @return \Symfony\Component\Finder\Finder
-     */
-    protected function buildFinder($fileName)
-    {
-        $finder = $this->getFinder();
-        $finder->in($this->processDefinitionLocation);
-        if (strpos($fileName, '/') !== false) {
-            $finder->path($this->createSubProcessPathPattern($fileName));
-            $finder->name(basename($fileName));
-        } else {
-            $finder->name($fileName);
-        }
-
-        $this->validateFinder($finder, $fileName);
-
-        return $finder;
-    }
-
-    /**
-     * @return \Symfony\Component\Finder\Finder
-     */
-    protected function getFinder()
-    {
-        return new SymfonyFinder();
-    }
-
-    /**
-     * @param \Symfony\Component\Finder\Finder $finder
-     * @param string $fileName
-     *
-     * @throws \Spryker\Zed\Oms\Business\Exception\StatemachineException
-     *
-     * @return void
-     */
-    protected function validateFinder(SymfonyFinder $finder, $fileName)
-    {
-        if ($finder->count() > 1) {
-            throw new StatemachineException(
-                sprintf(
-                    '"%s" found in more then one location. Could not determine which one to choose. Please check your process definition location',
-                    $fileName,
-                ),
-            );
-        }
-
-        if ($finder->count() === 0) {
-            throw new StatemachineException(
-                sprintf(
-                    'Could not find "%s". Please check your process definition location',
-                    $fileName,
-                ),
-            );
-        }
-    }
-
-    /**
-     * @param string $fileName
-     *
-     * @return string
-     */
-    protected function createSubProcessPathPattern($fileName)
-    {
-        return '/\b' . preg_quote(dirname($fileName), '/') . '\b/';
     }
 }

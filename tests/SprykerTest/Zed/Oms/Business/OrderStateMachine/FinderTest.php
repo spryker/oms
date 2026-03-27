@@ -12,6 +12,7 @@ use Orm\Zed\Oms\Persistence\SpyOmsOrderItemState;
 use Orm\Zed\Oms\Persistence\SpyOmsOrderProcess;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 use Spryker\Zed\Oms\Business\Exception\StateNotFoundException;
+use Spryker\Zed\Oms\Business\Finder\ProcessFinder;
 use Spryker\Zed\Oms\Business\OrderStateMachine\Builder;
 use Spryker\Zed\Oms\Business\OrderStateMachine\Finder;
 use Spryker\Zed\Oms\Business\OrderStateMachine\FinderInterface;
@@ -137,7 +138,7 @@ class FinderTest extends Unit
             new State(),
             new Transition(),
             new Process($drawerMock),
-            $this->getProcessLocation(),
+            new ProcessFinder($this->getProcessLocation()),
             $this->tester->createProcessCacheReader(),
             $this->tester->createProcessCacheWriter(),
             new OmsConfig(),

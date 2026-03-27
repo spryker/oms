@@ -26,6 +26,8 @@ use Spryker\Zed\Oms\Business\Expander\OrderItemStateExpander;
 use Spryker\Zed\Oms\Business\Expander\OrderItemStateExpanderInterface;
 use Spryker\Zed\Oms\Business\Expander\StateHistoryExpander;
 use Spryker\Zed\Oms\Business\Expander\StateHistoryExpanderInterface;
+use Spryker\Zed\Oms\Business\Finder\ProcessFinder;
+use Spryker\Zed\Oms\Business\Finder\ProcessFinderInterface;
 use Spryker\Zed\Oms\Business\Lock\TriggerLocker;
 use Spryker\Zed\Oms\Business\Mail\MailHandler;
 use Spryker\Zed\Oms\Business\Notifier\EventTriggeredNotifier;
@@ -44,6 +46,8 @@ use Spryker\Zed\Oms\Business\OrderStateMachine\Timeout;
 use Spryker\Zed\Oms\Business\OrderStatusChanged\OrderStatusChangedMessageSender;
 use Spryker\Zed\Oms\Business\Process\Event;
 use Spryker\Zed\Oms\Business\Process\Process;
+use Spryker\Zed\Oms\Business\Process\ProcessDataProvider;
+use Spryker\Zed\Oms\Business\Process\ProcessDataProviderInterface;
 use Spryker\Zed\Oms\Business\Process\State;
 use Spryker\Zed\Oms\Business\Process\Transition;
 use Spryker\Zed\Oms\Business\Reader\ProcessCacheReader;
@@ -108,6 +112,15 @@ class OmsBusinessFactory extends AbstractBusinessFactory
         );
     }
 
+    public function createProcessDataProvider(): ProcessDataProviderInterface
+    {
+        return new ProcessDataProvider(
+            $this->createProcessFinder(),
+            $this->getProvidedDependency(OmsDependencyProvider::COMMAND_PLUGINS),
+            $this->getProvidedDependency(OmsDependencyProvider::CONDITION_PLUGINS),
+        );
+    }
+
     public function createEventTriggeredNotifier(): EventTriggeredNotifierInterface
     {
         return new EventTriggeredNotifier($this->getOmsEventTriggeredListenerPlugins());
@@ -140,12 +153,17 @@ class OmsBusinessFactory extends AbstractBusinessFactory
             $this->createProcessState(),
             $this->createProcessTransition(),
             $this->createProcessProcess(),
-            $this->getConfig()->getProcessDefinitionLocation(),
+            $this->createProcessFinder(),
             $this->createProcessCacheReader(),
             $this->createProcessCacheWriter(),
             $this->getConfig(),
             $this->getConfig()->getSubProcessPrefixDelimiter(),
         );
+    }
+
+    public function createProcessFinder(): ProcessFinderInterface
+    {
+        return new ProcessFinder($this->getConfig()->getProcessDefinitionLocation());
     }
 
     /**

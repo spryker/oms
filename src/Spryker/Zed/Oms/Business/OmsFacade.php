@@ -22,6 +22,8 @@ use Generated\Shared\Transfer\OrderItemFilterTransfer;
 use Generated\Shared\Transfer\OrderMatrixCollectionTransfer;
 use Generated\Shared\Transfer\OrderMatrixCriteriaTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
+use Generated\Shared\Transfer\ProcessCriteriaTransfer;
+use Generated\Shared\Transfer\ProcessDataTransfer;
 use Generated\Shared\Transfer\ReservationRequestTransfer;
 use Generated\Shared\Transfer\ReservationResponseTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
@@ -1047,5 +1049,17 @@ class OmsFacade extends AbstractFacade implements OmsFacadeInterface
         $this->getFactory()
             ->createTriggerLocker()
             ->releaseForOrder($identifier);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     */
+    public function getProcessData(ProcessCriteriaTransfer $processCriteriaTransfer): ProcessDataTransfer
+    {
+        return $this->getFactory()
+            ->createProcessDataProvider()
+            ->getProcessData($processCriteriaTransfer);
     }
 }

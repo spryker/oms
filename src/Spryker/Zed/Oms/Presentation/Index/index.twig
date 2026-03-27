@@ -17,7 +17,12 @@
                                 <h2>{{ process.name }}</h2>
                             </div>
                             <div class="panel-body">
-                                <a href="{{ url('/oms/index/draw', {process: process.name}) }}" target="_blank">{{ process.name }}</a>
+                                {% set visualizerLink = include('@StateMachineVisualizer/Partial/link.twig', {stateMachineType: 'oms', processName: process.name}, false, true) %}
+                                {% if visualizerLink %}
+                                    {{ visualizerLink | raw }}
+                                {% else %}
+                                    <a href="{{ url('/oms/index/draw', {process: process.name}) }}" target="_blank">{{ process.name }}</a>
+                                {% endif %}
                                 <a style="font-size:10px;" href="{{ url('/oms/index/draw-preview-version', {process: process.name}) }}" target="_blank">[{{ 'preview-version' | trans }}]</a>
                             </div>
 

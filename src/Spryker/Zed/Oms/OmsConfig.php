@@ -16,14 +16,21 @@ use Spryker\Zed\Kernel\AbstractBundleConfig;
 
 class OmsConfig extends AbstractBundleConfig
 {
+    /**
+     * @api
+     */
     public const DEFAULT_PROCESS_LOCATION = APPLICATION_ROOT_DIR . '/config/Zed/oms';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const EVENT_CANCEL = 'cancel';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const OMS_EVENT_TRIGGER_RESPONSE = 'oms_event_trigger_response';

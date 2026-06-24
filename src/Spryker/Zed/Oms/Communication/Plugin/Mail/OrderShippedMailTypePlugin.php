@@ -22,6 +22,8 @@ use Spryker\Zed\Mail\Dependency\Plugin\MailTypePluginInterface;
 class OrderShippedMailTypePlugin extends AbstractPlugin implements MailTypePluginInterface
 {
     /**
+     * @api
+     *
      * @var string
      */
     public const MAIL_TYPE = 'order shipped mail';

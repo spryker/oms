@@ -22,59 +22,26 @@ use Spryker\Zed\Oms\Persistence\OmsRepositoryInterface;
 class ReservationReader implements ReservationReaderInterface
 {
     /**
-     * @var \Spryker\Zed\Oms\Persistence\OmsRepositoryInterface
-     */
-    protected $omsRepository;
-
-    /**
-     * @var \Spryker\Zed\Oms\Dependency\Facade\OmsToStoreFacadeInterface
-     */
-    protected $storeFacade;
-
-    /**
-     * @var \Spryker\Zed\Oms\Business\Util\ActiveProcessFetcherInterface
-     */
-    protected $activeProcessFetcher;
-
-    /**
-     * @var array<\Spryker\Zed\OmsExtension\Dependency\Plugin\OmsReservationReaderStrategyPluginInterface>
-     */
-    protected $omsReservationReaderStrategyPlugins;
-
-    /**
-     * @deprecated Use {@link omsReservationAggregationPlugins} instead.
-     *
-     * @var array<\Spryker\Zed\OmsExtension\Dependency\Plugin\ReservationAggregationStrategyPluginInterface>
-     */
-    protected $reservationAggregationPlugins;
-
-    /**
-     * @var array<\Spryker\Zed\OmsExtension\Dependency\Plugin\OmsReservationAggregationPluginInterface>
-     */
-    protected $omsReservationAggregationPlugins;
-
-    /**
      * @param \Spryker\Zed\Oms\Persistence\OmsRepositoryInterface $omsRepository
      * @param \Spryker\Zed\Oms\Dependency\Facade\OmsToStoreFacadeInterface $storeFacade
      * @param \Spryker\Zed\Oms\Business\Util\ActiveProcessFetcherInterface $activeProcessFetcher
      * @param array<\Spryker\Zed\OmsExtension\Dependency\Plugin\OmsReservationReaderStrategyPluginInterface> $omsReservationReaderStrategyPlugins
      * @param array<\Spryker\Zed\OmsExtension\Dependency\Plugin\ReservationAggregationStrategyPluginInterface> $reservationAggregationPlugins
      * @param array<\Spryker\Zed\OmsExtension\Dependency\Plugin\OmsReservationAggregationPluginInterface> $omsReservationAggregationPlugins
+     * @param array<\Spryker\Zed\OmsExtension\Dependency\Plugin\OmsReservationAggregationQueryCriteriaExpanderPluginInterface> $omsReservationAggregationQueryCriteriaExpanderPlugins
      */
     public function __construct(
-        OmsRepositoryInterface $omsRepository,
-        OmsToStoreFacadeInterface $storeFacade,
-        ActiveProcessFetcherInterface $activeProcessFetcher,
-        array $omsReservationReaderStrategyPlugins,
-        array $reservationAggregationPlugins,
-        array $omsReservationAggregationPlugins
+        protected OmsRepositoryInterface $omsRepository,
+        protected OmsToStoreFacadeInterface $storeFacade,
+        protected ActiveProcessFetcherInterface $activeProcessFetcher,
+        protected array $omsReservationReaderStrategyPlugins,
+        protected array $reservationAggregationPlugins,
+        /**
+         * @deprecated Use {@link $omsReservationAggregationQueryCriteriaExpanderPlugins} instead.
+         */
+        protected array $omsReservationAggregationPlugins,
+        protected array $omsReservationAggregationQueryCriteriaExpanderPlugins = []
     ) {
-        $this->omsRepository = $omsRepository;
-        $this->storeFacade = $storeFacade;
-        $this->activeProcessFetcher = $activeProcessFetcher;
-        $this->omsReservationReaderStrategyPlugins = $omsReservationReaderStrategyPlugins;
-        $this->reservationAggregationPlugins = $reservationAggregationPlugins;
-        $this->omsReservationAggregationPlugins = $omsReservationAggregationPlugins;
     }
 
     public function getOmsReservedProductQuantityForSku(string $sku, StoreTransfer $storeTransfer): Decimal
@@ -215,6 +182,10 @@ class ReservationReader implements ReservationReaderInterface
     ): array {
         foreach ($this->omsReservationAggregationPlugins as $omsReservationAggregationPlugin) {
             return $omsReservationAggregationPlugin->aggregateReservations($reservationRequestTransfer);
+        }
+
+        if ($this->omsReservationAggregationQueryCriteriaExpanderPlugins) {
+            return $this->omsRepository->getReservationAggregations($reservationRequestTransfer);
         }
 
         return $this->aggregateSalesOrderItemReservations(

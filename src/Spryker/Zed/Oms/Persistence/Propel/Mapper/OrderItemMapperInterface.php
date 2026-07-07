@@ -42,4 +42,13 @@ interface OrderItemMapperInterface
         array $orderItemEntities,
         OrderMatrixCollectionTransfer $orderMatrixCollectionTransfer
     ): OrderMatrixCollectionTransfer;
+
+    /**
+     * @param iterable<array<string, mixed>> $salesOrderItemAggregationEntities
+     *
+     * @return array<\Generated\Shared\Transfer\SalesOrderItemStateAggregationTransfer>
+     */
+    public function mapSalesOrderItemAggregationsToSalesOrderItemStateAggregationTransfers(
+        iterable $salesOrderItemAggregationEntities
+    ): array;
 }

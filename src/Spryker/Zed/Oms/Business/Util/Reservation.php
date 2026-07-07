@@ -14,44 +14,11 @@ use Spryker\Zed\Oms\Business\Reader\ReservationReaderInterface;
 use Spryker\Zed\Oms\Dependency\Facade\OmsToStoreFacadeInterface;
 use Spryker\Zed\Oms\Persistence\OmsEntityManagerInterface;
 use Spryker\Zed\Oms\Persistence\OmsRepositoryInterface;
+use Spryker\Zed\OmsExtension\Dependency\Plugin\PrioritizedReservationPostSaveTerminationAwareStrategyPluginInterface;
+use Spryker\Zed\OmsExtension\Dependency\Plugin\ReservationPostSaveTerminationAwareStrategyPluginInterface;
 
 class Reservation implements ReservationInterface
 {
-    /**
-     * @var \Spryker\Zed\Oms\Business\Reader\ReservationReaderInterface
-     */
-    protected $reservationReader;
-
-    /**
-     * @var array<\Spryker\Zed\Oms\Dependency\Plugin\ReservationHandlerPluginInterface>
-     */
-    protected $reservationHandlerPlugins;
-
-    /**
-     * @var \Spryker\Zed\Oms\Dependency\Facade\OmsToStoreFacadeInterface
-     */
-    protected $storeFacade;
-
-    /**
-     * @var \Spryker\Zed\Oms\Persistence\OmsRepositoryInterface
-     */
-    protected $omsRepository;
-
-    /**
-     * @var \Spryker\Zed\Oms\Persistence\OmsEntityManagerInterface
-     */
-    protected $omsEntityManager;
-
-    /**
-     * @var array<\Spryker\Zed\OmsExtension\Dependency\Plugin\OmsReservationWriterStrategyPluginInterface>
-     */
-    protected $omsReservationWriterStrategyPlugins;
-
-    /**
-     * @var array<\Spryker\Zed\OmsExtension\Dependency\Plugin\ReservationPostSaveTerminationAwareStrategyPluginInterface>
-     */
-    protected $reservationHandlerTerminationAwareStrategyPlugins;
-
     /**
      * @var array<\Generated\Shared\Transfer\StoreTransfer>
      */
@@ -65,23 +32,20 @@ class Reservation implements ReservationInterface
      * @param \Spryker\Zed\Oms\Persistence\OmsEntityManagerInterface $omsEntityManager
      * @param array<\Spryker\Zed\OmsExtension\Dependency\Plugin\OmsReservationWriterStrategyPluginInterface> $omsReservationWriterStrategyPlugins
      * @param array<\Spryker\Zed\OmsExtension\Dependency\Plugin\ReservationPostSaveTerminationAwareStrategyPluginInterface> $reservationHandlerTerminationAwareStrategyPlugins
+     * @param array<\Spryker\Zed\OmsExtension\Dependency\Plugin\ReservationRequestExpanderPluginInterface> $reservationRequestExpanderPlugins
+     * @param array<\Spryker\Zed\OmsExtension\Dependency\Plugin\ReservationPostSaveTerminationAwareStrategyPluginInterface> $storeAwareReservationPostSaveTerminationAwareStrategyPlugins
      */
     public function __construct(
-        ReservationReaderInterface $reservationReader,
-        array $reservationHandlerPlugins,
-        OmsToStoreFacadeInterface $storeFacade,
-        OmsRepositoryInterface $omsRepository,
-        OmsEntityManagerInterface $omsEntityManager,
-        array $omsReservationWriterStrategyPlugins,
-        array $reservationHandlerTerminationAwareStrategyPlugins
+        protected ReservationReaderInterface $reservationReader,
+        protected array $reservationHandlerPlugins,
+        protected OmsToStoreFacadeInterface $storeFacade,
+        protected OmsRepositoryInterface $omsRepository,
+        protected OmsEntityManagerInterface $omsEntityManager,
+        protected array $omsReservationWriterStrategyPlugins,
+        protected array $reservationHandlerTerminationAwareStrategyPlugins,
+        protected array $reservationRequestExpanderPlugins = [],
+        protected array $storeAwareReservationPostSaveTerminationAwareStrategyPlugins = []
     ) {
-        $this->reservationReader = $reservationReader;
-        $this->reservationHandlerPlugins = $reservationHandlerPlugins;
-        $this->storeFacade = $storeFacade;
-        $this->omsRepository = $omsRepository;
-        $this->omsEntityManager = $omsEntityManager;
-        $this->omsReservationWriterStrategyPlugins = $omsReservationWriterStrategyPlugins;
-        $this->reservationHandlerTerminationAwareStrategyPlugins = $reservationHandlerTerminationAwareStrategyPlugins;
     }
 
     /**
@@ -101,30 +65,52 @@ class Reservation implements ReservationInterface
         $this->handleReservationPlugins($sku);
     }
 
-    public function updateReservation(ReservationRequestTransfer $reservationRequestTransfer): void
+    public function updateReservation(ReservationRequestTransfer $originalReservationRequestTransfer): void
     {
+        $storeAwareReservationPostSaveTerminationAwareStrategyPlugins = $this->getSortedStoreAwareReservationPostSaveTerminationAwareStrategyPlugins();
+
+        $storeTransfer = null;
         foreach ($this->getAllStoreTransfersCache() as $storeTransfer) {
+            $reservationRequestTransfer = (new ReservationRequestTransfer())->fromArray($originalReservationRequestTransfer->toArray(), true);
             $reservationRequestTransfer->setStore($storeTransfer);
+
+            $reservationRequestTransfer = $this->expandReservationRequest($reservationRequestTransfer);
 
             $reservationQuantity = $this->reservationReader->sumReservedProductQuantities($reservationRequestTransfer);
             $reservationRequestTransfer->setReservationQuantity($reservationQuantity);
 
             $this->writeReservation($reservationRequestTransfer);
+
+            foreach ($storeAwareReservationPostSaveTerminationAwareStrategyPlugins as $storeAwareReservationPostSaveTerminationAwareStrategyPlugin) {
+                if ($storeAwareReservationPostSaveTerminationAwareStrategyPlugin->isTerminated($reservationRequestTransfer)) {
+                    continue 2;
+                }
+
+                if (!$storeAwareReservationPostSaveTerminationAwareStrategyPlugin->isApplicable($reservationRequestTransfer)) {
+                    continue;
+                }
+
+                $storeAwareReservationPostSaveTerminationAwareStrategyPlugin->handle($reservationRequestTransfer);
+            }
+
+            // for BC compatibility
+            $originalReservationRequestTransfer->setReservationQuantity($reservationRequestTransfer->getReservationQuantity());
+            $originalReservationRequestTransfer->setStore($storeTransfer);
         }
 
         foreach ($this->reservationHandlerTerminationAwareStrategyPlugins as $reservationHandlerTerminationAwareStrategyPlugin) {
-            if ($reservationHandlerTerminationAwareStrategyPlugin->isTerminated($reservationRequestTransfer)) {
+            if ($reservationHandlerTerminationAwareStrategyPlugin->isTerminated($originalReservationRequestTransfer)) {
                 return;
             }
 
-            if (!$reservationHandlerTerminationAwareStrategyPlugin->isApplicable($reservationRequestTransfer)) {
+            if (!$reservationHandlerTerminationAwareStrategyPlugin->isApplicable($originalReservationRequestTransfer)) {
                 continue;
             }
 
-            $reservationHandlerTerminationAwareStrategyPlugin->handle($reservationRequestTransfer);
+            $reservationHandlerTerminationAwareStrategyPlugin->handle($originalReservationRequestTransfer);
         }
 
-        $this->handleReservationPlugins($reservationRequestTransfer->getSku());
+        $this->handleReservationPlugins($originalReservationRequestTransfer->getSku());
     }
 
     /**
@@ -170,6 +156,42 @@ class Reservation implements ReservationInterface
         foreach ($this->reservationHandlerPlugins as $reservationHandlerPluginInterface) {
             $reservationHandlerPluginInterface->handle($sku);
         }
+    }
+
+    protected function expandReservationRequest(ReservationRequestTransfer $reservationRequestTransfer): ReservationRequestTransfer
+    {
+        $reservationRequestExpanderPlugins = $this->reservationRequestExpanderPlugins;
+        usort($reservationRequestExpanderPlugins, fn ($a, $b) => $b->getPriority() <=> $a->getPriority());
+
+        foreach ($reservationRequestExpanderPlugins as $reservationRequestExpanderPlugin) {
+            if ($reservationRequestExpanderPlugin->isApplicable($reservationRequestTransfer)) {
+                return $reservationRequestExpanderPlugin->expand($reservationRequestTransfer);
+            }
+        }
+
+        return $reservationRequestTransfer;
+    }
+
+    /**
+     * @return array<\Spryker\Zed\OmsExtension\Dependency\Plugin\ReservationPostSaveTerminationAwareStrategyPluginInterface>
+     */
+    protected function getSortedStoreAwareReservationPostSaveTerminationAwareStrategyPlugins(): array
+    {
+        $storeAwareReservationPostSaveTerminationAwareStrategyPlugins = $this->storeAwareReservationPostSaveTerminationAwareStrategyPlugins;
+        usort(
+            $storeAwareReservationPostSaveTerminationAwareStrategyPlugins,
+            fn ($a, $b) => $this->resolveStoreAwarePluginPriority($b) <=> $this->resolveStoreAwarePluginPriority($a),
+        );
+
+        return $storeAwareReservationPostSaveTerminationAwareStrategyPlugins;
+    }
+
+    protected function resolveStoreAwarePluginPriority(
+        ReservationPostSaveTerminationAwareStrategyPluginInterface $reservationPostSaveTerminationAwareStrategyPlugin
+    ): int {
+        return $reservationPostSaveTerminationAwareStrategyPlugin instanceof PrioritizedReservationPostSaveTerminationAwareStrategyPluginInterface
+            ? $reservationPostSaveTerminationAwareStrategyPlugin->getPriority()
+            : 0;
     }
 
     /**

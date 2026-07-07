@@ -44,6 +44,11 @@ interface OmsRepositoryInterface
     public function getSalesOrderAggregationBySkuAndStatesNames(array $stateNames, string $sku, ?StoreTransfer $storeTransfer = null): array;
 
     /**
+     * @return array<\Generated\Shared\Transfer\SalesOrderItemStateAggregationTransfer>
+     */
+    public function getReservationAggregations(ReservationRequestTransfer $reservationRequestTransfer): array;
+
+    /**
      * @param array<string> $concreteSkus
      * @param int $idStore
      *

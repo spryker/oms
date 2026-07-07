@@ -316,7 +316,25 @@ class OmsBusinessFactory extends AbstractBusinessFactory
             $this->getEntityManager(),
             $this->getOmsReservationWriterStrategyPlugins(),
             $this->getReservationHandlerTerminationAwareStrategyPlugins(),
+            $this->getReservationRequestExpanderPlugins(),
+            $this->getStoreAwareReservationPostSaveTerminationAwareStrategyPlugins(),
         );
+    }
+
+    /**
+     * @return array<\Spryker\Zed\OmsExtension\Dependency\Plugin\ReservationPostSaveTerminationAwareStrategyPluginInterface>
+     */
+    public function getStoreAwareReservationPostSaveTerminationAwareStrategyPlugins(): array
+    {
+        return $this->getProvidedDependency(OmsDependencyProvider::PLUGINS_STORE_AWARE_RESERVATION_POST_SAVE_TERMINATION_AWARE_STRATEGY);
+    }
+
+    /**
+     * @return array<\Spryker\Zed\OmsExtension\Dependency\Plugin\ReservationRequestExpanderPluginInterface>
+     */
+    public function getReservationRequestExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(OmsDependencyProvider::PLUGINS_RESERVATION_REQUEST_EXPANDER);
     }
 
     public function createReservationReader(): ReservationReaderInterface
@@ -328,7 +346,16 @@ class OmsBusinessFactory extends AbstractBusinessFactory
             $this->getOmsReservationReaderStrategyPlugins(),
             $this->getReservationAggregationStrategyPlugins(),
             $this->getOmsReservationAggregationPlugins(),
+            $this->getOmsReservationAggregationQueryCriteriaExpanderPlugins(),
         );
+    }
+
+    /**
+     * @return array<\Spryker\Zed\OmsExtension\Dependency\Plugin\OmsReservationAggregationQueryCriteriaExpanderPluginInterface>
+     */
+    public function getOmsReservationAggregationQueryCriteriaExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(OmsDependencyProvider::PLUGINS_OMS_RESERVATION_AGGREGATION_QUERY_CRITERIA_EXPANDER);
     }
 
     /**

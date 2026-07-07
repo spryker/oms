@@ -12,6 +12,7 @@ use Generated\Shared\Transfer\OmsProductReservationTransfer;
 use Generated\Shared\Transfer\OrderItemFilterTransfer;
 use Generated\Shared\Transfer\OrderMatrixCollectionTransfer;
 use Generated\Shared\Transfer\OrderMatrixCriteriaTransfer;
+use Generated\Shared\Transfer\QueryCriteriaTransfer;
 use Generated\Shared\Transfer\ReservationRequestTransfer;
 use Generated\Shared\Transfer\ReservationResponseTransfer;
 use Generated\Shared\Transfer\SalesOrderItemStateAggregationTransfer;
@@ -247,6 +248,79 @@ class OmsRepository extends AbstractRepository implements OmsRepositoryInterface
         }
 
         return $salesAggregationTransfers;
+    }
+
+    /**
+     * @return array<\Generated\Shared\Transfer\SalesOrderItemStateAggregationTransfer>
+     */
+    public function getReservationAggregations(ReservationRequestTransfer $reservationRequestTransfer): array
+    {
+        if ($reservationRequestTransfer->getStores()->count() === 0) {
+            return [];
+        }
+
+        $salesOrderItemQuery = $this->createBaseReservationAggregationQuery($reservationRequestTransfer);
+        $queryCriteriaTransfer = $this->executeOmsReservationAggregationQueryCriteriaExpanderPlugins($reservationRequestTransfer);
+
+        $salesOrderItemQuery = $this->getFactory()
+            ->createOmsReservationAggregationQueryCriteriaMapper()
+            ->mapQueryCriteriaTransferToSalesOrderItemQuery($queryCriteriaTransfer, $salesOrderItemQuery);
+
+        return $this->getFactory()
+            ->createOrderItemMapper()
+            ->mapSalesOrderItemAggregationsToSalesOrderItemStateAggregationTransfers($salesOrderItemQuery->find());
+    }
+
+    protected function createBaseReservationAggregationQuery(
+        ReservationRequestTransfer $reservationRequestTransfer
+    ): SpySalesOrderItemQuery {
+        /** @var \Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery $salesOrderItemQuery */
+        $salesOrderItemQuery = $this->getFactory()
+            ->getSalesOrderItemPropelQuery()
+            ->useStateQuery()
+                ->filterByName_In(
+                    array_keys($reservationRequestTransfer->getReservedStatesOrFail()->getStates()->getArrayCopy()),
+                )
+            ->endUse();
+
+        /** @var \Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery $salesOrderItemQuery */
+        $salesOrderItemQuery = $salesOrderItemQuery
+            ->groupByFkOmsOrderItemState()
+            ->innerJoinProcess()
+            ->groupByFkOmsOrderProcess()
+            ->select([SpySalesOrderItemTableMap::COL_SKU])
+            ->withColumn(SpySalesOrderItemTableMap::COL_SKU, SalesOrderItemStateAggregationTransfer::SKU)
+            ->withColumn(SpyOmsOrderProcessTableMap::COL_NAME, SalesOrderItemStateAggregationTransfer::PROCESS_NAME)
+            ->withColumn(SpyOmsOrderItemStateTableMap::COL_NAME, SalesOrderItemStateAggregationTransfer::STATE_NAME);
+
+        $storeNames = array_map(function (StoreTransfer $storeTransfer) {
+            return $storeTransfer->getName();
+        }, $reservationRequestTransfer->getStores()->getArrayCopy());
+
+        if ($storeNames !== []) {
+            $salesOrderItemQuery
+                ->useOrderQuery()
+                    ->filterByStore_In($storeNames)
+                ->endUse();
+        }
+
+        return $salesOrderItemQuery;
+    }
+
+    protected function executeOmsReservationAggregationQueryCriteriaExpanderPlugins(
+        ReservationRequestTransfer $reservationRequestTransfer
+    ): QueryCriteriaTransfer {
+        $queryCriteriaTransfer = new QueryCriteriaTransfer();
+        foreach ($this->getFactory()->getOmsReservationAggregationQueryCriteriaExpanderPlugins() as $omsReservationAggregationQueryCriteriaExpanderPlugin) {
+            $queryCriteriaTransfer = $omsReservationAggregationQueryCriteriaExpanderPlugin->expand(
+                $queryCriteriaTransfer,
+                $reservationRequestTransfer,
+            );
+        }
+
+        return $this->getFactory()
+            ->createDefaultOmsReservationAggregationQueryCriteriaExpander()
+            ->expand($queryCriteriaTransfer, $reservationRequestTransfer);
     }
 
     /**

@@ -165,6 +165,7 @@
         <property name="sku" type="string"/>
         <property name="store" type="Store"/>
         <property name="reservationQuantity" type="decimal"/>
+        <property name="stores" type="Store[]" singular="store"/>
     </transfer>
 
     <transfer name="ReservationResponse">
@@ -369,6 +370,26 @@
         <property name="processFilePath" type="string"/>
         <property name="commands" type="string[]" associative="true" singular="command" description="A collection of commands: command name =&gt; type"/>
         <property name="conditions" type="string[]" associative="true" singular="condition" description="A collection of conditions: condition name =&gt; type"/>
+    </transfer>
+
+    <transfer name="QueryCriteria">
+        <property name="withColumns" type="array" singular="withColumn"/>
+        <property name="whereClauses" type="WhereClause[]" singular="whereClause"/>
+        <property name="joins" type="QueryJoin[]" singular="join"/>
+        <property name="groupByColumns" type="string[]" singular="groupByColumn"/>
+    </transfer>
+
+    <transfer name="WhereClause" strict="true">
+        <property name="clause" type="string"/>
+        <property name="parameters" type="array" singular="parameter"/>
+    </transfer>
+
+    <transfer name="QueryJoin">
+        <property name="joinType" type="string"/>
+        <property name="relation" type="string"/>
+        <property name="left" type="array" singular="left"/>
+        <property name="right" type="array" singular="right"/>
+        <property name="condition" type="string"/>
     </transfer>
 
 </transfers>

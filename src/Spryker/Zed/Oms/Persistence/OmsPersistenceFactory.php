@@ -20,9 +20,12 @@ use Orm\Zed\Oms\Persistence\SpyOmsTransitionLogQuery;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 use Spryker\Zed\Oms\OmsDependencyProvider;
+use Spryker\Zed\Oms\Persistence\Propel\Expander\DefaultOmsReservationAggregationQueryCriteriaExpander;
+use Spryker\Zed\Oms\Persistence\Propel\Expander\DefaultOmsReservationAggregationQueryCriteriaExpanderInterface;
 use Spryker\Zed\Oms\Persistence\Propel\Indexer\ProcessIndexer;
 use Spryker\Zed\Oms\Persistence\Propel\Indexer\ProcessIndexerInterface;
 use Spryker\Zed\Oms\Persistence\Propel\Mapper\OmsMapper;
+use Spryker\Zed\Oms\Persistence\Propel\Mapper\OmsReservationAggregationQueryCriteriaMapper;
 use Spryker\Zed\Oms\Persistence\Propel\Mapper\OrderItemMapper;
 use Spryker\Zed\Oms\Persistence\Propel\Mapper\OrderItemMapperInterface;
 
@@ -139,5 +142,23 @@ class OmsPersistenceFactory extends AbstractPersistenceFactory
     public function createProcessIndexer(): ProcessIndexerInterface
     {
         return new ProcessIndexer();
+    }
+
+    public function createOmsReservationAggregationQueryCriteriaMapper(): OmsReservationAggregationQueryCriteriaMapper
+    {
+        return new OmsReservationAggregationQueryCriteriaMapper();
+    }
+
+    public function createDefaultOmsReservationAggregationQueryCriteriaExpander(): DefaultOmsReservationAggregationQueryCriteriaExpanderInterface
+    {
+        return new DefaultOmsReservationAggregationQueryCriteriaExpander();
+    }
+
+    /**
+     * @return array<\Spryker\Zed\OmsExtension\Dependency\Plugin\OmsReservationAggregationQueryCriteriaExpanderPluginInterface>
+     */
+    public function getOmsReservationAggregationQueryCriteriaExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(OmsDependencyProvider::PLUGINS_OMS_RESERVATION_AGGREGATION_QUERY_CRITERIA_EXPANDER);
     }
 }

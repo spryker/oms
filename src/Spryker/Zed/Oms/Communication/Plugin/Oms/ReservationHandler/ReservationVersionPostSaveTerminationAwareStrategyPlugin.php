@@ -9,7 +9,7 @@ namespace Spryker\Zed\Oms\Communication\Plugin\Oms\ReservationHandler;
 
 use Generated\Shared\Transfer\ReservationRequestTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
-use Spryker\Zed\OmsExtension\Dependency\Plugin\ReservationPostSaveTerminationAwareStrategyPluginInterface;
+use Spryker\Zed\OmsExtension\Dependency\Plugin\PrioritizedReservationPostSaveTerminationAwareStrategyPluginInterface;
 
 /**
  * @method \Spryker\Zed\Oms\OmsConfig getConfig()
@@ -17,8 +17,18 @@ use Spryker\Zed\OmsExtension\Dependency\Plugin\ReservationPostSaveTerminationAwa
  * @method \Spryker\Zed\Oms\Communication\OmsCommunicationFactory getFactory()
  * @method \Spryker\Zed\Oms\Business\OmsFacadeInterface getFacade()
  */
-class ReservationVersionPostSaveTerminationAwareStrategyPlugin extends AbstractPlugin implements ReservationPostSaveTerminationAwareStrategyPluginInterface
+class ReservationVersionPostSaveTerminationAwareStrategyPlugin extends AbstractPlugin implements PrioritizedReservationPostSaveTerminationAwareStrategyPluginInterface
 {
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     */
+    public function getPriority(): int
+    {
+        return 100;
+    }
+
     /**
      * {@inheritDoc}
      * - Execution should not be terminated for concrete products.

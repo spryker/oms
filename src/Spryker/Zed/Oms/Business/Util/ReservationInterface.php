@@ -22,7 +22,7 @@ interface ReservationInterface
      */
     public function updateReservationQuantity($sku);
 
-    public function updateReservation(ReservationRequestTransfer $reservationRequestTransfer): void;
+    public function updateReservation(ReservationRequestTransfer $originalReservationRequestTransfer): void;
 
     /**
      * @deprecated Will be removed without replacement.

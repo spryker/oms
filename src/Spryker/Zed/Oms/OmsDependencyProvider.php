@@ -28,145 +28,70 @@ use Spryker\Zed\OmsExtension\Dependency\Plugin\OmsLockPluginInterface;
  */
 class OmsDependencyProvider extends AbstractBundleDependencyProvider
 {
-    /**
-     * @var string
-     */
-    public const CONDITION_PLUGINS = 'CONDITION_PLUGINS';
+    public const string CONDITION_PLUGINS = 'CONDITION_PLUGINS';
 
-    /**
-     * @var string
-     */
-    public const COMMAND_PLUGINS = 'COMMAND_PLUGINS';
+    public const string COMMAND_PLUGINS = 'COMMAND_PLUGINS';
 
-    /**
-     * @var string
-     */
-    public const QUERY_CONTAINER_SALES = 'QUERY_CONTAINER_SALES';
+    public const string QUERY_CONTAINER_SALES = 'QUERY_CONTAINER_SALES';
 
-    /**
-     * @var string
-     */
-    public const PLUGIN_GRAPH = 'PLUGIN_GRAPH';
+    public const string PLUGIN_GRAPH = 'PLUGIN_GRAPH';
 
-    /**
-     * @var string
-     */
-    public const PLUGINS_RESERVATION = 'PLUGIN_RESERVATION';
+    public const string PLUGINS_RESERVATION = 'PLUGIN_RESERVATION';
 
-    /**
-     * @var string
-     */
-    public const PLUGINS_RESERVATION_AGGREGATION = 'PLUGINS_RESERVATION_AGGREGATION';
+    public const string PLUGINS_RESERVATION_AGGREGATION = 'PLUGINS_RESERVATION_AGGREGATION';
 
-    /**
-     * @var string
-     */
-    public const PLUGINS_OMS_RESERVATION_AGGREGATION = 'PLUGINS_OMS_RESERVATION_AGGREGATION';
+    public const string PLUGINS_OMS_RESERVATION_AGGREGATION = 'PLUGINS_OMS_RESERVATION_AGGREGATION';
 
-    /**
-     * @var string
-     */
-    public const PLUGINS_RESERVATION_EXPORT = 'PLUGINS_RESERVATION_EXPORT';
+    public const string PLUGINS_RESERVATION_EXPORT = 'PLUGINS_RESERVATION_EXPORT';
 
-    /**
-     * @var string
-     */
-    public const PLUGINS_OMS_ORDER_MAIL_EXPANDER = 'PLUGINS_OMS_ORDER_MAIL_EXPANDER';
+    public const string PLUGINS_OMS_ORDER_MAIL_EXPANDER = 'PLUGINS_OMS_ORDER_MAIL_EXPANDER';
 
-    /**
-     * @var string
-     */
-    public const PLUGINS_OMS_MANUAL_EVENT_GROUPER = 'PLUGINS_OMS_MANUAL_EVENT_GROUPER';
+    public const string PLUGINS_OMS_MANUAL_EVENT_GROUPER = 'PLUGINS_OMS_MANUAL_EVENT_GROUPER';
 
-    /**
-     * @var string
-     */
-    public const PLUGINS_OMS_RESERVATION_READER_STRATEGY = 'PLUGINS_OMS_RESERVATION_READER_STRATEGY';
+    public const string PLUGINS_OMS_RESERVATION_READER_STRATEGY = 'PLUGINS_OMS_RESERVATION_READER_STRATEGY';
 
-    /**
-     * @var string
-     */
-    public const PLUGINS_OMS_RESERVATION_WRITER_STRATEGY = 'PLUGINS_OMS_RESERVATION_WRITER_STRATEGY';
+    public const string PLUGINS_OMS_RESERVATION_WRITER_STRATEGY = 'PLUGINS_OMS_RESERVATION_WRITER_STRATEGY';
 
-    /**
-     * @var string
-     */
-    public const PLUGINS_RESERVATION_HANDLER_TERMINATION_AWARE_STRATEGY = 'PLUGINS_RESERVATION_HANDLER_TERMINATION_AWARE_STRATEGY';
+    public const string PLUGINS_RESERVATION_REQUEST_EXPANDER = 'PLUGINS_RESERVATION_REQUEST_EXPANDER';
 
-    /**
-     * @var string
-     */
-    public const PLUGINS_TIMEOUT_PROCESSOR = 'PLUGINS_TIMEOUT_PROCESSOR';
+    public const string PLUGINS_OMS_RESERVATION_AGGREGATION_QUERY_CRITERIA_EXPANDER = 'PLUGINS_OMS_RESERVATION_AGGREGATION_QUERY_CRITERIA_EXPANDER';
 
-    /**
-     * @var string
-     */
-    public const PLUGINS_OMS_EVENT_TRIGGERED_LISTENER = 'PLUGINS_OMS_EVENT_TRIGGERED_LISTENER';
+    public const string PLUGINS_RESERVATION_HANDLER_TERMINATION_AWARE_STRATEGY = 'PLUGINS_RESERVATION_HANDLER_TERMINATION_AWARE_STRATEGY';
 
-    /**
-     * @var string
-     */
-    public const PLUGIN_LOCK = 'PLUGIN_LOCK';
+    public const string PLUGINS_STORE_AWARE_RESERVATION_POST_SAVE_TERMINATION_AWARE_STRATEGY = 'PLUGINS_STORE_AWARE_RESERVATION_POST_SAVE_TERMINATION_AWARE_STRATEGY';
 
-    /**
-     * @var string
-     */
-    public const FACADE_MAIL = 'FACADE_MAIL';
+    public const string PLUGINS_TIMEOUT_PROCESSOR = 'PLUGINS_TIMEOUT_PROCESSOR';
 
-    /**
-     * @var string
-     */
-    public const FACADE_SALES = 'FACADE_SALES';
+    public const string PLUGINS_OMS_EVENT_TRIGGERED_LISTENER = 'PLUGINS_OMS_EVENT_TRIGGERED_LISTENER';
 
-    /**
-     * @var string
-     */
-    public const FACADE_STORE = 'FACADE_STORE';
+    public const string PLUGIN_LOCK = 'PLUGIN_LOCK';
 
-    /**
-     * @var string
-     */
-    public const FACADE_UTIL_TEXT = 'FACADE_UTIL_TEXT';
+    public const string FACADE_MAIL = 'FACADE_MAIL';
 
-    /**
-     * @var string
-     */
-    public const FACADE_LOCK = 'FACADE_LOCK';
+    public const string FACADE_SALES = 'FACADE_SALES';
 
-    /**
-     * @var string
-     */
-    public const SERVICE_UTIL_SANITIZE = 'SERVICE_UTIL_SANITIZE';
+    public const string FACADE_STORE = 'FACADE_STORE';
 
-    /**
-     * @var string
-     */
-    public const SERVICE_UTIL_NETWORK = 'SERVICE_UTIL_NETWORK';
+    public const string FACADE_UTIL_TEXT = 'FACADE_UTIL_TEXT';
+
+    public const string FACADE_LOCK = 'FACADE_LOCK';
+
+    public const string SERVICE_UTIL_SANITIZE = 'SERVICE_UTIL_SANITIZE';
+
+    public const string SERVICE_UTIL_NETWORK = 'SERVICE_UTIL_NETWORK';
 
     /**
      * @deprecated Use {@link \Spryker\Zed\Oms\OmsDependencyProvider::QUERY_CONTAINER_SALES} instead.
-     *
-     * @var string
      */
-    public const PROPEL_QUERY_SALES_ORDER_ITEM = 'PROPEL_QUERY_SALES_ORDER_ITEM';
+    public const string PROPEL_QUERY_SALES_ORDER_ITEM = 'PROPEL_QUERY_SALES_ORDER_ITEM';
 
-    /**
-     * @var string
-     */
-    public const FACADE_MESSAGE_BROKER = 'FACADE_MESSAGE_BROKER';
+    public const string FACADE_MESSAGE_BROKER = 'FACADE_MESSAGE_BROKER';
 
     /**
      * @uses \Spryker\Zed\Form\Communication\Plugin\Application\FormApplicationPlugin::SERVICE_FORM_CSRF_PROVIDER
-     *
-     * @var string
      */
-    public const SERVICE_FORM_CSRF_PROVIDER = 'form.csrf_provider';
+    public const string SERVICE_FORM_CSRF_PROVIDER = 'form.csrf_provider';
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     public function provideBusinessLayerDependencies(Container $container)
     {
         $container = $this->addConditionPlugins($container);
@@ -186,7 +111,10 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         $container = $this->addOmsOrderMailExpanderPlugins($container);
         $container = $this->addOmsManualEventGrouperPlugins($container);
         $container = $this->addOmsReservationWriterStrategyPlugins($container);
+        $container = $this->addReservationRequestExpanderPlugins($container);
+        $container = $this->addOmsReservationAggregationQueryCriteriaExpanderPlugins($container);
         $container = $this->addReservationPostSaveTerminationAwareStrategyPlugins($container);
+        $container = $this->addStoreAwareReservationPostSaveTerminationAwareStrategyPlugins($container);
         $container = $this->addTimeoutProcessorPlugins($container);
         $container = $this->addOmsEventTriggeredListenerPlugins($container);
         $container = $this->addMessageBrokerFacade($container);
@@ -234,6 +162,7 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
 
         $container = $this->addSalesQueryContainer($container);
         $container = $this->addSalesOrderItemPropelQuery($container);
+        $container = $this->addOmsReservationAggregationQueryCriteriaExpanderPlugins($container);
 
         return $container;
     }
@@ -280,6 +209,8 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
+     * @deprecated Use {@link getOmsReservationAggregationQueryCriteriaExpanderPlugins()} instead.
+     *
      * @return array<\Spryker\Zed\OmsExtension\Dependency\Plugin\OmsReservationAggregationPluginInterface>
      */
     protected function getOmsReservationAggregationPlugins(): array
@@ -507,6 +438,40 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
+    protected function addReservationRequestExpanderPlugins(Container $container): Container
+    {
+        $container->set(static::PLUGINS_RESERVATION_REQUEST_EXPANDER, function () {
+            return $this->getReservationRequestExpanderPlugins();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @return array<\Spryker\Zed\OmsExtension\Dependency\Plugin\ReservationRequestExpanderPluginInterface>
+     */
+    protected function getReservationRequestExpanderPlugins(): array
+    {
+        return [];
+    }
+
+    protected function addOmsReservationAggregationQueryCriteriaExpanderPlugins(Container $container): Container
+    {
+        $container->set(static::PLUGINS_OMS_RESERVATION_AGGREGATION_QUERY_CRITERIA_EXPANDER, function () {
+            return $this->getOmsReservationAggregationQueryCriteriaExpanderPlugins();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @return array<\Spryker\Zed\OmsExtension\Dependency\Plugin\OmsReservationAggregationQueryCriteriaExpanderPluginInterface>
+     */
+    protected function getOmsReservationAggregationQueryCriteriaExpanderPlugins(): array
+    {
+        return [];
+    }
+
     protected function addReservationPostSaveTerminationAwareStrategyPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_RESERVATION_HANDLER_TERMINATION_AWARE_STRATEGY, function () {
@@ -520,6 +485,23 @@ class OmsDependencyProvider extends AbstractBundleDependencyProvider
      * @return array<\Spryker\Zed\OmsExtension\Dependency\Plugin\ReservationPostSaveTerminationAwareStrategyPluginInterface>
      */
     protected function getReservationPostSaveTerminationAwareStrategyPlugins(): array
+    {
+        return [];
+    }
+
+    protected function addStoreAwareReservationPostSaveTerminationAwareStrategyPlugins(Container $container): Container
+    {
+        $container->set(static::PLUGINS_STORE_AWARE_RESERVATION_POST_SAVE_TERMINATION_AWARE_STRATEGY, function () {
+            return $this->getStoreAwareReservationPostSaveTerminationAwareStrategyPlugins();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @return array<\Spryker\Zed\OmsExtension\Dependency\Plugin\ReservationPostSaveTerminationAwareStrategyPluginInterface>
+     */
+    protected function getStoreAwareReservationPostSaveTerminationAwareStrategyPlugins(): array
     {
         return [];
     }

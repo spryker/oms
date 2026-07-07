@@ -11,6 +11,7 @@ use Generated\Shared\Transfer\ItemStateTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\OrderMatrixCollectionTransfer;
 use Generated\Shared\Transfer\OrderMatrixTransfer;
+use Generated\Shared\Transfer\SalesOrderItemStateAggregationTransfer;
 use Orm\Zed\Sales\Persistence\Map\SpySalesOrderItemTableMap;
 use Propel\Runtime\Collection\Collection;
 use Spryker\Zed\Oms\Persistence\OmsQueryContainer;
@@ -112,5 +113,17 @@ class OrderItemMapper implements OrderItemMapperInterface
             ->setItemsCount((int)$orderItemEntity['itemsCount'])
             ->setIdProcess((int)$orderItemEntity['sub.fk_oms_order_process'])
             ->setIdState((int)$orderItemEntity['sub.fk_oms_order_item_state']);
+    }
+
+    public function mapSalesOrderItemAggregationsToSalesOrderItemStateAggregationTransfers(
+        iterable $salesOrderItemAggregationEntities
+    ): array {
+        $salesOrderItemStateAggregationTransfers = [];
+        foreach ($salesOrderItemAggregationEntities as $salesOrderItemAggregationEntity) {
+            $salesOrderItemStateAggregationTransfers[] = (new SalesOrderItemStateAggregationTransfer())
+                ->fromArray($salesOrderItemAggregationEntity, true);
+        }
+
+        return $salesOrderItemStateAggregationTransfers;
     }
 }

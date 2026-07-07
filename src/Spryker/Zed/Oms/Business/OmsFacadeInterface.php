@@ -690,7 +690,10 @@ interface OmsFacadeInterface
     /**
      * Specification:
      *  - Updates reservation quantity for different entities from a given ReservationRequest.
-     *  - Calculates total current reservation for given ReservationRequestTransfer by executing the OmsReservationAggregationPluginInterface plugin stack and adding their sum amount.
+     *  - Iterates over all configured stores and, per store, runs the `ReservationRequestExpanderPluginInterface` plugin stack.
+     *  - Calculates the total current reservation for the resulting `ReservationRequestTransfer` by running the `OmsReservationAggregationQueryCriteriaExpanderPluginInterface` plugin stack,
+     * which composes `QueryCriteriaTransfer` fragments (joins, group-by columns, `withColumn`s, where clauses) into a single OMS aggregation query and adds the returned sum amount.
+     *  - Falls back to executing the deprecated `OmsReservationAggregationPluginInterface` plugin stack when no `OmsReservationAggregationQueryCriteriaExpanderPluginInterface` plugins are registered.
      *  - Uses original reservation aggregation if no plugin returns an aggregation of reservations.
      *  - Uses `OmsReservationWriterStrategyPluginInterface` stack to save reservation entity.
      *  - Checks if reservation for ReservationRequest already exists, if so it updates it with new values, otherwise creates a new reservation entity.

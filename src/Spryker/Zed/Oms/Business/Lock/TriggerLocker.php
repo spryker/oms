@@ -8,6 +8,7 @@
 namespace Spryker\Zed\Oms\Business\Lock;
 
 use DateInterval;
+use DateMalformedIntervalStringException;
 use DateTime;
 use Exception;
 use Generated\Shared\Transfer\LockTransfer;
@@ -200,11 +201,16 @@ class TriggerLocker implements LockerInterface
      */
     protected function createExpirationDate()
     {
-        $dateInterval = DateInterval::createFromDateString(
-            $this->omsConfig->getStateMachineLockerTimeoutInterval(),
-        );
-        if ($dateInterval === false) {
-            throw new RuntimeException('Cannot create a DateInterval from `OmsConfig::getStateMachineLockerTimeoutInterval()`');
+        $lockerTimeoutInterval = $this->omsConfig->getStateMachineLockerTimeoutInterval();
+
+        try {
+            $dateInterval = DateInterval::createFromDateString($lockerTimeoutInterval);
+        } catch (DateMalformedIntervalStringException $exception) {
+            throw new RuntimeException(
+                sprintf('Cannot create a DateInterval from `OmsConfig::getStateMachineLockerTimeoutInterval()` value "%s".', $lockerTimeoutInterval),
+                0,
+                $exception,
+            );
         }
 
         $expirationDate = new DateTime();

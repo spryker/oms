@@ -26,6 +26,7 @@ use Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery;
 use ReflectionProperty;
 use Spryker\Shared\Oms\OmsConstants;
 use Spryker\Zed\Oms\Business\OmsFacade;
+use Spryker\Zed\Oms\Business\OmsFacadeInterface;
 use Spryker\Zed\Oms\Business\OrderStateMachine\PersistenceManager;
 use Spryker\Zed\Oms\Communication\Plugin\Oms\Command\CommandCollection;
 use Spryker\Zed\Oms\Communication\Plugin\Oms\Condition\ConditionCollection;
@@ -34,7 +35,6 @@ use SprykerTest\Shared\Testify\Helper\ConfigHelper;
 use SprykerTest\Shared\Testify\Helper\ConfigHelperTrait;
 use SprykerTest\Shared\Testify\Helper\DataCleanupHelperTrait;
 use SprykerTest\Zed\Testify\Helper\Business\DependencyProviderHelperTrait;
-use Symfony\Component\Process\Process;
 
 class OmsHelper extends Module
 {
@@ -191,30 +191,26 @@ class OmsHelper extends Module
 
     public function checkCondition(): void
     {
-        $this->runCommand('vendor/bin/console oms:check-condition -q');
+        $this->getOmsFacade()->checkConditions();
     }
 
     public function checkTimeout(): void
     {
-        $this->runCommand('vendor/bin/console oms:check-timeout -q');
+        $this->getOmsFacade()->checkTimeouts();
     }
 
     public function clearLocks(): void
     {
-        $this->runCommand('vendor/bin/console oms:check-locks -q');
+        $this->getOmsFacade()->clearLocks();
     }
 
     /**
-     * Used Symfony Process because console application uses call to exit()`
-     *
-     * @param string $command
-     *
-     * @return void
+     * In-process, not a console subprocess: the subprocess discarded its exit code, so a state
+     * machine that failed mid-transition left the test asserting against whatever state it reached.
      */
-    protected function runCommand(string $command): void
+    protected function getOmsFacade(): OmsFacadeInterface
     {
-        $process = new Process(explode(' ', $command));
-        $process->run();
+        return new OmsFacade();
     }
 
     public function configureTestStateMachine(array $activeProcesses, ?string $xmlFolder = null): void

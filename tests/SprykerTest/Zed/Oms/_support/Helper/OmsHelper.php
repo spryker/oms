@@ -17,11 +17,13 @@ use Generated\Shared\DataBuilder\OmsProductReservationBuilder;
 use Generated\Shared\Transfer\OmsEventTriggerResponseTransfer;
 use Generated\Shared\Transfer\OmsOrderItemStateTransfer;
 use Generated\Shared\Transfer\OmsProductReservationTransfer;
+use Orm\Zed\Oms\Persistence\Map\SpyOmsOrderItemStateTableMap;
 use Orm\Zed\Oms\Persistence\SpyOmsEventTimeout;
 use Orm\Zed\Oms\Persistence\SpyOmsEventTimeoutQuery;
 use Orm\Zed\Oms\Persistence\SpyOmsOrderItemState;
 use Orm\Zed\Oms\Persistence\SpyOmsOrderItemStateQuery;
 use Orm\Zed\Oms\Persistence\SpyOmsProductReservation;
+use Orm\Zed\Sales\Persistence\Map\SpySalesOrderItemTableMap;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItemQuery;
 use ReflectionProperty;
 use Spryker\Shared\Oms\OmsConstants;
@@ -191,17 +193,34 @@ class OmsHelper extends Module
 
     public function checkCondition(): void
     {
+        $this->clearOrderItemInstancePool();
+
         $this->getOmsFacade()->checkConditions();
     }
 
     public function checkTimeout(): void
     {
+        $this->clearOrderItemInstancePool();
+
         $this->getOmsFacade()->checkTimeouts();
     }
 
     public function clearLocks(): void
     {
         $this->getOmsFacade()->clearLocks();
+    }
+
+    /**
+     * The state machine filters order items by state in SQL, then trusts the hydrated entity's state
+     * to be one of the states it asked for. Propel never rehydrates an entity that is already in the
+     * instance pool, so an item this process moved earlier still reports its old state and the state
+     * machine looks it up in a transition map that has no such key. Running as a console subprocess
+     * used to guarantee a cold pool; in-process it has to be cleared explicitly.
+     */
+    protected function clearOrderItemInstancePool(): void
+    {
+        SpySalesOrderItemTableMap::clearInstancePool();
+        SpyOmsOrderItemStateTableMap::clearInstancePool();
     }
 
     /**

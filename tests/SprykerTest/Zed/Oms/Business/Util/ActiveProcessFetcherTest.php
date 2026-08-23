@@ -87,7 +87,6 @@ class ActiveProcessFetcherTest extends Unit
     {
         $reflectionResolver = new ReflectionClass(ActiveProcessFetcher::class);
         $reflectionProperty = $reflectionResolver->getProperty('reservedStatesCache');
-        $reflectionProperty->setAccessible(true);
         $reflectionProperty->setValue([]);
     }
 

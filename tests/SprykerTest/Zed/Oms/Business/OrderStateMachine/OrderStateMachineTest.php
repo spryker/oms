@@ -84,7 +84,6 @@ class OrderStateMachineTest extends Unit
         );
         $reflection = new ReflectionClass(OrderStateMachine::class);
         $reflectionProperty = $reflection->getProperty('conditions');
-        $reflectionProperty->setAccessible(true);
         $conditions = $reflectionProperty->getValue($orderStateMachine);
 
         $this->assertInstanceOf(ConditionCollectionInterface::class, $conditions);
@@ -110,7 +109,6 @@ class OrderStateMachineTest extends Unit
         );
         $reflection = new ReflectionClass(OrderStateMachine::class);
         $reflectionProperty = $reflection->getProperty('conditions');
-        $reflectionProperty->setAccessible(true);
         $conditions = $reflectionProperty->getValue($orderStateMachine);
 
         $this->assertInstanceOf(ConditionCollectionInterface::class, $conditions);
@@ -133,7 +131,6 @@ class OrderStateMachineTest extends Unit
         );
         $reflection = new ReflectionClass(OrderStateMachine::class);
         $reflectionProperty = $reflection->getProperty('commands');
-        $reflectionProperty->setAccessible(true);
         $commands = $reflectionProperty->getValue($orderStateMachine);
 
         $this->assertInstanceOf(CommandCollectionInterface::class, $commands);
@@ -159,7 +156,6 @@ class OrderStateMachineTest extends Unit
         );
         $reflection = new ReflectionClass(OrderStateMachine::class);
         $reflectionProperty = $reflection->getProperty('commands');
-        $reflectionProperty->setAccessible(true);
         $commands = $reflectionProperty->getValue($orderStateMachine);
 
         $this->assertInstanceOf(CommandCollectionInterface::class, $commands);

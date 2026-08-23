@@ -66,7 +66,6 @@ class DrawerTest extends Unit
         );
         $reflection = new ReflectionClass(Drawer::class);
         $reflectionProperty = $reflection->getProperty('conditions');
-        $reflectionProperty->setAccessible(true);
         $conditions = $reflectionProperty->getValue($drawer);
 
         $this->assertInstanceOf(ConditionCollectionInterface::class, $conditions);
@@ -87,7 +86,6 @@ class DrawerTest extends Unit
         );
         $reflection = new ReflectionClass(Drawer::class);
         $reflectionProperty = $reflection->getProperty('conditions');
-        $reflectionProperty->setAccessible(true);
         $conditions = $reflectionProperty->getValue($drawer);
 
         $this->assertInstanceOf(ConditionCollectionInterface::class, $conditions);
@@ -105,7 +103,6 @@ class DrawerTest extends Unit
         );
         $reflection = new ReflectionClass(Drawer::class);
         $reflectionProperty = $reflection->getProperty('commands');
-        $reflectionProperty->setAccessible(true);
         $commands = $reflectionProperty->getValue($drawer);
 
         $this->assertInstanceOf(CommandCollectionInterface::class, $commands);
@@ -126,7 +123,6 @@ class DrawerTest extends Unit
         );
         $reflection = new ReflectionClass(Drawer::class);
         $reflectionProperty = $reflection->getProperty('commands');
-        $reflectionProperty->setAccessible(true);
         $commands = $reflectionProperty->getValue($drawer);
 
         $this->assertInstanceOf(CommandCollectionInterface::class, $commands);
@@ -147,7 +143,6 @@ class DrawerTest extends Unit
         );
         $reflection = new ReflectionClass(Drawer::class);
         $reflectionProperty = $reflection->getProperty('timeoutProcessorCollection');
-        $reflectionProperty->setAccessible(true);
         $timeoutProcessorCollection = $reflectionProperty->getValue($drawer);
 
         $this->assertInstanceOf(TimeoutProcessorCollectionInterface::class, $timeoutProcessorCollection);

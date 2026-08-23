@@ -271,7 +271,6 @@ class ReservationTest extends Unit
     protected function resetAllStoreTransfersCache(): void
     {
         $reflectionProperty = new ReflectionProperty(Reservation::class, 'allStoreTransfersCache');
-        $reflectionProperty->setAccessible(true);
         $reflectionProperty->setValue(null, []);
     }
 

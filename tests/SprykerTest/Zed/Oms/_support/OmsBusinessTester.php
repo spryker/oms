@@ -101,7 +101,6 @@ class OmsBusinessTester extends Actor
     {
         $reflectionResolver = new ReflectionClass(ActiveProcessFetcher::class);
         $reflectionProperty = $reflectionResolver->getProperty('reservedStatesCache');
-        $reflectionProperty->setAccessible(true);
         $reflectionProperty->setValue([]);
     }
 
@@ -109,7 +108,6 @@ class OmsBusinessTester extends Actor
     {
         $reflectionResolver = new ReflectionClass(ActiveProcessFetcher::class);
         $reflectionProperty = $reflectionResolver->getProperty('reservedStateProcessNamesCache');
-        $reflectionProperty->setAccessible(true);
         $reflectionProperty->setValue([]);
     }
 
@@ -463,7 +461,6 @@ class OmsBusinessTester extends Actor
     {
         $reflection = new ReflectionClass(Builder::class);
         $property = $reflection->getProperty('processBuffer');
-        $property->setAccessible(true);
         $property->setValue(null, []);
     }
 

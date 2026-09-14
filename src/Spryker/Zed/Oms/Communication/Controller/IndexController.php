@@ -75,7 +75,7 @@ class IndexController extends AbstractController
 
         /** @var string|null $format */
         $format = $request->query->get('format');
-        $fontSize = $request->query->getInt('font');
+        $fontSize = (int)$request->query->get('font', 0);
 
         /** @var string|null $highlightState */
         $highlightState = $request->query->get('state');

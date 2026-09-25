@@ -69,6 +69,10 @@ class OmsHelper extends Module
         $this->reloadCommands();
         $this->reloadConditions();
         $this->disableProcessCache();
+        // The state and process caches are static, so they outlive the rows they point at: a test
+        // that places an order creates the initial state, cleanup deletes it, and the next order
+        // placement in the same process inserts an order item against the dangling id.
+        $this->clearPersistenceManagerCache();
     }
 
     protected function reloadCommands(): void

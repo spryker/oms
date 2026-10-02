@@ -240,4 +240,17 @@ class OmsConfig extends AbstractBundleConfig
     {
         return static::OMS_PROCESS_CACHE_FILE_PERMISSION;
     }
+
+    /**
+     * Specification:
+     * - Defines whether the first state machine run of new order items is deferred to the `oms:check-timeout` command.
+     * - When enabled, `OmsFacade::triggerEventForNewOrderItems()` only schedules an already expired event timeout per order item in its current state.
+     * - When enabled, reservations, `onEnter` events and timeouts of the initial state are executed by `oms:check-timeout` instead of the caller.
+     *
+     * @api
+     */
+    public function isDeferredNewOrderItemProcessingEnabled(): bool
+    {
+        return false;
+    }
 }

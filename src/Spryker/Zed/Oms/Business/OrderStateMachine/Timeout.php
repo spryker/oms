@@ -31,6 +31,8 @@ class Timeout implements TimeoutInterface
 {
     use ActiveRecordBatchProcessorTrait;
 
+    public const string EVENT_DEFERRED_NEW_ORDER_ITEM = 'deferred new order item';
+
     /**
      * @var \Spryker\Zed\Oms\Persistence\OmsQueryContainerInterface
      */
@@ -83,12 +85,92 @@ class Timeout implements TimeoutInterface
         $groupedOrderItems = $this->groupItemsByEvent($orderItems);
 
         foreach ($groupedOrderItems as $orderData) {
-            foreach ($orderData as $event => $orderItems) {
-                $orderStateMachine->triggerEvent($event, $orderItems, []);
-            }
+            $this->triggerExpiredTimeoutEvents($orderStateMachine, $orderData);
         }
 
         return $countAffectedItems;
+    }
+
+    /**
+     * @param array<\Orm\Zed\Sales\Persistence\SpySalesOrderItem> $orderItems
+     */
+    public function setDeferredNewOrderItemTimeouts(array $orderItems, DateTime $currentTime): void
+    {
+        if ($orderItems === []) {
+            return;
+        }
+
+        foreach ($orderItems as $orderItem) {
+            $this->persist((new SpyOmsEventTimeout())
+                    ->setTimeout($currentTime)
+                    ->setOrderItem($orderItem)
+                    ->setState($orderItem->getState())
+                    ->setEvent(static::EVENT_DEFERRED_NEW_ORDER_ITEM));
+        }
+
+        $this->commitIdentical();
+    }
+
+    /**
+     * @param array<string, array<\Orm\Zed\Sales\Persistence\SpySalesOrderItem>> $orderItemsByEvent
+     */
+    protected function triggerExpiredTimeoutEvents(OrderStateMachineInterface $orderStateMachine, array $orderItemsByEvent): void
+    {
+        foreach ($orderItemsByEvent as $event => $orderItems) {
+            if ($event === static::EVENT_DEFERRED_NEW_ORDER_ITEM) {
+                $this->triggerDeferredNewOrderItems($orderStateMachine, $orderItems);
+
+                continue;
+            }
+
+            $orderStateMachine->triggerEvent($event, $orderItems, []);
+        }
+    }
+
+    /**
+     * @param array<\Orm\Zed\Sales\Persistence\SpySalesOrderItem> $orderItems
+     */
+    protected function triggerDeferredNewOrderItems(OrderStateMachineInterface $orderStateMachine, array $orderItems): void
+    {
+        $deferredStateIds = $this->getDeferredStateIdsIndexedByIdSalesOrderItem($orderItems);
+
+        $orderItemsInDeferredState = array_filter(
+            $orderItems,
+            fn (SpySalesOrderItem $orderItem): bool => $orderItem->getFkOmsOrderItemState() === ($deferredStateIds[$orderItem->getIdSalesOrderItem()] ?? null),
+        );
+
+        if ($orderItemsInDeferredState !== []) {
+            $orderStateMachine->triggerEventForNewItem(array_values($orderItemsInDeferredState), []);
+        }
+
+        SpyOmsEventTimeoutQuery::create()
+            ->filterByFkSalesOrderItem_In(array_keys($deferredStateIds))
+            ->filterByEvent(static::EVENT_DEFERRED_NEW_ORDER_ITEM)
+            ->delete();
+    }
+
+    /**
+     * @param array<\Orm\Zed\Sales\Persistence\SpySalesOrderItem> $orderItems
+     *
+     * @return array<int, int>
+     */
+    protected function getDeferredStateIdsIndexedByIdSalesOrderItem(array $orderItems): array
+    {
+        $omsEventTimeoutEntities = SpyOmsEventTimeoutQuery::create()
+            ->filterByFkSalesOrderItem_In(array_map(
+                static fn (SpySalesOrderItem $orderItem): int => $orderItem->getIdSalesOrderItem(),
+                $orderItems,
+            ))
+            ->filterByEvent(static::EVENT_DEFERRED_NEW_ORDER_ITEM)
+            ->find();
+
+        $deferredStateIds = [];
+
+        foreach ($omsEventTimeoutEntities as $omsEventTimeoutEntity) {
+            $deferredStateIds[$omsEventTimeoutEntity->getFkSalesOrderItem()] = $omsEventTimeoutEntity->getFkOmsOrderItemState();
+        }
+
+        return $deferredStateIds;
     }
 
     /**

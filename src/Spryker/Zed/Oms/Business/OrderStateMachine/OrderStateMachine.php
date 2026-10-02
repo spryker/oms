@@ -344,6 +344,12 @@ class OrderStateMachine implements OrderStateMachineInterface, CheckConditionFor
             ->find()
             ->getData();
 
+        if ($this->omsConfig->isDeferredNewOrderItemProcessingEnabled()) {
+            $this->timeout->setDeferredNewOrderItemTimeouts($orderItems, new DateTime('now'));
+
+            return [];
+        }
+
         return $this->triggerEventForNewItem($orderItems, $data);
     }
 

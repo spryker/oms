@@ -72,4 +72,9 @@ interface TimeoutInterface
      * @return void
      */
     public function dropOldTimeouts(array $orderItems, array $processes, array $sourceStateBuffer);
+
+    /**
+     * @param array<\Orm\Zed\Sales\Persistence\SpySalesOrderItem> $orderItems
+     */
+    public function setDeferredNewOrderItemTimeouts(array $orderItems, DateTime $currentTime): void;
 }

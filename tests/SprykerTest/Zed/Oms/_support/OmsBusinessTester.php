@@ -48,6 +48,7 @@ use Spryker\Zed\Oms\Business\Reader\ProcessCacheReader;
 use Spryker\Zed\Oms\Business\Reader\ProcessCacheReaderInterface;
 use Spryker\Zed\Oms\Business\Util\ActiveProcessFetcher;
 use Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject;
+use Spryker\Zed\Oms\Business\Util\Reservation;
 use Spryker\Zed\Oms\Business\Writer\ProcessCacheWriter;
 use Spryker\Zed\Oms\Business\Writer\ProcessCacheWriterInterface;
 use Spryker\Zed\Oms\Dependency\Facade\OmsToSalesInterface;
@@ -109,6 +110,20 @@ class OmsBusinessTester extends Actor
         $reflectionResolver = new ReflectionClass(ActiveProcessFetcher::class);
         $reflectionProperty = $reflectionResolver->getProperty('reservedStateProcessNamesCache');
         $reflectionProperty->setValue([]);
+    }
+
+    public function resetReservationStoresCache(): void
+    {
+        $reflectionResolver = new ReflectionClass(Reservation::class);
+        $reflectionProperty = $reflectionResolver->getProperty('allStoreTransfersCache');
+        $reflectionProperty->setValue([]);
+    }
+
+    public function resetReservationCaches(): void
+    {
+        $this->resetReservedStatesCache();
+        $this->resetReservedStateProcessNamesCache();
+        $this->resetReservationStoresCache();
     }
 
     public function createOrderByStateMachineProcessName(string $stateMachineProcessName): OrderTransfer

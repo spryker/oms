@@ -99,7 +99,7 @@ class OmsReservationAggregationQueryCriteriaMapper
 
             $salesOrderItemQuery->where(
                 /** @phpstan-ignore-next-line argument.type */
-                '(' . $clause . ')',
+                sprintf('(%s)', $clause),
                 count($parameters) > 1 ? $parameters : ($parameters[0] ?? null),
             );
         }

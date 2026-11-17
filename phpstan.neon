@@ -9,3 +9,4 @@ parameters:
         - '#Argument of an invalid type array\|.+CommandCollectionInterface supplied for foreach, only iterables are supported.#'
         -
             identifier: missingType.iterableValue
+        - '#PHPDoc tag @SuppressWarnings has invalid value#'

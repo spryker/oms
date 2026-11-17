@@ -7,6 +7,9 @@
 
 namespace Spryker\Zed\Oms\Business\Process;
 
+/**
+ * @SuppressWarnings(PHPMD.BooleanGetMethodName)
+ */
 interface ProcessInterface
 {
     /**

@@ -10,6 +10,9 @@ namespace Spryker\Zed\Oms\Business\Process;
 use Exception;
 use Spryker\Zed\Oms\Business\Util\DrawerInterface;
 
+/**
+ * @SuppressWarnings(PHPMD.BooleanGetMethodName)
+ */
 class Process implements ProcessInterface
 {
     /**

@@ -244,8 +244,8 @@ class Builder implements BuilderInterface
                 $event = clone $this->event;
                 $eventId = $this->getAttributeString($xmlEvent, 'name');
                 $event->setCommand($this->getAttributeString($xmlEvent, 'command'));
-                $event->setManual($this->getAttributeBoolean($xmlEvent, 'manual'));
-                $event->setOnEnter($this->getAttributeBoolean($xmlEvent, 'onEnter'));
+                $event->setManual($this->isAttributeTrue($xmlEvent, 'manual'));
+                $event->setOnEnter($this->isAttributeTrue($xmlEvent, 'onEnter'));
                 $event->setTimeout($this->getAttributeString($xmlEvent, 'timeout'));
                 $event->setTimeoutProcessor($this->getAttributeString($xmlEvent, 'timeoutProcessor'));
                 if ($eventId === null) {
@@ -276,7 +276,7 @@ class Builder implements BuilderInterface
             $processName = $this->getAttributeString($xmlProcess, 'name');
             $process->setName($processName);
             $processMap[$processName] = $process;
-            $process->setIsMain($this->getAttributeBoolean($xmlProcess, 'main'));
+            $process->setIsMain($this->isAttributeTrue($xmlProcess, 'main'));
 
             $process->setFile($this->getAttributeString($xmlProcess, 'file'));
 
@@ -333,7 +333,7 @@ class Builder implements BuilderInterface
                     $state = clone $this->state;
                     $state->setName($this->getAttributeString($xmlState, 'name'));
                     $state->setDisplay($this->getAttributeString($xmlState, 'display'));
-                    $state->setReserved($this->getAttributeBoolean($xmlState, 'reserved'));
+                    $state->setReserved($this->isAttributeTrue($xmlState, 'reserved'));
                     $state->setProcess($process);
 
                     /** @var array $stateFlag */
@@ -376,7 +376,7 @@ class Builder implements BuilderInterface
 
                     $transition->setCondition($this->getAttributeString($xmlTransition, 'condition'));
 
-                    $transition->setHappy($this->getAttributeBoolean($xmlTransition, 'happy'));
+                    $transition->setHappy($this->isAttributeTrue($xmlTransition, 'happy'));
 
                     $sourceName = (string)$xmlTransition->source;
 
@@ -437,7 +437,7 @@ class Builder implements BuilderInterface
      *
      * @return bool
      */
-    protected function getAttributeBoolean(SimpleXMLElement $xmlElement, $attributeName)
+    protected function isAttributeTrue(SimpleXMLElement $xmlElement, $attributeName)
     {
         return (string)$xmlElement->attributes()[$attributeName] === 'true';
     }

@@ -22,6 +22,9 @@ use Spryker\Zed\Oms\Dependency\Plugin\Condition\ConditionCollectionInterface;
 use Spryker\Zed\Oms\Dependency\Plugin\Condition\HasAwareCollectionInterface;
 use Spryker\Zed\Oms\Dependency\Service\OmsToUtilTextInterface;
 
+/**
+ * @SuppressWarnings(PHPMD.ShortVariable)
+ */
 class Drawer implements DrawerInterface
 {
     /**
